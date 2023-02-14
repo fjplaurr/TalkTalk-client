@@ -1,8 +1,10 @@
+@import "../../styles/themes.scss";
+
 .container {
   text-align: center;
 }
 
 .title {
   font-size: 2rem;
-  color: aquamarine;
+  color: $blue;
 }
