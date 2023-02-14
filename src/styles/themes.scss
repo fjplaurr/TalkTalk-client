@@ -1,0 +1,8 @@
+$blue: #19505a;
+$white: #fff;
+
+// export to be able to use in ts files
+:export {
+  blue: $blue;
+  white: $white;
+}
