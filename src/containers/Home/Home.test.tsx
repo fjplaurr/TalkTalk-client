@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App.component';
+import Home from './Home.component';
 
 test('renders learn react link', () => {
-  render(<App />);
+  render(<Home />);
   const text = screen.getByText('This is a template for React in Typescript');
   expect(text).toBeInTheDocument();
 });
