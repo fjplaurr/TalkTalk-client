@@ -1,0 +1,39 @@
+.base {
+  height: 40px;
+  font-weight: 700;
+  line-height: 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0 16px;
+}
+
+.primary {
+  border: none;
+  color: var(--white);
+  background-color: var(--mid-blue);
+}
+
+.primary:hover {
+  background-color: var(--dark-blue);
+}
+
+.secondary {
+  border: 1px solid var(--mid-gray);
+  background: none;
+  color: var(--dark-blue);
+}
+
+.secondary:hover {
+  background-color: var(--light-gray);
+}
+
+.destructive {
+  border: none;
+  background: none;
+  color: var(--dark-red);
+}
+
+.destructive:hover {
+  background-color: var(--light-red);
+}
