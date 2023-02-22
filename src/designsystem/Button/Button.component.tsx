@@ -1,27 +1,16 @@
-import * as React from 'react';
+import React from 'react';
 import styles from './Button.module.css';
 
 type ButtonProps = {
+  variant: 'primary' | 'secondary' | 'destructive';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: React.ReactNode;
 };
 
-const Button = ({ onClick, children }: ButtonProps) => {
-  const { base, primary, destructive, secondary } = styles;
-
-  return (
-    <div>
-      <button className={`${base} ${primary} `} onClick={onClick}>
-        {children}
-      </button>
-      <button className={`${base} ${primary} ${secondary}`} onClick={onClick}>
-        {children}
-      </button>
-      <button className={`${base} ${destructive}`} onClick={onClick}>
-        {children}
-      </button>
-    </div>
-  );
-};
+const Button = ({ variant, onClick, children }: ButtonProps) => (
+  <button className={`${styles.base} ${styles[variant]}`} onClick={onClick}>
+    {children}
+  </button>
+);
 
 export default Button;
