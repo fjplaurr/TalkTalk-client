@@ -1,5 +1,5 @@
 {
-  "extends": "stylelint-config-standard-scss",
+  "extends": ["stylelint-config-standard", "stylelint-config-css-modules"],
   "rules": {
     "selector-pseudo-class-no-unknown": [
       true,
