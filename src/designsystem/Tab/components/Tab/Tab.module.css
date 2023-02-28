@@ -1,0 +1,18 @@
+.base {
+  line-height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.default {
+  font-weight: 400;
+}
+
+.base:hover {
+  font-weight: 700;
+}
+
+.selected {
+  font-weight: 700;
+  border-bottom: 1px solid var(--dark-blue);
+}
