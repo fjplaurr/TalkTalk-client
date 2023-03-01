@@ -13,12 +13,11 @@ const TabList = ({ tabs }: TabListProps) => {
     <div className={styles.base}>
       {tabs.map((tab) => (
         <Tab
+          title={tab.title}
           key={tab.id}
           onClick={() => setSelectedIdTab(tab.id)}
           variant={selectedIdTab === tab.id ? 'selected' : 'default'}
-        >
-          {tab.title}
-        </Tab>
+        />
       ))}
     </div>
   );

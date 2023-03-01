@@ -4,12 +4,16 @@ import styles from './Tab.module.css';
 type TabProps = {
   variant: 'default' | 'selected';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  children: React.ReactNode;
+  title: string;
 };
 
-const Tab = ({ variant, onClick, children }: TabProps) => (
-  <button className={`${styles.base} ${styles[variant]}`} onClick={onClick}>
-    {children}
+const Tab = ({ variant, onClick, title }: TabProps) => (
+  <button
+    title={title}
+    className={`${styles.base} ${styles[variant]}`}
+    onClick={onClick}
+  >
+    {title}
   </button>
 );
 
