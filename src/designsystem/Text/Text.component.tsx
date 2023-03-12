@@ -5,7 +5,7 @@ type TextProps = {
   fontSize?: 'small' | 'regular' | 'large' | 'extralarge';
   fontWeight?: 'regular' | 'semibold' | 'bold';
   children: React.ReactNode;
-  as?: keyof JSX.IntrinsicElements;
+  as?: Extract<keyof JSX.IntrinsicElements, 'p' | 'span' | 'h1' | 'h2' | 'h3'>;
 };
 
 const Text = ({
