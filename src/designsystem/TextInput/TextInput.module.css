@@ -1,6 +1,3 @@
-.wrapper {
-}
-
 .input {
   display: block;
   font-size: 16px;
@@ -13,4 +10,9 @@
 .label {
   font-size: 16px;
   line-height: 24px;
+}
+
+.input:focus {
+  border: 1px solid var(--mid-blue);
+  outline: 1px solid var(--mid-blue);
 }

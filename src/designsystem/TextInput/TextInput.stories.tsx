@@ -1,38 +1,43 @@
-import React, { useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable import/no-extraneous-dependencies */
+import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import TextInput from './index';
-
-const argTypes = {
-  // variant: {
-  //   description: 'Sets the variant of the button.',
-  //   options: ['primary', 'secondary', 'destructive'],
-  //   control: { type: 'radio' },
-  // },
-};
 
 export default {
   title: 'TextInput',
   component: TextInput,
-  argTypes,
 } as ComponentMeta<typeof TextInput>;
 
-const Template: ComponentStory<typeof TextInput> = (args) => {
-  const [inputTextState, setInputTextState] = useState('');
+type Inputs = {
+  someText: string;
+  email: string;
+};
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputTextState(event.target.value);
-  };
+const Template: ComponentStory<typeof TextInput> = (args) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  // eslint-disable-next-line no-console
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
         {...args}
-        value={inputTextState}
-        onChange={handleChange}
-        type="text"
+        {...register('email', {
+          required: true,
+          pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        })}
       />
-    </div>
+      {errors.email?.type === 'pattern' && (
+        <span>The pattern used for the email is not correct</span>
+      )}
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 
@@ -45,5 +50,5 @@ WithPlaceholder.args = {
 
 export const WithLabel = Template.bind({});
 WithLabel.args = {
-  labelTitle: 'Label',
+  labelTitle: 'Label Title',
 };
