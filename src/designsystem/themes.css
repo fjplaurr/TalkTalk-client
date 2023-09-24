@@ -38,3 +38,7 @@
   --dark-black: #000;
   --font-family: lato, sans-serif;
 }
+
+* {
+  box-sizing: border-box;
+}

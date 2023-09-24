@@ -26,16 +26,14 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div style={{ width: '500px' }}>
-        <TextInput
-          {...args}
-          {...register('email', {
-            required: true,
-            pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-          })}
-          width="200px"
-        />
-      </div>
+      <TextInput
+        {...args}
+        {...register('email', {
+          required: true,
+          pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        })}
+        width="200px"
+      />
       {errors.email?.type === 'pattern' && (
         <span>The pattern used for the email is not correct</span>
       )}
