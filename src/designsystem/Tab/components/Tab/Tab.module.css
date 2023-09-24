@@ -4,6 +4,7 @@
   cursor: pointer;
   background: transparent;
   border: none;
+  font-family: var(--font-family);
 }
 
 .base::before {
