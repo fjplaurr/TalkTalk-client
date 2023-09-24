@@ -1,12 +1,25 @@
 import React from 'react';
 import styles from './Home.module.css';
 import Button from '../../designsystem/Button';
+import Text from '../../designsystem/Text';
+import TextInput from '../../designsystem/TextInput';
 
 const Home = () => (
-  <div className={styles.container}>
-    <h1 className={styles.title}>This is a template for React in Typescript</h1>
-    <Button variant="primary">Button</Button>
-  </div>
+  <>
+    <div className={styles.container}>
+      <Text>This is a template for React in Typescript</Text>
+      <TextInput
+        onChange={() => {}}
+        onBlur={() => {}}
+        name="aaaaaa"
+        type="text"
+        placeholder='whattt'
+        labelTitle='ABCDabcd'
+      />
+      <Button variant="primary">Button</Button>
+    </div>
+    <p>fwfwwfwe</p>
+  </>
 );
 
 export default Home;

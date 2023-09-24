@@ -26,13 +26,16 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextInput
-        {...args}
-        {...register('email', {
-          required: true,
-          pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        })}
-      />
+      <div style={{ width: '500px' }}>
+        <TextInput
+          {...args}
+          {...register('email', {
+            required: true,
+            pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+          })}
+          width="200px"
+        />
+      </div>
       {errors.email?.type === 'pattern' && (
         <span>The pattern used for the email is not correct</span>
       )}
@@ -40,8 +43,6 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
     </form>
   );
 };
-
-export const Default = Template.bind({});
 
 export const WithPlaceholder = Template.bind({});
 WithPlaceholder.args = {
@@ -51,4 +52,5 @@ WithPlaceholder.args = {
 export const WithLabel = Template.bind({});
 WithLabel.args = {
   labelTitle: 'Label Title',
+  placeholder: 'Placeholder',
 };

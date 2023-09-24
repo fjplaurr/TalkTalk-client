@@ -8,31 +8,45 @@ type TextInputProps = {
   type: 'text' | 'email' | 'password';
   placeholder?: string;
   labelTitle?: string;
+  width?: `${number}px`;
 };
 
 const TextInput = React.forwardRef(
   (
-    { onChange, onBlur, name, type, placeholder, labelTitle }: TextInputProps,
+    {
+      onChange,
+      onBlur,
+      name,
+      type,
+      placeholder,
+      labelTitle,
+      width,
+    }: TextInputProps,
     ref: React.Ref<HTMLInputElement>,
-  ) => (
-    <>
-      {labelTitle && (
-        <label htmlFor={labelTitle} className={styles.label}>
-          {labelTitle}:
-        </label>
-      )}
-      <input
-        onChange={onChange}
-        onBlur={onBlur}
-        ref={ref}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        className={styles.input}
-        id={labelTitle}
-      />
-    </>
-  ),
+  ) => {
+    const dynamicStyle = width ? { width } : undefined;
+
+    return (
+      <>
+        {labelTitle && (
+          <label htmlFor={labelTitle} className={styles.label}>
+            {labelTitle}:
+          </label>
+        )}
+        <input
+          onChange={onChange}
+          onBlur={onBlur}
+          ref={ref}
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          id={labelTitle}
+          className={styles.input}
+          style={dynamicStyle}
+        />
+      </>
+    );
+  },
 );
 
 export default TextInput;
