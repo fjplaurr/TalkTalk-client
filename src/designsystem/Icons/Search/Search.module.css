@@ -1,0 +1,9 @@
+.path {
+  stroke: var(--mid-black);
+  stroke-width: 2px;
+}
+
+.svg {
+  width: 24px;
+  height: 24px;
+}
