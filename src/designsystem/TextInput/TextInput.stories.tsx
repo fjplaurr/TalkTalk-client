@@ -4,9 +4,18 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import TextInput from './index';
 
+const argTypes = {
+  type: {
+    description: 'Sets the type of the input.',
+    options: ['email', 'password', 'text'],
+    control: { type: 'radio' },
+  },
+};
+
 export default {
   title: 'TextInput',
   component: TextInput,
+  argTypes,
 } as ComponentMeta<typeof TextInput>;
 
 type Inputs = {
@@ -24,31 +33,33 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
   // eslint-disable-next-line no-console
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
+  const registerOutput = register('email', {
+    required: true,
+    pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+  });
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextInput
+        {...registerOutput}
+        errorMessage={
+          errors.email?.type === 'pattern'
+            ? 'The pattern used for the email is not correct'
+            : undefined
+        }
         {...args}
-        {...register('email', {
-          required: true,
-          pattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        })}
-        width="200px"
       />
-      {errors.email?.type === 'pattern' && (
-        <span>The pattern used for the email is not correct</span>
-      )}
-      <button type="submit">Submit</button>
+      <div style={{ marginTop: '8px' }}>
+        <button type="submit">Submit</button>
+      </div>
     </form>
   );
 };
 
-export const WithPlaceholder = Template.bind({});
-WithPlaceholder.args = {
+export const Default = Template.bind({});
+Default.args = {
   placeholder: 'Placeholder',
-};
-
-export const WithLabel = Template.bind({});
-WithLabel.args = {
-  labelTitle: 'Label Title',
-  placeholder: 'Placeholder',
+  type: 'email',
+  showSearchIcon: false,
+  width: '500px',
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './TextInput.module.css';
+import { SearchIcon } from '../Icons';
 
 type TextInputProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -7,8 +8,9 @@ type TextInputProps = {
   name: string;
   type: 'text' | 'email' | 'password';
   placeholder?: string;
-  labelTitle?: string;
   width?: `${number}px`;
+  errorMessage?: string;
+  showSearchIcon?: boolean;
 };
 
 const TextInput = React.forwardRef(
@@ -19,19 +21,21 @@ const TextInput = React.forwardRef(
       name,
       type,
       placeholder,
-      labelTitle,
       width,
+      errorMessage,
+      showSearchIcon,
     }: TextInputProps,
     ref: React.Ref<HTMLInputElement>,
-  ) => {
-    const dynamicStyle = width ? { width } : undefined;
-
-    return (
-      <>
-        {labelTitle && (
-          <label htmlFor={labelTitle} className={styles.label}>
-            {labelTitle}:
-          </label>
+  ) => (
+    <>
+      <div
+        className={styles['input-container']}
+        style={width ? { width } : undefined}
+      >
+        {showSearchIcon && (
+          <div className={styles['icon-container']}>
+            <SearchIcon />
+          </div>
         )}
         <input
           onChange={onChange}
@@ -40,13 +44,16 @@ const TextInput = React.forwardRef(
           name={name}
           type={type}
           placeholder={placeholder}
-          id={labelTitle}
-          className={styles.input}
-          style={dynamicStyle}
+          className={`${styles['input-base']} ${
+            errorMessage ? styles['input-invalid'] : ''
+          } ${showSearchIcon ? styles['input-has-icon'] : ''}`}
         />
-      </>
-    );
-  },
+      </div>
+      {errorMessage && (
+        <span className={styles['error-message']}>{errorMessage}</span>
+      )}
+    </>
+  ),
 );
 
 export default TextInput;
