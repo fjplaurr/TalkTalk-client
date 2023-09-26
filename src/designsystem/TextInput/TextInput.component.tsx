@@ -44,7 +44,7 @@ const TextInput = React.forwardRef(
           name={name}
           type={type}
           placeholder={placeholder}
-          className={`${styles['input-base']} ${
+          className={`${styles['input-base']} ${styles['size-small']} ${
             errorMessage ? styles['input-invalid'] : ''
           } ${showSearchIcon ? styles['input-has-icon'] : ''}`}
         />

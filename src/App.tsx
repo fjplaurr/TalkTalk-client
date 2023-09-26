@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './containers/Home';
-import './designsystem/themes.css';
+import './designsystem/themes.module.css';
 
 const App = () => <Home />;
 

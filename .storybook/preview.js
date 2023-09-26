@@ -1,1 +1,1 @@
-import '../src/designsystem/themes.css';
+import '../src/designsystem/themes.module.css';

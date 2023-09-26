@@ -1,3 +1,5 @@
+@value themes: "../themes.module.css";
+
 .input-container {
   position: relative;
   display: flex;
@@ -7,17 +9,14 @@
 
 .input-base {
   display: block;
-  font-size: 16px;
-  line-height: 24px;
   border-radius: 8px;
   border: 1px solid var(--dark-gray);
   width: 100%;
-  font-family: var(--font-family);
   padding: 8px;
+  composes: font-size-regular from themes;
 }
 
 .input-base::placeholder {
-  font-size: 16px;
   color: var(--dark-gray);
 }
 
@@ -47,7 +46,5 @@
 
 .error-message {
   color: var(--dark-red);
-  font-family: var(--font-family);
-  font-size: 16px;
-  line-height: 24px;
+  composes: font-size-regular from themes;
 }

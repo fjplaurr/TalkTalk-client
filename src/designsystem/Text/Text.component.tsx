@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Text.module.css';
+import styles from '../themes.module.css';
 
 type TextProps = {
   fontSize?: 'small' | 'regular' | 'large' | 'extralarge';
@@ -17,9 +17,8 @@ const Text = ({
   const Tag = as;
 
   const classNames = [
-    styles.base,
-    styles[`size-${fontSize}`],
-    styles[`weight-${fontWeight}`],
+    styles[`font-size-${fontSize}`],
+    styles[`font-weight-${fontWeight}`],
   ];
 
   return <Tag className={classNames.join(' ')}>{children}</Tag>;

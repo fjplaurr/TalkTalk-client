@@ -13,8 +13,7 @@ const Home = () => (
         onBlur={() => {}}
         name="aaaaaa"
         type="text"
-        placeholder='whattt'
-        labelTitle='ABCDabcd'
+        placeholder="whattt"
       />
       <Button variant="primary">Button</Button>
     </div>
