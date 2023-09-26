@@ -4,7 +4,7 @@
   composes: font-size-regular from themes;
   font-weight: var(--font-weight-bold);
   height: calc(var(--minimum-spacing) * 10);
-  border-radius: 8px;
+  border-radius: calc(var(--minimum-border-radius) * 2);
   cursor: pointer;
   padding: calc(var(--minimum-spacing) * 2) calc(var(--minimum-spacing) * 4);
 }
