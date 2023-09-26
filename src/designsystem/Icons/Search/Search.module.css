@@ -4,6 +4,6 @@
 }
 
 .svg {
-  width: 24px;
-  height: 24px;
+  width: calc(var(--minimum-spacing) * 6);
+  height: calc(var(--minimum-spacing) * 6);
 }

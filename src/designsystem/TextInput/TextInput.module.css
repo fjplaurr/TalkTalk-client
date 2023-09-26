@@ -12,7 +12,7 @@
   border-radius: 8px;
   border: 1px solid var(--dark-gray);
   width: 100%;
-  padding: 8px;
+  padding: calc(var(--minimum-spacing) * 2);
   composes: font-size-regular from themes;
 }
 
@@ -35,12 +35,12 @@
 }
 
 .input-has-icon {
-  padding-left: 40px;
+  padding-left: calc(var(--minimum-spacing) * 10);
 }
 
 .icon-container {
   position: absolute;
-  margin-left: 8px;
+  margin-left: calc(var(--minimum-spacing) * 2);
   display: flex;
 }
 

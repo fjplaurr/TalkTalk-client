@@ -3,10 +3,10 @@
 .base {
   composes: font-size-regular from themes;
   font-weight: var(--font-weight-bold);
-  height: 40px;
+  height: calc(var(--minimum-spacing) * 10);
   border-radius: 8px;
   cursor: pointer;
-  padding: 8px 16px;
+  padding: calc(var(--minimum-spacing) * 2) calc(var(--minimum-spacing) * 4);
 }
 
 .primary {
