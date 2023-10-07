@@ -12,8 +12,11 @@ const Template: ComponentStory<typeof Box> = (args) => <Box {...args}>Box</Box>;
 
 export const Default = Template.bind({});
 Default.args = {
-  paddingTop: '8px',
-  paddingRight: '8px',
-  paddingBottom: '8px',
-  paddingLeft: '8px',
+  pt: '8px',
+  pr: '8px',
+  pb: '8px',
+  pl: '8px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 };

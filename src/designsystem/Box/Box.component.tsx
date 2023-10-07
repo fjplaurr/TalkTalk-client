@@ -1,41 +1,54 @@
 import React from 'react';
 import styles from './Box.module.css';
 
-type BoxProps = {
+type BoxProps = Partial<{
   children: React.ReactNode;
-  paddingTop: `${number}px`;
-  paddingRight: `${number}px`;
-  paddingBottom: `${number}px`;
-  paddingLeft: `${number}px`;
-  marginTop: `${number}px`;
-  marginRight: `${number}px`;
-  marginBottom: `${number}px`;
-  marginLeft: `${number}px`;
-};
+  pt: `${number}px`;
+  pr: `${number}px`;
+  pb: `${number}px`;
+  pl: `${number}px`;
+  mt: `${number}px`;
+  mr: `${number}px`;
+  mb: `${number}px`;
+  ml: `${number}px`;
+}> &
+  Pick<
+    React.CSSProperties,
+    'display' | 'justifyContent' | 'alignItems' | 'width' | 'height'
+  >;
 
 const Box = React.forwardRef(
   ({
     children,
-    paddingTop,
-    paddingRight,
-    paddingBottom,
-    paddingLeft,
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
+    pt,
+    pr,
+    pb,
+    pl,
+    mt,
+    mr,
+    mb,
+    ml,
+    display,
+    justifyContent,
+    alignItems,
+    width,
+    height,
   }: BoxProps) => {
     const dynamicStyle = {
-      paddingTop,
-      paddingRight,
-      paddingBottom,
-      paddingLeft,
-      marginTop,
-      marginRight,
-      marginBottom,
-      marginLeft,
+      paddingTop: pt,
+      paddingRight: pr,
+      paddingBottom: pb,
+      paddingLeft: pl,
+      marginTop: mt,
+      marginRight: mr,
+      marginBottom: mb,
+      marginLeft: ml,
+      display,
+      justifyContent,
+      alignItems,
+      width,
+      height,
     };
-
     return (
       <div className={styles.box} style={dynamicStyle}>
         {children}
