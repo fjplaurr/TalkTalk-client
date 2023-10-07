@@ -17,44 +17,42 @@ type BoxProps = Partial<{
     'display' | 'justifyContent' | 'alignItems' | 'width' | 'height'
   >;
 
-const Box = React.forwardRef(
-  ({
-    children,
-    pt,
-    pr,
-    pb,
-    pl,
-    mt,
-    mr,
-    mb,
-    ml,
+const Box = ({
+  children,
+  pt,
+  pr,
+  pb,
+  pl,
+  mt,
+  mr,
+  mb,
+  ml,
+  display,
+  justifyContent,
+  alignItems,
+  width,
+  height,
+}: BoxProps) => {
+  const dynamicStyle = {
+    paddingTop: pt,
+    paddingRight: pr,
+    paddingBottom: pb,
+    paddingLeft: pl,
+    marginTop: mt,
+    marginRight: mr,
+    marginBottom: mb,
+    marginLeft: ml,
     display,
     justifyContent,
     alignItems,
     width,
     height,
-  }: BoxProps) => {
-    const dynamicStyle = {
-      paddingTop: pt,
-      paddingRight: pr,
-      paddingBottom: pb,
-      paddingLeft: pl,
-      marginTop: mt,
-      marginRight: mr,
-      marginBottom: mb,
-      marginLeft: ml,
-      display,
-      justifyContent,
-      alignItems,
-      width,
-      height,
-    };
-    return (
-      <div className={styles.box} style={dynamicStyle}>
-        {children}
-      </div>
-    );
-  },
-);
+  };
+  return (
+    <div className={styles.box} style={dynamicStyle}>
+      {children}
+    </div>
+  );
+};
 
 export default Box;
