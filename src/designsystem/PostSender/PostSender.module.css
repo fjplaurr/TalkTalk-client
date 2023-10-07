@@ -1,0 +1,32 @@
+@value themes: "../themes.module.css";
+
+.container {
+  width: calc(var(--minimum-spacing) * 157);
+  height: calc(var(--minimum-spacing) * 24);
+  position: relative;
+  border-radius: calc(var(--minimum-border-radius) * 2);
+}
+
+.textarea {
+  composes: font-size-small from themes;
+  resize: none;
+  width: 100%;
+  padding-top: calc(var(--minimum-spacing) * 3);
+  padding-right: calc(12px + 81px + 12px);
+  padding-bottom: calc(var(--minimum-spacing) * 3);
+  padding-left: calc(var(--minimum-spacing) * 3);
+  height: 100%;
+  border: 1px solid var(--dark-gray);
+  border-radius: calc(var(--minimum-border-radius) * 2);
+}
+
+.textarea:focus {
+  border: 1px solid var(--mid-blue);
+  outline: 1px solid var(--mid-blue);
+}
+
+.buttonWrapper {
+  position: absolute;
+  right: calc(var(--minimum-spacing) * 3);
+  bottom: calc(var(--minimum-spacing) * 3);
+}
