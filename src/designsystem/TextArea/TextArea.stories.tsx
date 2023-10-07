@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import PostSender from './index';
+import TextArea from './index';
 
 const argTypes = {
   onSend: { action: 'clicked' },
@@ -9,14 +9,16 @@ const argTypes = {
 };
 
 export default {
-  title: 'PostSender',
-  component: PostSender,
+  title: 'TextArea',
+  component: TextArea,
   argTypes,
-} as ComponentMeta<typeof PostSender>;
+} as ComponentMeta<typeof TextArea>;
 
-const Template: ComponentStory<typeof PostSender> = (args) => (
-  <PostSender {...args}>PostSender</PostSender>
+const Template: ComponentStory<typeof TextArea> = (args) => (
+  <TextArea {...args}>TextArea</TextArea>
 );
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  placeholder: 'Placeholder',
+};

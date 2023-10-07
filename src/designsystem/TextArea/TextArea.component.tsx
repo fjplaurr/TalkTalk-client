@@ -1,15 +1,20 @@
 import React from 'react';
 import Button from '../Button';
-import styles from './PostSender.module.css';
+import styles from './TextArea.module.css';
 
-type PostSenderProps = {
+type TextAreaProps = {
   onSend: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  placeholder?: string;
 };
 
-const PostSender = ({ onChange, onSend }: PostSenderProps) => (
+const TextArea = ({ onChange, onSend, placeholder }: TextAreaProps) => (
   <div className={styles.container}>
-    <textarea className={styles.textarea} onChange={onChange} />
+    <textarea
+      className={styles.textarea}
+      onChange={onChange}
+      placeholder={placeholder}
+    />
     <div className={styles.buttonWrapper}>
       <Button variant="primary" onClick={onSend}>
         Button
@@ -18,4 +23,4 @@ const PostSender = ({ onChange, onSend }: PostSenderProps) => (
   </div>
 );
 
-export default PostSender;
+export default TextArea;

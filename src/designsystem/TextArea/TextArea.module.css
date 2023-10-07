@@ -20,6 +20,10 @@
   border-radius: calc(var(--minimum-border-radius) * 2);
 }
 
+.textarea::placeholder {
+  color: var(--dark-gray);
+}
+
 .textarea:focus {
   border: 1px solid var(--mid-blue);
   outline: 1px solid var(--mid-blue);
