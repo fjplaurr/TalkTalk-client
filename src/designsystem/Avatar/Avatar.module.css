@@ -1,0 +1,29 @@
+@value themes: "../themes.module.css";
+
+.wrapper {
+  height: 48px;
+  width: 48px;
+  background-color: var(--mid-gray);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.fallbackName {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
