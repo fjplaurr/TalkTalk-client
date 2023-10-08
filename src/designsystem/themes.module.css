@@ -56,6 +56,18 @@
   font-weight: var(--font-weight-regular);
 }
 
+.font-weight-regular {
+  font-weight: var(--font-weight-regular);
+}
+
+.font-weight-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+.font-weight-bold {
+  font-weight: var(--font-weight-bold);
+}
+
 :root {
   --light-blue: #dbf2fe;
   --mid-blue: #0884c1;
