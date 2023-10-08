@@ -12,10 +12,13 @@ const Template: ComponentStory<typeof Avatar> = (args) => (
   <Avatar {...args}>Avatar</Avatar>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const WithImage = Template.bind({});
+WithImage.args = {
   avatar: {
     src: 'https://placedog.net/600',
     name: 'Dog Doggy',
   },
 };
+
+export const WithoutImage = Template.bind({});
+WithoutImage.args = {};
