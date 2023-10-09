@@ -11,10 +11,17 @@ type BoxProps = Partial<{
   mr: `${number}px`;
   mb: `${number}px`;
   ml: `${number}px`;
+  noBorder: boolean;
 }> &
   Pick<
     React.CSSProperties,
-    'display' | 'justifyContent' | 'alignItems' | 'width' | 'height'
+    | 'display'
+    | 'justifyContent'
+    | 'alignItems'
+    | 'flexDirection'
+    | 'width'
+    | 'height'
+    | 'gap'
   >;
 
 const Box = ({
@@ -30,8 +37,11 @@ const Box = ({
   display,
   justifyContent,
   alignItems,
+  flexDirection,
   width,
   height,
+  noBorder,
+  gap,
 }: BoxProps) => {
   const dynamicStyle = {
     paddingTop: pt,
@@ -45,9 +55,13 @@ const Box = ({
     display,
     justifyContent,
     alignItems,
+    flexDirection,
     width,
     height,
+    border: noBorder ? 'none' : undefined,
+    gap,
   };
+
   return (
     <div className={styles.box} style={dynamicStyle}>
       {children}
