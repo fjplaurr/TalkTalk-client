@@ -5,10 +5,15 @@ type ButtonProps = {
   variant: 'primary' | 'secondary' | 'destructive';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: React.ReactNode;
+  width: `${number}px`;
 };
 
-const Button = ({ variant, onClick, children }: ButtonProps) => (
-  <button className={`${styles.base} ${styles[variant]}`} onClick={onClick}>
+const Button = ({ variant, onClick, children, width }: ButtonProps) => (
+  <button
+    className={`${styles.base} ${styles[variant]}`}
+    onClick={onClick}
+    style={{ width }}
+  >
     {children}
   </button>
 );
