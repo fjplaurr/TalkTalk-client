@@ -2,7 +2,8 @@
 
 .wrapper {
   height: 48px;
-  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
   background-color: var(--mid-gray);
   border-radius: 50%;
   overflow: hidden;
