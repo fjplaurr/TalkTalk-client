@@ -4,7 +4,6 @@ import { SearchIcon } from '../Icons';
 
 type TextInputProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   name: string;
   type: 'text' | 'email' | 'password';
   placeholder?: string;
@@ -17,7 +16,6 @@ const TextInput = React.forwardRef(
   (
     {
       onChange,
-      onBlur,
       name,
       type,
       placeholder,
@@ -39,7 +37,6 @@ const TextInput = React.forwardRef(
         )}
         <input
           onChange={onChange}
-          onBlur={onBlur}
           ref={ref}
           name={name}
           type={type}

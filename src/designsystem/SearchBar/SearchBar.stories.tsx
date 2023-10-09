@@ -3,9 +3,14 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import SearchBar from './index';
 
+const argTypes = {
+  onInputChange: { action: 'typed' },
+};
+
 export default {
   title: 'SearchBar',
   component: SearchBar,
+  argTypes,
 } as ComponentMeta<typeof SearchBar>;
 
 const Template: ComponentStory<typeof SearchBar> = (args) => (

@@ -10,7 +10,6 @@ const Home = () => (
       <Text>This is a template for React in Typescript</Text>
       <TextInput
         onChange={() => {}}
-        onBlur={() => {}}
         name="aaaaaa"
         type="text"
         placeholder="whattt"
