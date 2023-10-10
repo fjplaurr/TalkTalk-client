@@ -1,26 +1,31 @@
-import React, { useState } from 'react';
-import styles from './TabList.module.css';
-import Tab from '../Tab';
+import React from 'react';
+import Tab from './components/Tab';
+import Box from '../../../Box';
 
 type TabListProps = {
   tabs: { title: string; id: string }[];
+  onClickTab: (id: string | number) => void;
+  selectedIdTab: string | number;
 };
 
-const TabList = ({ tabs }: TabListProps) => {
-  const [selectedIdTab, setSelectedIdTab] = useState(tabs[0].id);
-
-  return (
-    <div className={styles.base}>
-      {tabs.map((tab) => (
-        <Tab
-          title={tab.title}
-          key={tab.id}
-          onClick={() => setSelectedIdTab(tab.id)}
-          variant={selectedIdTab === tab.id ? 'selected' : 'default'}
-        />
-      ))}
-    </div>
-  );
-};
+const TabList = ({ tabs, onClickTab, selectedIdTab }: TabListProps) => (
+  <Box
+    display="flex"
+    flexDirection="row"
+    alignItems="center"
+    justifyContent="flex-start"
+    gap="16px"
+    noBorder
+  >
+    {tabs.map((tab) => (
+      <Tab
+        title={tab.title}
+        key={tab.id}
+        onClick={() => onClickTab?.(tab.id)}
+        variant={selectedIdTab === tab.id ? 'selected' : 'default'}
+      />
+    ))}
+  </Box>
+);
 
 export default TabList;

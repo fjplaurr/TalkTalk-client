@@ -1,4 +1,4 @@
-@value themes: "../../../themes.module.css";
+@value themes: "../../../../../themes.module.css";
 
 .base {
   composes: font-size-regular from themes;
