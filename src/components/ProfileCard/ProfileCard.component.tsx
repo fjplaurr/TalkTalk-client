@@ -37,10 +37,12 @@ const ProfileCard = ({
       flexDirection="column"
       noBorder
     >
-      <Text fontWeight="bold">{`${name} ${surname}`}</Text>
-      <Text fontWeight="regular" fontSize="small">
-        {text}
-      </Text>
+      <Box width="144px" noBorder>
+        <Text fontWeight="bold" truncated>{`${name} ${surname}`}</Text>
+        <Text fontWeight="regular" fontSize="small" truncated>
+          {text}
+        </Text>
+      </Box>
     </Box>
     <Box ml="auto" noBorder>
       <Button
