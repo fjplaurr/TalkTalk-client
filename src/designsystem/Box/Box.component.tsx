@@ -7,10 +7,10 @@ type BoxProps = Partial<{
   pr: `${number}px`;
   pb: `${number}px`;
   pl: `${number}px`;
-  mt: `${number}px`;
-  mr: `${number}px`;
-  mb: `${number}px`;
-  ml: `${number}px`;
+  mt: `${number}px` | 'auto';
+  mr: `${number}px` | 'auto';
+  mb: `${number}px` | 'auto';
+  ml: `${number}px` | 'auto';
   noBorder: boolean;
 }> &
   Pick<
