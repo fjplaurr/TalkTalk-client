@@ -5,7 +5,7 @@ type ButtonProps = {
   variant: 'primary' | 'secondary' | 'destructive';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: React.ReactNode;
-  width: `${number}px`;
+  width?: `${number}px`;
 };
 
 const Button = ({ variant, onClick, children, width }: ButtonProps) => (
