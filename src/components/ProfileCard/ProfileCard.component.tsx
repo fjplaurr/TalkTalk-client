@@ -20,7 +20,7 @@ const ProfileCard = ({
 }: ProfileCardProps) => (
   <Box
     display="flex"
-    alignItems="center"
+    alignItems="flex-start"
     noBorder
     pt="12px"
     pr="12px"

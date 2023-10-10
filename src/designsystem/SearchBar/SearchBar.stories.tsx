@@ -53,7 +53,7 @@ Default.args = {
   renderElement: (element) => (
     <Box
       display="flex"
-      alignItems="center"
+      alignItems="flex-start"
       noBorder
       pt="12px"
       pr="12px"
