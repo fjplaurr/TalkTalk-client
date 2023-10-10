@@ -38,8 +38,8 @@ const ProfileCard = ({
       noBorder
     >
       <Box width="144px" noBorder>
-        <Text fontWeight="bold" truncated>{`${name} ${surname}`}</Text>
-        <Text fontWeight="regular" fontSize="small" truncated>
+        <Text fontWeight="bold" noOfLines={1}>{`${name} ${surname}`}</Text>
+        <Text fontWeight="regular" fontSize="small" noOfLines={1}>
           {text}
         </Text>
       </Box>

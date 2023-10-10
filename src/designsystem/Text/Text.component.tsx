@@ -6,7 +6,7 @@ type TextProps = {
   fontWeight?: 'regular' | 'semibold' | 'bold';
   children: React.ReactNode;
   as?: Extract<keyof JSX.IntrinsicElements, 'p' | 'span' | 'h1' | 'h2' | 'h3'>;
-  truncated?: boolean;
+  noOfLines?: number;
 };
 
 type TruncatedTextCssProperties = {
@@ -18,7 +18,7 @@ const Text = ({
   fontWeight = 'regular',
   as = 'p',
   children,
-  truncated = false,
+  noOfLines,
 }: TextProps) => {
   const Tag = as;
 
@@ -27,16 +27,19 @@ const Text = ({
     styles[`font-weight-${fontWeight}`],
   ];
 
-  const textTruncated: TruncatedTextCssProperties = {
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
+  const maxNumberOfLines: TruncatedTextCssProperties = {
     overflow: 'hidden',
+    display: '-webkit-box',
+    lineClamp: noOfLines,
+    WebkitLineClamp: noOfLines,
+    WebkitBoxOrient: 'vertical',
+    wordBreak: 'break-all',
   };
 
   return (
     <Tag
       className={classNames.join(' ')}
-      style={truncated ? textTruncated : undefined}
+      style={noOfLines ? maxNumberOfLines : undefined}
     >
       {children}
     </Tag>

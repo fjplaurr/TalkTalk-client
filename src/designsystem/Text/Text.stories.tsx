@@ -25,7 +25,10 @@ export default {
 const Template: ComponentStory<typeof Text> = (args) => (
   <div style={{ width: '200px' }}>
     <Text {...args}>
-      Loren impsum dolor sit Loren impsum dolor sit amet amet amet
+      Loren impsum sit Loren impsum dolor sit amet amet amet impsum dolor sit
+      Loren impsum dolor sit amet amet ametimpsum dolor sit Loren impsum dolor
+      sit amet amet ametimpsum dolor sit Loren impsum dolor sit amet amet
+      ametimpsum dolor sit Loren impsum dolor sit amet amet amet
     </Text>
   </div>
 );
@@ -34,6 +37,13 @@ export const Default = Template.bind({});
 Default.args = {
   as: 'p',
   fontSize: 'regular',
-  fontWeight: 'semibold',
-  truncated: false,
+  fontWeight: 'regular',
+};
+
+export const Truncated = Template.bind({});
+Truncated.args = {
+  as: 'p',
+  fontSize: 'regular',
+  fontWeight: 'regular',
+  noOfLines: 3,
 };
