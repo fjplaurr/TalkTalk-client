@@ -2,6 +2,7 @@ import React from 'react';
 import TextInput from '../TextInput';
 import Box from '../Box';
 import List from '../List';
+import { setSpace } from '../themes';
 
 type ObjectWithId = { [key: string]: any; id: string };
 
@@ -22,17 +23,17 @@ const SearchBar = ({
     alignItems="center"
     justifyContent="center"
     noBorder
-    gap="4px"
+    gap={setSpace(4)}
   >
     <TextInput
-      width="500px"
+      width={setSpace(500)}
       onChange={(event) => onInputChange(event.target.value)}
       type="text"
       name="searchBar"
       showSearchIcon
       placeholder="Placeholder"
     />
-    <Box width="378px">
+    <Box width={setSpace(378)}>
       <List elements={elements} renderElement={renderElement} />
     </Box>
   </Box>

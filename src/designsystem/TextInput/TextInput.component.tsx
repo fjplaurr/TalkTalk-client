@@ -7,7 +7,7 @@ type TextInputProps = {
   name: string;
   type: 'text' | 'email' | 'password';
   placeholder?: string;
-  width?: `${number}px`;
+  width?: React.CSSProperties['width'];
   errorMessage?: string;
   showSearchIcon?: boolean;
 };

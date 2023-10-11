@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import styles from './Box.module.css';
 
 type BoxProps = Partial<{
   children: React.ReactNode;
-  pt: `${number}px`;
-  pr: `${number}px`;
-  pb: `${number}px`;
-  pl: `${number}px`;
-  mt: `${number}px` | 'auto';
-  mr: `${number}px` | 'auto';
-  mb: `${number}px` | 'auto';
-  ml: `${number}px` | 'auto';
+  pt: CSSProperties['paddingTop'];
+  pr: CSSProperties['paddingRight'];
+  pb: CSSProperties['paddingBottom'];
+  pl: CSSProperties['paddingLeft'];
+  mt: CSSProperties['marginTop'];
+  mr: CSSProperties['marginRight'];
+  mb: CSSProperties['marginBottom'];
+  ml: CSSProperties['marginLeft'];
   noBorder: boolean;
 }> &
   Pick<
-    React.CSSProperties,
+    CSSProperties,
     | 'display'
     | 'justifyContent'
     | 'alignItems'

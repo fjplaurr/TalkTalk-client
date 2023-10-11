@@ -3,34 +3,36 @@
 .container {
   width: calc(var(--minimum-spacing) * 157);
   height: calc(var(--minimum-spacing) * 24);
-  position: relative;
   border-radius: calc(var(--minimum-border-radius) * 2);
+  border: 1px solid var(--dark-gray);
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(var(--minimum-spacing) * 3);
+  padding-bottom: calc(var(--minimum-spacing) * 3);
+  padding-left: calc(var(--minimum-spacing) * 3);
+  padding-right: calc(var(--minimum-spacing) * 3);
+}
+
+.container:has(.textarea:focus) {
+  border: 1px solid var(--mid-blue);
+  outline: 1px solid var(--mid-blue);
 }
 
 .textarea {
   composes: font-size-regular from themes;
   resize: none;
   width: 100%;
-  padding-top: calc(var(--minimum-spacing) * 3);
-  padding-right: calc(12px + 81px + 12px);
-  padding-bottom: calc(var(--minimum-spacing) * 3);
-  padding-left: calc(var(--minimum-spacing) * 3);
   height: 100%;
-  border: 1px solid var(--dark-gray);
-  border-radius: calc(var(--minimum-border-radius) * 2);
+  border: none;
+  outline: none;
 }
 
 .textarea::placeholder {
   color: var(--dark-gray);
 }
 
-.textarea:focus {
-  border: 1px solid var(--mid-blue);
-  outline: 1px solid var(--mid-blue);
-}
-
 .buttonWrapper {
-  position: absolute;
-  right: calc(var(--minimum-spacing) * 3);
-  bottom: calc(var(--minimum-spacing) * 3);
+  margin-left: calc(var(--minimum-spacing) * 3);
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '../../designsystem/Box';
 import Avatar from '../../designsystem/Avatar';
 import Text from '../../designsystem/Text';
+import { setSpace } from '../../designsystem/themes';
 
 type PostCardProps = {
   user: {
@@ -20,12 +21,12 @@ const PostCard = ({
     display="flex"
     alignItems="flex-start"
     noBorder
-    pt="12px"
-    pr="12px"
-    pb="12px"
-    pl="12px"
-    width="354px"
-    gap="16px"
+    pt={setSpace(12)}
+    pr={setSpace(12)}
+    pb={setSpace(12)}
+    pl={setSpace(12)}
+    width={setSpace(354)}
+    gap={setSpace(16)}
   >
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box
@@ -35,7 +36,7 @@ const PostCard = ({
       flexDirection="column"
       noBorder
     >
-      <Box width="544px" noBorder>
+      <Box width={setSpace(544)} noBorder>
         <Text fontWeight="bold">{`${name} ${surname}`}</Text>
         <Text fontWeight="regular" fontSize="small" noOfLines={3}>
           {text}

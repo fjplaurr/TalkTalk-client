@@ -3,6 +3,7 @@ import Box from '../../designsystem/Box';
 import Avatar from '../../designsystem/Avatar';
 import Text from '../../designsystem/Text';
 import Button from '../../designsystem/Button';
+import { setSpace } from '../../designsystem/themes';
 
 type ProfileCardProps = {
   user: {
@@ -22,12 +23,12 @@ const ProfileCard = ({
     display="flex"
     alignItems="flex-start"
     noBorder
-    pt="12px"
-    pr="12px"
-    pb="12px"
-    pl="12px"
-    width="354px"
-    gap="16px"
+    pt={setSpace(12)}
+    pr={setSpace(12)}
+    pb={setSpace(12)}
+    pl={setSpace(12)}
+    width={setSpace(354)}
+    gap={setSpace(16)}
   >
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box
@@ -37,7 +38,7 @@ const ProfileCard = ({
       flexDirection="column"
       noBorder
     >
-      <Box width="144px" noBorder>
+      <Box width={setSpace(144)} noBorder>
         <Text fontWeight="bold" noOfLines={1}>{`${name} ${surname}`}</Text>
         <Text fontWeight="regular" fontSize="small" noOfLines={1}>
           {text}
@@ -46,7 +47,7 @@ const ProfileCard = ({
     </Box>
     <Box ml="auto" noBorder>
       <Button
-        width="98px"
+        width={setSpace(98)}
         variant={isFollowed ? 'destructive' : 'secondary'}
         onClick={() => console.log(`Clicked row`)}
       >

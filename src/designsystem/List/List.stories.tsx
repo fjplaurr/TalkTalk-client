@@ -5,6 +5,7 @@ import List from './index';
 import Box from '../Box';
 import Text from '../Text';
 import Avatar from '../Avatar';
+import { setSpace } from '../themes';
 
 const argTypes = {
   onInputChange: { action: 'typed' },
@@ -47,12 +48,12 @@ const renderUser = (user: Record<string, string>) => (
     display="flex"
     alignItems="center"
     noBorder
-    pt="12px"
-    pr="12px"
-    pb="12px"
-    pl="12px"
+    pt={setSpace(12)}
+    pr={setSpace(12)}
+    pb={setSpace(12)}
+    pl={setSpace(12)}
     width="100%"
-    gap="16px"
+    gap={setSpace(16)}
   >
     <Avatar avatar={{ src: user.pictureSrc, name: user.name }} />
     <Box

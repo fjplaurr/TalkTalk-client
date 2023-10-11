@@ -1,9 +1,9 @@
 @value themes: "../themes.module.css";
 
 .wrapper {
-  height: 48px;
-  min-width: 48px;
-  max-width: 48px;
+  height: calc(var(--minimum-spacing) * 12);
+  min-width: calc(var(--minimum-spacing) * 12);
+  max-width: calc(var(--minimum-spacing) * 12);
   background-color: var(--mid-gray);
   border-radius: 50%;
   overflow: hidden;

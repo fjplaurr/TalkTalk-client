@@ -3,6 +3,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import TextInput from './index';
+import { setSpace } from '../themes';
 
 const argTypes = {
   type: {
@@ -49,7 +50,7 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
         }
         {...args}
       />
-      <div style={{ marginTop: '8px' }}>
+      <div style={{ marginTop: setSpace(8) }}>
         <button type="submit">Submit</button>
       </div>
     </form>
@@ -61,5 +62,5 @@ Default.args = {
   placeholder: 'Placeholder',
   type: 'email',
   showSearchIcon: false,
-  width: '500px',
+  width: setSpace(500),
 };

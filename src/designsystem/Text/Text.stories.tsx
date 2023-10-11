@@ -2,6 +2,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Text from './index';
+import { setSpace } from '../themes';
 
 const argTypes = {
   fontSize: {
@@ -23,7 +24,7 @@ export default {
 } as ComponentMeta<typeof Text>;
 
 const Template: ComponentStory<typeof Text> = (args) => (
-  <div style={{ width: '200px' }}>
+  <div style={{ width: setSpace(200) }}>
     <Text {...args}>
       Loren impsum sit Loren impsum dolor sit amet amet amet impsum dolor sit
       Loren impsum dolor sit amet amet ametimpsum dolor sit Loren impsum dolor

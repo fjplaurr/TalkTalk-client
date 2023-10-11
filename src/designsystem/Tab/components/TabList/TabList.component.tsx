@@ -1,6 +1,7 @@
 import React from 'react';
 import Tab from './components/Tab';
 import Box from '../../../Box';
+import { setSpace } from '../../../themes';
 
 type TabListProps = {
   tabs: { title: string; id: string }[];
@@ -14,7 +15,7 @@ const TabList = ({ tabs, onClickTab, selectedIdTab }: TabListProps) => (
     flexDirection="row"
     alignItems="center"
     justifyContent="flex-start"
-    gap="16px"
+    gap={setSpace(16)}
     noBorder
   >
     {tabs.map((tab) => (
