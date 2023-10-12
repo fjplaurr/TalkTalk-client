@@ -36,7 +36,7 @@ const PostCard = ({
       flexDirection="column"
       noBorder
     >
-      <Box width={setSpace(544)} noBorder>
+      <Box noBorder>
         <Text fontWeight="bold">{`${name} ${surname}`}</Text>
         <Text fontWeight="regular" fontSize="small" noOfLines={3}>
           {text}
