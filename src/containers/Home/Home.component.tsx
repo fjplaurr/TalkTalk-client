@@ -1,8 +1,6 @@
 import React from 'react';
+import { TextInput, Button, Text } from 'harmony-kit';
 import styles from './Home.module.css';
-import Button from '../../designsystem/Button';
-import Text from '../../designsystem/Text';
-import TextInput from '../../designsystem/TextInput';
 
 const Home = () => (
   <>

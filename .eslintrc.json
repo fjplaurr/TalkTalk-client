@@ -86,18 +86,7 @@
         "jsx": "never"
       }
     ],
-    // Allows to import dev dependencies into test files.
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": [
-          "**/*.test.ts",
-          "**/*.test.tsx",
-          "**/setupTests.*",
-          "**/test/*.*"
-        ]
-      }
-    ],
+    "import/no-extraneous-dependencies": "off",
     "no-undef": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",

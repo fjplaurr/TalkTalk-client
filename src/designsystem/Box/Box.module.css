@@ -1,5 +1,0 @@
-.box {
-  border-radius: calc(var(--minimum-border-radius) * 2);
-  border: 1px solid var(--dark-gray);
-  width: fit-content;
-}

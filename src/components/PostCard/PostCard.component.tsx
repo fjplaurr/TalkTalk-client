@@ -1,8 +1,5 @@
 import React from 'react';
-import Box from '../../designsystem/Box';
-import Avatar from '../../designsystem/Avatar';
-import Text from '../../designsystem/Text';
-import { setSpace } from '../../designsystem/themes';
+import { Box, Avatar, Text, Theme } from 'harmony-kit';
 
 type PostCardProps = {
   user: {
@@ -21,12 +18,12 @@ const PostCard = ({
     display="flex"
     alignItems="flex-start"
     noBorder
-    pt={setSpace(12)}
-    pr={setSpace(12)}
-    pb={setSpace(12)}
-    pl={setSpace(12)}
-    width={setSpace(354)}
-    gap={setSpace(16)}
+    pt={Theme.setSpace(12)}
+    pr={Theme.setSpace(12)}
+    pb={Theme.setSpace(12)}
+    pl={Theme.setSpace(12)}
+    width={Theme.setSpace(354)}
+    gap={Theme.setSpace(16)}
   >
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box

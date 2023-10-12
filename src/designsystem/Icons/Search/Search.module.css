@@ -1,9 +1,0 @@
-.path {
-  stroke: var(--mid-black);
-  stroke-width: 2px;
-}
-
-.svg {
-  width: calc(var(--minimum-spacing) * 6);
-  height: calc(var(--minimum-spacing) * 6);
-}

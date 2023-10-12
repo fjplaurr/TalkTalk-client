@@ -1,9 +1,5 @@
 import React from 'react';
-import Box from '../../designsystem/Box';
-import Avatar from '../../designsystem/Avatar';
-import Text from '../../designsystem/Text';
-import Button from '../../designsystem/Button';
-import { setSpace } from '../../designsystem/themes';
+import { Box, Avatar, Text, Button, Theme } from 'harmony-kit';
 
 type ProfileCardProps = {
   user: {
@@ -23,12 +19,12 @@ const ProfileCard = ({
     display="flex"
     alignItems="flex-start"
     noBorder
-    pt={setSpace(12)}
-    pr={setSpace(12)}
-    pb={setSpace(12)}
-    pl={setSpace(12)}
-    width={setSpace(354)}
-    gap={setSpace(16)}
+    pt={Theme.setSpace(12)}
+    pr={Theme.setSpace(12)}
+    pb={Theme.setSpace(12)}
+    pl={Theme.setSpace(12)}
+    width={Theme.setSpace(354)}
+    gap={Theme.setSpace(16)}
   >
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box
@@ -38,7 +34,7 @@ const ProfileCard = ({
       flexDirection="column"
       noBorder
     >
-      <Box width={setSpace(144)} noBorder>
+      <Box width={Theme.setSpace(144)} noBorder>
         <Text fontWeight="bold" noOfLines={1}>{`${name} ${surname}`}</Text>
         <Text fontWeight="regular" fontSize="small" noOfLines={1}>
           {text}
@@ -47,7 +43,7 @@ const ProfileCard = ({
     </Box>
     <Box ml="auto" noBorder>
       <Button
-        width={setSpace(98)}
+        width={Theme.setSpace(98)}
         variant={isFollowed ? 'destructive' : 'secondary'}
         onClick={() => console.log(`Clicked row`)}
       >
