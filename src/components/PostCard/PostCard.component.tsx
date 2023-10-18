@@ -15,25 +15,27 @@ const PostCard = ({
   user: { name, pictureSrc, surname, text },
 }: PostCardProps) => (
   <Box
-    display="flex"
-    alignItems="flex-start"
-    noBorder
     pt={Theme.setSpace(12)}
     pr={Theme.setSpace(12)}
     pb={Theme.setSpace(12)}
     pl={Theme.setSpace(12)}
-    width={Theme.setSpace(354)}
-    gap={Theme.setSpace(16)}
+    style={{
+      display: 'flex',
+      alignItems: 'flex-start',
+      width: Theme.setSpace(354),
+      gap: Theme.setSpace(16),
+    }}
   >
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="flex-start"
-      flexDirection="column"
-      noBorder
+      style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
     >
-      <Box noBorder>
+      <Box>
         <Text fontWeight="bold">{`${name} ${surname}`}</Text>
         <Text fontWeight="regular" fontSize="small" noOfLines={3}>
           {text}
