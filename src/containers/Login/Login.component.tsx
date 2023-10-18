@@ -1,25 +1,35 @@
 /* eslint-disable */
 import React from 'react';
-import { Box, Text, Theme, TextInput, Button } from 'harmony-kit';
+import { Box, Text, Theme, TextInput, Button, Flex } from 'harmony-kit';
 import Logo from '../../components/Logo';
+import Card from './components/Card';
 import styles from './Login.module.css';
+import styled from 'styled-components';
 
 const Login = () => {
   return (
-    <Box minHeight="100vh" noBorder display="flex">
-      <Box
-        noBorder
-        noBorderRadius
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        gap={Theme.setSpace(48)}
+    <Flex.Parent
+      style={{
+        minHeight: '100vh',
+      }}
+    >
+      <Flex.Parent
         pl={Theme.setSpace(56)}
         pr={Theme.setSpace(56)}
         backgroundColor="darkBlue"
-        flex={1}
+        flexDirection="column"
+        justifyContent="center"
+        gap={Theme.setSpace(48)}
+        style={{
+          flex: 1,
+        }}
       >
-        <Box noBorder position="absolute" top={Theme.setSpace(56)}>
+        <Box
+          style={{
+            position: 'absolute',
+            top: Theme.setSpace(56),
+          }}
+        >
           <Logo color="white" />
         </Box>
         <Text
@@ -35,87 +45,70 @@ const Login = () => {
           TalkTalk let you share your thoughts and make new connections
           <span style={{ color: Theme.colors.midPink }}>.</span>
         </Text>
-      </Box>
-      <Box
-        noBorder
-        display="flex"
+      </Flex.Parent>
+      <Flex.Parent
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
         gap={Theme.setSpace(32)}
-        flex={3}
+        style={{
+          flex: 3,
+        }}
       >
-        <Box
-          display="flex"
-          flexDirection="column"
-          gap={Theme.setSpace(24)}
-          alignItems="center"
-          justifyContent="center"
-          pt={Theme.setSpace(24)}
-          pr={Theme.setSpace(24)}
-          pb={Theme.setSpace(24)}
-          pl={Theme.setSpace(24)}
-          width="62.5%"
-        >
+        <Card>
           <Text fontSize="large" fontWeight="bold" color="midBlack">
             Login
           </Text>
           <TextInput
+            width={'100%'}
             name="email"
             onChange={(event) => console.log(event.target.value)}
             type="email"
             placeholder="Email"
           />
           <TextInput
+            width={'100%'}
             name="password"
             onChange={(event) => console.log(event.target.value)}
             type="password"
             placeholder="Password"
           />
-          <Button variant="primary" width="100%">
+          <Button variant="primary" width={'100%'}>
             Login
           </Button>
-        </Box>
+        </Card>
 
-        <Box
-          display="flex"
-          flexDirection="column"
-          gap={Theme.setSpace(24)}
-          alignItems="center"
-          justifyContent="center"
-          pt={Theme.setSpace(24)}
-          pr={Theme.setSpace(24)}
-          pb={Theme.setSpace(24)}
-          pl={Theme.setSpace(24)}
-          width="62.5%"
-        >
+        <Card>
           <Text fontSize="large" fontWeight="bold" color="midBlack">
             Don't have an account yet?
           </Text>
           <TextInput
+            width={'100%'}
             name="username"
             onChange={(event) => console.log(event.target.value)}
             type="text"
             placeholder="Username"
           />
           <TextInput
+            width={'100%'}
             name="email"
             onChange={(event) => console.log(event.target.value)}
             type="email"
             placeholder="Email"
           />
           <TextInput
+            width={'100%'}
             name="password"
             onChange={(event) => console.log(event.target.value)}
             type="password"
             placeholder="Password"
           />
-          <Button variant="primary" width="100%">
+          <Button variant="primary" width={'100%'}>
             Register
           </Button>
-        </Box>
-      </Box>
-    </Box>
+        </Card>
+      </Flex.Parent>
+    </Flex.Parent>
   );
 };
 
