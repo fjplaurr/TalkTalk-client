@@ -1,10 +1,9 @@
 import React from 'react';
 import { TextInput, Button, Text } from 'harmony-kit';
-import styles from './Home.module.css';
 
 const Home = () => (
   <>
-    <div className={styles.container}>
+    <div>
       <Text>This is a template for React in Typescript</Text>
       <TextInput
         onChange={() => {}}
