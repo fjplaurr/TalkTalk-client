@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Theme } from 'harmony-kit';
+import { Theme } from "..";
 
 type SelectedType = Extract<'darkBlue' | 'white', keyof typeof Theme.colors>;
 

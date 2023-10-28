@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Avatar, Text, Button, Theme } from 'harmony-kit';
+import { Box, Avatar, Text, Button, Theme } from "..";
 
 type ProfileCardProps = {
   user: {

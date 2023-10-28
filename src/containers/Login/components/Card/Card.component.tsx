@@ -1,6 +1,6 @@
 import React from 'react';
-import { Theme, Box } from 'harmony-kit';
 import styled from 'styled-components';
+import { Theme, Box } from '../../../../designsystem';
 
 type CardProps = { children: React.ReactNode };
 

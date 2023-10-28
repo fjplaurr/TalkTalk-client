@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Text, Theme, TextInput, Button } from 'harmony-kit';
 import styled from 'styled-components';
-import Logo from '../../components/Logo';
+import { Box, Text, Theme, TextInput, Button } from '../../designsystem';
+import Logo from '../../designsystem/Logo';
 import Card from './components/Card';
 
 const PageContainer = styled(Box)`

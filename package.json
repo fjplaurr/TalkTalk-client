@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "harmony-kit": "^1.0.30",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
@@ -44,7 +43,7 @@
     "typescript-plugin-css-modules": "^4.1.1"
   },
   "scripts": {
-    "lint": "npx eslint",
+    "lint": "npx eslint './**/*.{ts,tsx}'",
     "lint:css": "npx stylelint '**/*.scss'",
     "start": "react-scripts start",
     "build": "react-scripts build",
