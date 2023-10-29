@@ -49,10 +49,10 @@ const PostCard = ({
       gap: Themes.setSpace(16),
       alignItems: 'flex-start',
     }}
-    pt={Themes.setSpace(12)}
-    pr={Themes.setSpace(12)}
-    pb={Themes.setSpace(12)}
-    pl={Themes.setSpace(12)}
+    $pt={Themes.setSpace(12)}
+    $pr={Themes.setSpace(12)}
+    $pb={Themes.setSpace(12)}
+    $pl={Themes.setSpace(12)}
   >
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box

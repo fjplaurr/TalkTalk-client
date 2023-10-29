@@ -46,10 +46,10 @@ const users = [
 const renderUser = (user: Record<string, string>) => (
   <Box
     style={{ display: 'flex', alignItems: 'center', gap: Themes.setSpace(16) }}
-    pt={Themes.setSpace(12)}
-    pr={Themes.setSpace(12)}
-    pb={Themes.setSpace(12)}
-    pl={Themes.setSpace(12)}
+    $pt={Themes.setSpace(12)}
+    $pr={Themes.setSpace(12)}
+    $pb={Themes.setSpace(12)}
+    $pl={Themes.setSpace(12)}
   >
     <Avatar avatar={{ src: user.pictureSrc, name: user.name }} />
     <Box

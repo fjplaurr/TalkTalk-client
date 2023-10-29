@@ -17,21 +17,17 @@ const Container = styled(Box)`
 
 const Card = ({ children }: CardProps) => (
   <Container
-    display="flex"
-    gap={Theme.setSpace(24)}
-    flexDirection="column"
-    alignItems="center"
-    justifyContent="center"
-    pt={`min(4vw, ${Theme.setSpace(56)})`}
-    pr={`min(4vw, ${Theme.setSpace(56)})`}
-    pb={`min(4vw, ${Theme.setSpace(56)})`}
-    pl={`min(4vw, ${Theme.setSpace(56)})`}
-    // pt={`${Theme.setSpace(24)}`}
-    // pr={`${Theme.setSpace(24)}`}
-    // pb={`${Theme.setSpace(24)}`}
-    // pl={`${Theme.setSpace(24)}`}
-    border={`1px solid ${Theme.colors.darkGray}`}
-    borderRadius={`calc(${Theme.minimumBorderRadius} * 2)`}
+    $display="flex"
+    $gap={Theme.setSpace(24)}
+    $flexDirection="column"
+    $alignItems="center"
+    $justifyContent="center"
+    $pt={`min(4vw, ${Theme.setSpace(56)})`}
+    $pr={`min(4vw, ${Theme.setSpace(56)})`}
+    $pb={`min(4vw, ${Theme.setSpace(56)})`}
+    $pl={`min(4vw, ${Theme.setSpace(56)})`}
+    $border={`1px solid ${Theme.colors.darkGray}`}
+    $borderRadius={`calc(${Theme.minimumBorderRadius} * 2)`}
   >
     {children}
   </Container>

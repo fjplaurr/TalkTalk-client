@@ -4,8 +4,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Button from './index';
 
 const argTypes = {
-  variant: {
-    description: 'Sets the variant of the button.',
+  $variant: {
+    description: 'Sets the $variant of the button.',
     options: ['primary', 'secondary', 'destructive'],
     control: { type: 'radio' },
   },
@@ -24,18 +24,18 @@ const Template: ComponentStory<typeof Button> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  variant: 'primary',
-  width: '',
+  $variant: 'primary',
+  $width: '',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  variant: 'secondary',
-  width: '',
+  $variant: 'secondary',
+  $width: '',
 };
 
 export const Destructive = Template.bind({});
 Destructive.args = {
-  variant: 'destructive',
-  width: '',
+  $variant: 'destructive',
+  $width: '',
 };

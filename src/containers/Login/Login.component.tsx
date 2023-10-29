@@ -31,17 +31,17 @@ const WrapperLogo = styled(Box)`
 `;
 
 const Login = () => (
-  <PageContainer display="flex">
+  <PageContainer $display="flex">
     <BrandPresenter
-      pl={`min(4vw, ${Theme.setSpace(56)})`}
-      pr={`min(4vw, ${Theme.setSpace(56)})`}
-      backgroundColor="darkBlue"
-      flexDirection="column"
-      justifyContent="center"
-      gap={Theme.setSpace(48)}
-      flex={1}
+      $pl={`min(4vw, ${Theme.setSpace(56)})`}
+      $pr={`min(4vw, ${Theme.setSpace(56)})`}
+      $backgroundColor="darkBlue"
+      $flexDirection="column"
+      $justifyContent="center"
+      $gap={Theme.setSpace(48)}
+      $flex={1}
     >
-      <Box position="absolute" top={Theme.setSpace(56)}>
+      <Box $position="absolute" $top={Theme.setSpace(56)}>
         <Logo color="white" />
       </Box>
       <Text
@@ -59,14 +59,14 @@ const Login = () => (
       </Text>
     </BrandPresenter>
     <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      flex={3}
-      gap={Theme.setSpace(32)}
-      mt={Theme.setSpace(32)}
-      mb={Theme.setSpace(32)}
+      $display="flex"
+      $flexDirection="column"
+      $alignItems="center"
+      $justifyContent="center"
+      $flex={3}
+      $gap={Theme.setSpace(32)}
+      $mt={Theme.setSpace(32)}
+      $mb={Theme.setSpace(32)}
     >
       <WrapperLogo>
         <Logo color="darkBlue" />
@@ -87,7 +87,7 @@ const Login = () => (
           type="password"
           placeholder="Password"
         />
-        <Button variant="primary">Login</Button>
+        <Button $variant="primary">Login</Button>
       </Card>
       <Card>
         <StyledText fontSize="large" fontWeight="bold" color="midBlack">
@@ -111,7 +111,7 @@ const Login = () => (
           type="password"
           placeholder="Password"
         />
-        <Button variant="primary">Register</Button>
+        <Button $variant="primary">Register</Button>
       </Card>
     </Box>
   </PageContainer>

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import Themes from '../../../../../themes';
 
 type TabProps = {
-  variant: 'default' | 'selected';
+  $variant: 'default' | 'selected';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   title: string;
   className?: string;
@@ -25,7 +25,7 @@ const selectedStyles = css`
   }
 `;
 
-const StyledTab = styled.button<{ variant: TabProps['variant'] }>`
+const StyledTab = styled.button<{ $variant: TabProps['$variant'] }>`
   font-size: ${Themes.fontSizes.regular};
   line-height: ${Themes.lineHeights.regular};
   font-weight: ${Themes.fontWeights.regular};
@@ -45,8 +45,8 @@ const StyledTab = styled.button<{ variant: TabProps['variant'] }>`
     font-weight: ${Themes.fontWeights.bold};
   }
 
-  ${({ variant }) => {
-    switch (variant) {
+  ${({ $variant }) => {
+    switch ($variant) {
       case 'default':
         return defaultStyles;
       case 'selected':
@@ -57,9 +57,9 @@ const StyledTab = styled.button<{ variant: TabProps['variant'] }>`
   }};
 `;
 
-const Tab = ({ variant, onClick, title, className }: TabProps) => (
+const Tab = ({ $variant, onClick, title, className }: TabProps) => (
   <StyledTab
-    variant={variant}
+    $variant={$variant}
     title={title}
     onClick={onClick}
     className={className}

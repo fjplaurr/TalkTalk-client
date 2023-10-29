@@ -3,10 +3,10 @@ import styled, { css } from 'styled-components';
 import Themes from '../themes';
 
 type ButtonProps = {
-  variant: 'primary' | 'secondary' | 'destructive';
+  $variant: 'primary' | 'secondary' | 'destructive';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: React.ReactNode;
-  width?: React.CSSProperties['width'];
+  $width?: React.CSSProperties['width'];
 } & { style?: React.CSSProperties };
 
 const primaryStyles = css`
@@ -41,8 +41,8 @@ const destructiveStyles = css`
 `;
 
 const StyledButton = styled.button<{
-  variant: ButtonProps['variant'];
-  width?: ButtonProps['width'];
+  $variant: ButtonProps['$variant'];
+  $width?: ButtonProps['$width'];
 }>`
   font-size: ${Themes.fontSizes.regular};
   line-height: ${Themes.lineHeights.regular};
@@ -52,8 +52,8 @@ const StyledButton = styled.button<{
   cursor: pointer;
   padding-block: calc(${Themes.minimumSpacing} * 2);
   padding-inline: calc(${Themes.minimumSpacing} * 4);
-  ${({ variant }) => {
-    switch (variant) {
+  ${({ $variant }) => {
+    switch ($variant) {
       case 'primary':
         return primaryStyles;
       case 'secondary':
@@ -64,11 +64,22 @@ const StyledButton = styled.button<{
         return primaryStyles;
     }
   }};
-  width: ${({ width }) => width && width};
+  width: ${({ $width }) => $width && $width};
 `;
 
-const Button = ({ variant, onClick, children, width, style }: ButtonProps) => (
-  <StyledButton variant={variant} onClick={onClick} width={width} style={style}>
+const Button = ({
+  $variant,
+  onClick,
+  children,
+  $width,
+  style,
+}: ButtonProps) => (
+  <StyledButton
+    $variant={$variant}
+    onClick={onClick}
+    $width={$width}
+    style={style}
+  >
     {children}
   </StyledButton>
 );

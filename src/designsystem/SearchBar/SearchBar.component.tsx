@@ -18,11 +18,11 @@ const SearchBar = ({
   renderElement,
 }: SearchBarProps) => (
   <Box
-    display="flex"
-    flexDirection="column"
-    alignItems="center"
-    justifyContent="center"
-    gap={Themes.setSpace(4)}
+    $display="flex"
+    $flexDirection="column"
+    $alignItems="center"
+    $justifyContent="center"
+    $gap={Themes.setSpace(4)}
   >
     <TextInput
       onChange={(event) => onInputChange(event.target.value)}
@@ -30,12 +30,12 @@ const SearchBar = ({
       name="searchBar"
       showSearchIcon
       placeholder="Placeholder"
-      width="100%"
+      $width="100%"
     />
     <Box
-      borderRadius={`calc(${Themes.minimumBorderRadius} * 2)`}
-      border={`1px solid ${Themes.colors.darkGray}`}
-      width="75.6%"
+      $borderRadius={`calc(${Themes.minimumBorderRadius} * 2)`}
+      $border={`1px solid ${Themes.colors.darkGray}`}
+      $width="75.6%"
     >
       <List elements={elements} renderElement={renderElement} />
     </Box>

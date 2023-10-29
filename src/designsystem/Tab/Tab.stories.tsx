@@ -35,5 +35,5 @@ const Template: ComponentStory<typeof Tab> = () => (
 
 export const Default = Template.bind({});
 Default.args = {
-  variant: 'default',
+  $variant: 'default',
 };

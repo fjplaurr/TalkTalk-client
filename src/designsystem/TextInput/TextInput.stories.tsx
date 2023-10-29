@@ -63,5 +63,5 @@ Default.args = {
   type: 'email',
   showSearchIcon: false,
   errorMessage: '',
-  width: '',
+  $width: '',
 };

@@ -7,7 +7,7 @@ type TabPanelProps = {
 };
 
 const TabPanel = ({ children }: TabPanelProps) => (
-  <Box mt={Themes.setSpace(20)}>{children}</Box>
+  <Box $mt={Themes.setSpace(20)}>{children}</Box>
 );
 
 export default TabPanel;

@@ -11,7 +11,7 @@ const Home = () => (
         type="text"
         placeholder="whattt"
       />
-      <Button variant="primary">Button</Button>
+      <Button $variant="primary">Button</Button>
     </div>
     <p>fwfwwfwe</p>
   </>

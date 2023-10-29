@@ -23,8 +23,8 @@ const Template: ComponentStory<typeof Box> = (args) => <Box {...args}>Box</Box>;
 
 export const Default = Template.bind({});
 Default.args = {
-  pt: Themes.setSpace(8),
-  pr: Themes.setSpace(8),
-  pb: Themes.setSpace(8),
-  pl: Themes.setSpace(8),
+  $pt: Themes.setSpace(8),
+  $pr: Themes.setSpace(8),
+  $pb: Themes.setSpace(8),
+  $pl: Themes.setSpace(8),
 };

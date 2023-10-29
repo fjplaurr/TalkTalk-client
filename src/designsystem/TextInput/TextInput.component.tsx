@@ -11,23 +11,23 @@ type TextInputProps = {
   placeholder?: string;
   errorMessage?: string;
   showSearchIcon?: boolean;
-  width?: React.CSSProperties['width'];
+  $width?: React.CSSProperties['width'];
 } & { style?: React.CSSProperties };
 
-const StyledContainer = styled.div<{ width?: React.CSSProperties['width'] }>`
+const StyledContainer = styled.div<{ $width?: TextInputProps['$width'] }>`
   position: relative;
   align-items: center;
   display: inline-flex;
-  width: ${({ width }) => width && width};
+  width: ${({ $width }) => $width && $width};
 `;
 
 const StyledInput = styled.input<{
-  hasError: boolean;
-  hasIcon: boolean;
+  $hasError: boolean;
+  $hasIcon: boolean;
 }>`
   border-radius: calc(${Themes.minimumBorderRadius} * 2);
-  border: ${({ hasError }) =>
-    `1px solid ${hasError ? Themes.colors.midRed : Themes.colors.darkGray}`};
+  border: ${({ $hasError }) =>
+    `1px solid ${$hasError ? Themes.colors.midRed : Themes.colors.darkGray}`};
   padding: calc(${Themes.minimumSpacing} * 2);
   font-size: ${Themes.fontSizes.regular};
   line-height: ${Themes.lineHeights.regular};
@@ -39,14 +39,14 @@ const StyledInput = styled.input<{
   }
 
   &:focus {
-    border: ${({ hasError }) =>
-      `1px solid ${hasError ? Themes.colors.darkRed : Themes.colors.midBlue}`};
-    outline: ${({ hasError }) =>
-      `1px solid ${hasError ? Themes.colors.darkRed : Themes.colors.midBlue}`};
+    border: ${({ $hasError }) =>
+      `1px solid ${$hasError ? Themes.colors.darkRed : Themes.colors.midBlue}`};
+    outline: ${({ $hasError }) =>
+      `1px solid ${$hasError ? Themes.colors.darkRed : Themes.colors.midBlue}`};
   }
 
-  padding-left: ${({ hasIcon }) =>
-    hasIcon && `calc(${Themes.minimumSpacing} * 10)`};
+  padding-left: ${({ $hasIcon }) =>
+    $hasIcon && `calc(${Themes.minimumSpacing} * 10)`};
 `;
 
 const StyledIconWrapper = styled.div`
@@ -63,13 +63,13 @@ const TextInput = React.forwardRef(
       placeholder,
       errorMessage,
       showSearchIcon,
-      width,
+      $width,
       style,
     }: TextInputProps,
     ref: React.Ref<HTMLInputElement>,
   ) => (
     <>
-      <StyledContainer width={width}>
+      <StyledContainer $width={$width}>
         {showSearchIcon && (
           <StyledIconWrapper>
             <Icons.SearchIcon />
@@ -81,8 +81,8 @@ const TextInput = React.forwardRef(
           name={name}
           type={type}
           placeholder={placeholder}
-          hasError={!!errorMessage}
-          hasIcon={!!showSearchIcon}
+          $hasError={!!errorMessage}
+          $hasIcon={!!showSearchIcon}
           style={style}
         />
       </StyledContainer>

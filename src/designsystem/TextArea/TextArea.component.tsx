@@ -66,7 +66,7 @@ const TextArea = ({
       />
       {hasSubmitButton && (
         <ButtonWrapper>
-          <Button variant="primary" onClick={onSend}>
+          <Button $variant="primary" onClick={onSend}>
             Button
           </Button>
         </ButtonWrapper>

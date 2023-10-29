@@ -10,13 +10,13 @@ type TabListProps = {
 };
 
 const TabList = ({ tabs, onClickTab, selectedIdTab }: TabListProps) => (
-  <Box display="flex" gap={Themes.setSpace(16)}>
+  <Box $display="flex" $gap={Themes.setSpace(16)}>
     {tabs.map((tab) => (
       <Tab
         title={tab.title}
         key={tab.id}
         onClick={() => onClickTab?.(tab.id)}
-        variant={selectedIdTab === tab.id ? 'selected' : 'default'}
+        $variant={selectedIdTab === tab.id ? 'selected' : 'default'}
       />
     ))}
   </Box>
