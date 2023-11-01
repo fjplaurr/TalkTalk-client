@@ -41,7 +41,11 @@ const Login = () => (
       $gap={Theme.setSpace(48)}
       $flex={1}
     >
-      <Box $position="absolute" $top={Theme.setSpace(56)}>
+      <Box
+        $position="absolute"
+        $top={Theme.setSpace(56)}
+        className="logoWrapper"
+      >
         <Logo color="white" />
       </Box>
       <Text
