@@ -93,6 +93,7 @@
     "react/function-component-definition": [
       "error",
       { "namedComponents": "arrow-function" }
-    ]
+    ],
+    "import/order": "warn" // Change the severity level here
   }
 }
