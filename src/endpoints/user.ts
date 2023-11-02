@@ -29,7 +29,7 @@ export const getFilteredUsers: (term: string) => Promise<User[]> = (term) =>
   get(`${url}term/${term}`, headers);
 
 // Put
-export const update = (user: User) => put(`${url}${user._id}`, user, headers);
+export const update = (user: User) => put(`${url}${user.id}`, user, headers);
 
 // Delete
 export const deleteSingle = (id: string) => deleteById(`${url}${id}`, headers);

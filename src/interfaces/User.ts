@@ -1,11 +1,11 @@
 export interface User {
-  _id?: string;
+  id: string;
   email: string;
   password: string;
   name: string;
   surname: string;
   following?: string[];
   followers?: string[];
-  description?: string;
-  profileImage?: string;
+  text: string;
+  pictureSrc: string;
 }
