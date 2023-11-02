@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import TextInput from '../TextInput';
 import Box from '../Box';
 import List from '../List';
@@ -16,30 +16,41 @@ const SearchBar = ({
   elements,
   onInputChange,
   renderElement,
-}: SearchBarProps) => (
-  <Box
-    $display="flex"
-    $flexDirection="column"
-    $alignItems="center"
-    $justifyContent="center"
-    $gap={Themes.setSpace(4)}
-  >
-    <TextInput
-      onChange={(event) => onInputChange(event.target.value)}
-      type="text"
-      name="searchBar"
-      showSearchIcon
-      placeholder="Placeholder"
-      $width="100%"
-    />
+}: SearchBarProps) => {
+  const [expand, setExpand] = useState(false);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setExpand(event.target.value !== '');
+    onInputChange(event.target.value);
+  };
+
+  return (
     <Box
-      $borderRadius={`calc(${Themes.minimumBorderRadius} * 2)`}
-      $border={`1px solid ${Themes.colors.darkGray}`}
-      $width="75.6%"
+      $display="flex"
+      $flexDirection="column"
+      $alignItems="center"
+      $justifyContent="center"
+      $gap={Themes.setSpace(4)}
     >
-      <List elements={elements} renderElement={renderElement} />
+      <TextInput
+        onChange={handleChange}
+        type="text"
+        name="searchBar"
+        showSearchIcon
+        placeholder="Placeholder"
+        $width="100%"
+      />
+      {expand && (
+        <Box
+          $borderRadius={`calc(${Themes.minimumBorderRadius} * 2)`}
+          $border={`1px solid ${Themes.colors.darkGray}`}
+          $width="75.6%"
+        >
+          <List elements={elements} renderElement={renderElement} />
+        </Box>
+      )}
     </Box>
-  </Box>
-);
+  );
+};
 
 export default SearchBar;
