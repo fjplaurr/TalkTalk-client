@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Avatar, Text, Theme } from "..";
+import { Box, Avatar, Text, Theme } from '..';
 
 type PostCardProps = {
   user: {
@@ -19,28 +19,16 @@ const PostCard = ({
     $pr={Theme.setSpace(12)}
     $pb={Theme.setSpace(12)}
     $pl={Theme.setSpace(12)}
-    style={{
-      display: 'flex',
-      alignItems: 'flex-start',
-      width: Theme.setSpace(354),
-      gap: Theme.setSpace(16),
-    }}
+    $display="flex"
+    $alignItems="flex-start"
+    $gap={Theme.setSpace(16)}
   >
     <Avatar avatar={{ src: pictureSrc, name }} />
-    <Box
-      style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        flexDirection: 'column',
-      }}
-    >
-      <Box>
-        <Text fontWeight="bold">{`${name} ${surname}`}</Text>
-        <Text fontWeight="regular" fontSize="small" noOfLines={3}>
-          {text}
-        </Text>
-      </Box>
+    <Box>
+      <Text fontWeight="bold">{`${name} ${surname}`}</Text>
+      <Text fontWeight="regular" fontSize="small" noOfLines={3}>
+        {text}
+      </Text>
     </Box>
   </Box>
 );
