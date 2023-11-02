@@ -15,9 +15,7 @@ const PostCard = ({
   user: { name, pictureSrc, surname, text },
 }: PostCardProps) => (
   <Box
-    $pt={Theme.setSpace(12)}
     $pr={Theme.setSpace(12)}
-    $pb={Theme.setSpace(12)}
     $pl={Theme.setSpace(12)}
     $display="flex"
     $alignItems="flex-start"
