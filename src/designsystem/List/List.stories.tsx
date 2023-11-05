@@ -45,7 +45,9 @@ const users = [
 
 const renderUser = (user: Record<string, string>) => (
   <Box
-    style={{ display: 'flex', alignItems: 'center', gap: Themes.setSpace(16) }}
+    $display="flex"
+    $alignItems="center"
+    $gap={Themes.setSpace(16)}
     $pt={Themes.setSpace(12)}
     $pr={Themes.setSpace(12)}
     $pb={Themes.setSpace(12)}
@@ -53,13 +55,11 @@ const renderUser = (user: Record<string, string>) => (
   >
     <Avatar avatar={{ src: user.pictureSrc, name: user.name }} />
     <Box
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: Themes.setSpace(16),
-        alignItems: 'flex-start',
-        flexDirection: 'column',
-      }}
+      $display="flex"
+      $justifyContent="center"
+      $gap={Themes.setSpace(16)}
+      $alignItems="flex-start"
+      $flexDirection="column"
     >
       <Text fontWeight="bold">{`${user.name} ${user.surname}`}</Text>
       <Text fontWeight="regular" fontSize="small">
