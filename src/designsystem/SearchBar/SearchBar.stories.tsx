@@ -18,7 +18,7 @@ export default {
 } as ComponentMeta<typeof SearchBar>;
 
 const Template: ComponentStory<typeof SearchBar> = (args) => (
-  <SearchBar {...args} />
+  <SearchBar elements={users} renderElement={renderUser} />
 );
 
 type User = {
@@ -28,8 +28,6 @@ type User = {
   text: string;
   id: string;
 };
-
-type ObjectWithId = { [key: string]: any; id: string };
 
 type PostCardProps = {
   user: {
@@ -108,7 +106,3 @@ const users = [
 ];
 
 export const Default = Template.bind({});
-Default.args = {
-  elements: users,
-  renderElement: renderUser as (obj: ObjectWithId) => JSX.Element,
-};

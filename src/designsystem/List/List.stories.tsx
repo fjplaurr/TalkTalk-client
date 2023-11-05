@@ -17,9 +17,15 @@ export default {
   argTypes,
 } as ComponentMeta<typeof List>;
 
-const Template: ComponentStory<typeof List> = (args) => <List {...args} />;
+type User = {
+  id: string;
+  name: string;
+  surname: string;
+  pictureSrc: string;
+  text: string;
+};
 
-const users = [
+const elements: User[] = [
   {
     id: '1',
     name: 'John',
@@ -43,7 +49,7 @@ const users = [
   },
 ];
 
-const renderUser = (user: Record<string, string>) => (
+const renderElement = (user: User) => (
   <Box
     $display="flex"
     $alignItems="center"
@@ -69,8 +75,8 @@ const renderUser = (user: Record<string, string>) => (
   </Box>
 );
 
+const Template: ComponentStory<typeof List> = () => (
+  <List elements={elements} renderElement={renderElement} />
+);
+
 export const Default = Template.bind({});
-Default.args = {
-  elements: users,
-  renderElement: renderUser,
-};

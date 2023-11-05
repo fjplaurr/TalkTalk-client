@@ -13,3 +13,5 @@ export type MarginsShortcuts = {
   $mb?: CSSProperties['marginBottom'];
   $ml?: CSSProperties['marginLeft'];
 };
+
+export type ObjectWithId<U> = U extends { id: string } ? U : never;

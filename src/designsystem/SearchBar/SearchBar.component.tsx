@@ -3,25 +3,24 @@ import TextInput from '../TextInput';
 import Box from '../Box';
 import List from '../List';
 import Themes from '../themes';
+import { ObjectWithId } from '../types';
 
-type ObjectWithId = { [key: string]: any; id: string };
-
-type SearchBarProps = {
-  elements: Array<ObjectWithId>;
-  onInputChange: (value: string) => void;
-  renderElement: (element: ObjectWithId) => JSX.Element;
+type SearchBarProps<T> = {
+  elements: Array<ObjectWithId<T>>;
+  onInputChange?: (value: string) => void;
+  renderElement: (element: ObjectWithId<T>) => JSX.Element;
 };
 
-const SearchBar = ({
+const SearchBar = <T,>({
   elements,
   onInputChange,
   renderElement,
-}: SearchBarProps) => {
+}: SearchBarProps<T>) => {
   const [expand, setExpand] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setExpand(event.target.value !== '');
-    onInputChange(event.target.value);
+    onInputChange?.(event.target.value);
   };
 
   return (
