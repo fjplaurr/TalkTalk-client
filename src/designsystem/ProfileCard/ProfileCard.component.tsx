@@ -38,7 +38,7 @@ const ProfileCard = ({
     >
       <Box style={{ width: Theme.setSpace(144) }}>
         <Text fontWeight="bold" noOfLines={1}>{`${name} ${surname}`}</Text>
-        <Text fontWeight="regular" fontSize="small" noOfLines={1}>
+        <Text fontWeight="regular" fontSize="small" noOfLines={2}>
           {text}
         </Text>
       </Box>

@@ -24,7 +24,7 @@ Default.args = {
     name: 'John',
     surname: 'Doe',
     pictureSrc: 'https://placedog.net/600',
-    text: 'Loren impsum dolor sit amet',
+    text: 'Loren impsum dolor sit amet dolor sit amet',
     id: '1',
   },
 };
