@@ -9,6 +9,7 @@ type TextAreaProps = {
   placeholder?: string;
   width?: React.CSSProperties['width'];
   resize?: React.CSSProperties['resize'];
+  buttonText?: string;
 };
 
 const StyledTextArea = styled.textarea<{ resize: TextAreaProps['resize'] }>`
@@ -55,6 +56,7 @@ const TextArea = ({
   placeholder,
   width,
   resize = 'vertical',
+  buttonText,
 }: TextAreaProps) => {
   const hasSubmitButton = Boolean(onSend);
   return (
@@ -67,7 +69,7 @@ const TextArea = ({
       {hasSubmitButton && (
         <ButtonWrapper>
           <Button $variant="primary" onClick={onSend}>
-            Button
+            {buttonText}
           </Button>
         </ButtonWrapper>
       )}

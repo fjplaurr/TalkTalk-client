@@ -28,4 +28,5 @@ WithSubmitButton.args = {
   placeholder: 'Placeholder',
   onSend: () => console.log('submitted'),
   resize: 'vertical',
+  buttonText: 'Send',
 };
