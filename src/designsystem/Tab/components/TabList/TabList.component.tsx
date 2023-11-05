@@ -10,7 +10,7 @@ type TabListProps = {
 };
 
 const TabList = ({ tabs, onClickTab, selectedIdTab }: TabListProps) => (
-  <Box $display="flex" $gap={Themes.setSpace(16)}>
+  <Box $justifyContent="center" $display="flex" $gap={Themes.setSpace(16)}>
     {tabs.map((tab) => (
       <Tab
         title={tab.title}

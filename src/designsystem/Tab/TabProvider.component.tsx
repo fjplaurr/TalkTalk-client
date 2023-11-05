@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TabList from './components/TabList';
 import TabPanel from './components/TabPanel';
-import Box from '../Box/Box.component';
+import Box from '../Box';
 
 type TabProviderProps = {
   tabs: { title: string; id: string; content: React.ReactNode }[];
@@ -15,12 +15,7 @@ const TabProvider = ({ tabs }: TabProviderProps) => {
   const contentToShow = tabs.find((el) => el.id === selectedIdTab)!.content;
 
   return (
-    <Box
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <Box>
       <TabList
         tabs={tabs}
         selectedIdTab={selectedIdTab}
