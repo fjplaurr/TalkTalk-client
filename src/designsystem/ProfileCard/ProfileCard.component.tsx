@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Avatar, Text, Button, Theme } from "..";
+import { Box, Avatar, Text, Button, Theme } from '..';
 
 type ProfileCardProps = {
   user: {
@@ -20,7 +20,6 @@ const ProfileCard = ({
       display: 'flex',
       alignItems: 'flex-start',
       gap: Theme.setSpace(16),
-      width: Theme.setSpace(354),
     }}
     $pt={Theme.setSpace(12)}
     $pr={Theme.setSpace(12)}
@@ -36,7 +35,7 @@ const ProfileCard = ({
         flexDirection: 'column',
       }}
     >
-      <Box style={{ width: Theme.setSpace(144) }}>
+      <Box>
         <Text fontWeight="bold" noOfLines={1}>{`${name} ${surname}`}</Text>
         <Text fontWeight="regular" fontSize="small" noOfLines={2}>
           {text}
@@ -44,14 +43,12 @@ const ProfileCard = ({
       </Box>
     </Box>
     <Box $ml="auto">
-      <Box style={{ width: Theme.setSpace(98) }}>
-        <Button
-          $variant={isFollowed ? 'destructive' : 'secondary'}
-          onClick={() => console.log(`Clicked row`)}
-        >
-          {isFollowed ? 'Unfollow' : 'Follow'}
-        </Button>
-      </Box>
+      <Button
+        $variant={isFollowed ? 'destructive' : 'secondary'}
+        onClick={() => console.log(`Clicked row`)}
+      >
+        {isFollowed ? 'Unfollow' : 'Follow'}
+      </Button>
     </Box>
   </Box>
 );
