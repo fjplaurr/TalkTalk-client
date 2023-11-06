@@ -20,7 +20,7 @@ const argTypes = {
     options: Object.keys(Themes.colors),
     control: { type: 'radio' },
   },
-  noOfLines: {
+  $noOfLines: {
     description: 'Sets the number of lines of the text.',
     control: { type: 'number', min: 1, max: 5 },
   },

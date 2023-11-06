@@ -8,15 +8,15 @@ type TextAreaProps = {
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   width?: React.CSSProperties['width'];
-  resize?: React.CSSProperties['resize'];
+  $resize?: React.CSSProperties['resize'];
   buttonText?: string;
 };
 
-const StyledTextArea = styled.textarea<{ resize: TextAreaProps['resize'] }>`
+const StyledTextArea = styled.textarea<{ $resize: TextAreaProps['$resize'] }>`
   font-size: ${Themes.fontSizes.regular};
   line-height: ${Themes.lineHeights.regular};
   font-weight: ${Themes.fontWeights.regular};
-  resize: ${({ resize }) => resize};
+  resize: ${({ $resize }) => $resize};
   width: 100%;
   height: 100%;
   border: none;
@@ -55,7 +55,7 @@ const TextArea = ({
   onSend,
   placeholder,
   width,
-  resize = 'vertical',
+  $resize = 'vertical',
   buttonText,
 }: TextAreaProps) => {
   const hasSubmitButton = Boolean(onSend);
@@ -64,7 +64,7 @@ const TextArea = ({
       <StyledTextArea
         onChange={onChange}
         placeholder={placeholder}
-        resize={resize}
+        $resize={$resize}
       />
       {hasSubmitButton && (
         <ButtonWrapper>

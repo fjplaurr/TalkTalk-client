@@ -20,13 +20,13 @@ const Template: ComponentStory<typeof TextArea> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   placeholder: 'Placeholder',
-  resize: 'vertical',
+  $resize: 'vertical',
 };
 
 export const WithSubmitButton = Template.bind({});
 WithSubmitButton.args = {
   placeholder: 'Placeholder',
   onSend: () => console.log('submitted'),
-  resize: 'vertical',
+  $resize: 'vertical',
   buttonText: 'Send',
 };

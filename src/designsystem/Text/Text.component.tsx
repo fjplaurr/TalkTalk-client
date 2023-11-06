@@ -6,7 +6,7 @@ type TextProps = {
   fontSize?: 'small' | 'regular' | 'large' | 'extralarge' | 'extraextralarge';
   fontWeight?: 'regular' | 'semibold' | 'bold';
   as?: Extract<keyof JSX.IntrinsicElements, 'p' | 'span' | 'h1' | 'h2' | 'h3'>;
-  noOfLines?: number;
+  $noOfLines?: number;
   color?: ColorKeys;
   textAlign?: React.CSSProperties['textAlign'];
 } & { style?: React.CSSProperties };
@@ -36,11 +36,11 @@ const extraExtraLargeFontSize = css`
   line-height: ${Themes.lineHeights.extraextralarge};
 `;
 
-const getTruncatedText = (noOfLines: number) => css`
+const getTruncatedText = ($noOfLines: number) => css`
   overflow: hidden;
   display: -webkit-box;
-  line-clamp: ${noOfLines};
-  -webkit-line-clamp: ${noOfLines};
+  line-clamp: ${$noOfLines};
+  -webkit-line-clamp: ${$noOfLines};
   -webkit-box-orient: vertical;
   word-break: break-all;
 `;
@@ -65,7 +65,7 @@ const Text = styled.p<TextProps>`
   font-family: ${Themes.fontFamily};
   font-weight: ${({ fontWeight }) =>
     fontWeight ? Themes.fontWeights[fontWeight] : 'regular'};
-  ${({ noOfLines }) => noOfLines && getTruncatedText(noOfLines)};
+  ${({ $noOfLines }) => $noOfLines && getTruncatedText($noOfLines)};
   color: ${({ color }) => color && Themes.colors[color]};
   text-align: ${({ textAlign }) => textAlign};
 `;
