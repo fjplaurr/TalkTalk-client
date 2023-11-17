@@ -11,4 +11,5 @@ export { TabProvider } from './Tab';
 export { default as Text } from './Text';
 export { default as TextArea } from './TextArea';
 export { default as TextInput } from './TextInput';
+export { default as Popover } from './Popover';
 export { default as Theme } from './themes';
