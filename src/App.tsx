@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { loadUser } from './helpers/localStorage';
 import { getSingle } from './endpoints/user';
+import Login from './containers/Login';
+import Home from './containers/Home';
 
-const Login = React.lazy(() => import('./containers/Login'));
-const Home = React.lazy(() => import('./containers/Home'));
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+]);
 
 const parsedObject = loadUser();
+
 const App = () => {
   const [user, setUser] = useState(parsedObject);
-  const isLoggedIn = user!!;
+  const isLoggedIn = Boolean(user);
 
   // Reads token from local storage, fetches user from DB and sets it in global context
   useEffect(() => {
@@ -21,11 +33,7 @@ const App = () => {
     getUser();
   }, []);
 
-  return (
-    <React.Suspense fallback="Loading">
-      {isLoggedIn ? <Home /> : <Login />}
-    </React.Suspense>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
