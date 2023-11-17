@@ -6,26 +6,22 @@ type PostCardProps = {
     pictureSrc: string;
     name: string;
     surname: string;
-    text: string;
-    id: string;
+  };
+  post: {
+    description: string;
   };
 };
 
 const PostCard = ({
-  user: { name, pictureSrc, surname, text },
+  user: { name, pictureSrc, surname },
+  post: { description },
 }: PostCardProps) => (
-  <Box
-    $pr={Theme.setSpace(12)}
-    $pl={Theme.setSpace(12)}
-    $display="flex"
-    $alignItems="flex-start"
-    $gap={Theme.setSpace(16)}
-  >
+  <Box $display="flex" $alignItems="flex-start" $gap={Theme.setSpace(16)}>
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box>
       <Text fontWeight="bold">{`${name} ${surname}`}</Text>
-      <Text fontWeight="regular" fontSize="small" noOfLines={3}>
-        {text}
+      <Text fontWeight="regular" fontSize="small" $noOfLines={3}>
+        {description}
       </Text>
     </Box>
   </Box>
