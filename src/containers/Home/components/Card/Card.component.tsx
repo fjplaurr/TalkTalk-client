@@ -8,11 +8,10 @@ const Card = ({ children }: CardProps) => (
     $display="flex"
     $gap={Theme.setSpace(20)}
     $flexDirection="column"
-    $alignItems="flex-start"
-    $pt={`min(4vw, ${Theme.setSpace(14)})`}
-    $pr={`min(4vw, ${Theme.setSpace(14)})`}
-    $pb={`min(4vw, ${Theme.setSpace(14)})`}
-    $pl={`min(4vw, ${Theme.setSpace(14)})`}
+    $pt={`min(4vw, ${Theme.setSpace(16)})`}
+    $pr={`min(4vw, ${Theme.setSpace(16)})`}
+    $pb={`min(4vw, ${Theme.setSpace(16)})`}
+    $pl={`min(4vw, ${Theme.setSpace(16)})`}
     $border={`1px solid ${Theme.colors.darkGray}`}
     $borderRadius={`calc(${Theme.minimumBorderRadius} * 2)`}
   >
