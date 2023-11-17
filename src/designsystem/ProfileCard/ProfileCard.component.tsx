@@ -15,29 +15,17 @@ type ProfileCardProps = {
 const ProfileCard = ({
   user: { isFollowed, name, pictureSrc, surname, text },
 }: ProfileCardProps) => (
-  <Box
-    style={{
-      display: 'flex',
-      alignItems: 'flex-start',
-      gap: Theme.setSpace(16),
-    }}
-    $pt={Theme.setSpace(12)}
-    $pr={Theme.setSpace(12)}
-    $pb={Theme.setSpace(12)}
-    $pl={Theme.setSpace(12)}
-  >
+  <Box $display="flex" $alignItems="flex-start" $gap={Theme.setSpace(16)}>
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        flexDirection: 'column',
-      }}
+      $display="flex"
+      $justifyContent="center"
+      $alignItems="flex-start"
+      $flexDirection="column"
     >
       <Box>
-        <Text fontWeight="bold" noOfLines={1}>{`${name} ${surname}`}</Text>
-        <Text fontWeight="regular" fontSize="small" noOfLines={2}>
+        <Text fontWeight="bold" $noOfLines={1}>{`${name} ${surname}`}</Text>
+        <Text fontWeight="regular" fontSize="small" $noOfLines={2}>
           {text}
         </Text>
       </Box>
