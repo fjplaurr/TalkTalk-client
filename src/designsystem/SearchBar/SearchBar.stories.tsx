@@ -2,10 +2,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import SearchBar from './index';
-import Box from '../Box';
-import Themes from '../themes';
-import Avatar from '../Avatar';
-import Text from '../Text';
+import ProfileCard from '../ProfileCard';
 
 const argTypes = {
   onInputChange: { action: 'typed' },
@@ -17,68 +14,22 @@ export default {
   argTypes,
 } as ComponentMeta<typeof SearchBar>;
 
-const Template: ComponentStory<typeof SearchBar> = (args) => (
+const Template: ComponentStory<typeof SearchBar> = () => (
   <SearchBar elements={users} renderElement={renderUser} />
 );
 
-type User = {
-  pictureSrc: string;
+const renderUser = (user: Element) => <ProfileCard user={user} />;
+
+type Element = {
+  id: string;
+  isFollowed: boolean;
   name: string;
   surname: string;
+  pictureSrc: string;
   text: string;
-  id: string;
 };
 
-type PostCardProps = {
-  user: {
-    pictureSrc: string;
-    name: string;
-    surname: string;
-    text: string;
-    id: string;
-  };
-};
-const PostCard = ({
-  user: { name, pictureSrc, surname, text },
-}: PostCardProps) => (
-  <Box
-    style={{
-      display: 'flex',
-      gap: Themes.setSpace(16),
-      alignItems: 'flex-start',
-    }}
-    $pt={Themes.setSpace(12)}
-    $pr={Themes.setSpace(12)}
-    $pb={Themes.setSpace(12)}
-    $pl={Themes.setSpace(12)}
-  >
-    <Avatar avatar={{ src: pictureSrc, name }} />
-    <Box
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-      }}
-    >
-      <Box
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <Text fontWeight="bold">{`${name} ${surname}`}</Text>
-        <Text fontWeight="regular" fontSize="small" noOfLines={3}>
-          {text}
-        </Text>
-      </Box>
-    </Box>
-  </Box>
-);
-
-const renderUser = (user: User) => <PostCard user={user} />;
-
-const users = [
+const users: Element[] = [
   {
     id: '1',
     isFollowed: true,
