@@ -4,6 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import TextInput from './index';
 import Themes from '../themes';
+import Box from '../Box';
 
 const argTypes = {
   type: {
@@ -50,9 +51,9 @@ const Template: ComponentStory<typeof TextInput> = (args) => {
         }
         {...args}
       />
-      <div style={{ marginTop: Themes.setSpace(8) }}>
+      <Box $mt={Themes.setSpace(8)}>
         <button type="submit">Submit</button>
-      </div>
+      </Box>
     </form>
   );
 };

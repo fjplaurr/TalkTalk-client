@@ -6,7 +6,7 @@ import Box from '../Box';
 import { Theme } from '..';
 
 export const IconGallery = () => (
-  <Box style={{ display: 'flex', gap: Theme.setSpace(8) }}>
+  <Box $display="flex" $gap={Theme.setSpace(8)}>
     {Object.entries(Icons)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([iconName, IconComponent]) => (

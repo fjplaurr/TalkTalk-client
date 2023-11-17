@@ -3,6 +3,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Tab, TabProvider } from '.';
 import Themes from '../themes';
+import Box from '../Box';
 
 export default {
   title: 'Tab',
@@ -10,7 +11,7 @@ export default {
 } as ComponentMeta<typeof Tab>;
 
 const Template: ComponentStory<typeof Tab> = () => (
-  <div style={{ width: Themes.setSpace(500) }}>
+  <Box $width={Themes.setSpace(500)}>
     <TabProvider
       tabs={[
         {
@@ -30,7 +31,7 @@ const Template: ComponentStory<typeof Tab> = () => (
         },
       ]}
     />
-  </div>
+  </Box>
 );
 
 export const Default = Template.bind({});

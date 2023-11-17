@@ -12,7 +12,7 @@ type TextInputProps = {
   errorMessage?: string;
   showSearchIcon?: boolean;
   $width?: React.CSSProperties['width'];
-} & { style?: React.CSSProperties };
+};
 
 const StyledContainer = styled.div<{ $width?: TextInputProps['$width'] }>`
   position: relative;
@@ -64,7 +64,6 @@ const TextInput = React.forwardRef(
       errorMessage,
       showSearchIcon,
       $width,
-      style,
     }: TextInputProps,
     ref: React.Ref<HTMLInputElement>,
   ) => (
@@ -83,7 +82,6 @@ const TextInput = React.forwardRef(
           placeholder={placeholder}
           $hasError={!!errorMessage}
           $hasIcon={!!showSearchIcon}
-          style={style}
         />
       </StyledContainer>
       {errorMessage && (
