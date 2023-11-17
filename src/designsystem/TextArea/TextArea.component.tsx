@@ -21,6 +21,7 @@ const StyledTextArea = styled.textarea<{ $resize: TextAreaProps['$resize'] }>`
   height: 100%;
   border: none;
   outline: none;
+  min-height: calc(${Themes.minimumSpacing} * 24);
 
   &::placeholder {
     color: ${Themes.colors.darkGray};
