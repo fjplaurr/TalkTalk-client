@@ -54,6 +54,7 @@ const Popover = ({
           $pr={`min(4vw, ${Theme.setSpace(16)})`}
           $pb={`min(4vw, ${Theme.setSpace(12)})`}
           $pl={`min(4vw, ${Theme.setSpace(12)})`}
+          $mt={`min(4vw, ${Theme.setSpace(4)})`}
           $border={`1px solid ${Theme.colors.darkGray}`}
           $borderRadius={`calc(${Theme.minimumBorderRadius} * 2)`}
           $position="absolute"
