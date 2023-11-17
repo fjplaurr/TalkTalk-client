@@ -1,11 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Popover from './index';
-import Box from '../Box';
-import Text from '../Text';
-import Avatar from '../Avatar';
-import Themes from '../themes';
 
 const argTypes = {
   onInputChange: { action: 'typed' },
@@ -17,34 +12,50 @@ export default {
   argTypes,
 } as ComponentMeta<typeof Popover>;
 
-const Template: ComponentStory<typeof Popover> = () => {
+export const ClickPopover: ComponentStory<typeof Popover> = () => {
   const [openPopover, setOpenPopover] = React.useState(false);
 
   const handleClick = () => {
-    console.log('clicking');
-    setOpenPopover((o) => !o);
+    setOpenPopover(true);
   };
 
-  const popoverTrigger = <button onClick={handleClick}>Open here</button>;
+  const popoverClickTrigger = <button onClick={handleClick}>Open here</button>;
 
-  const popoverContent = (
-    <>
-      <div>You opened the Popover!</div>
-      <input placeholder="This is an input" />
-    </>
-  );
+  const popoverContent = <div>You opened the Popover!</div>;
 
   return (
-    <div>
-      <Popover
-        isOpen={openPopover}
-        setIsOpen={setOpenPopover}
-        popoverTrigger={popoverTrigger}
-        popoverContent={popoverContent}
-        $width="500px"
-      />
-    </div>
+    <Popover
+      isOpen={openPopover}
+      setIsOpen={setOpenPopover}
+      popoverTrigger={popoverClickTrigger}
+      popoverContent={popoverContent}
+      $width="500px"
+    />
   );
 };
 
-export const Default = Template.bind({});
+export const ChangePopover: ComponentStory<typeof Popover> = () => {
+  const [openPopover, setOpenPopover] = React.useState(false);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value !== '') {
+      setOpenPopover(true);
+    } else {
+      setOpenPopover(false);
+    }
+  };
+
+  const popoverChangeTrigger = <input type="text" onChange={handleChange} />;
+
+  const popoverContent = <div>You opened the Popover!</div>;
+
+  return (
+    <Popover
+      isOpen={openPopover}
+      setIsOpen={setOpenPopover}
+      popoverTrigger={popoverChangeTrigger}
+      popoverContent={popoverContent}
+      $width="500px"
+    />
+  );
+};

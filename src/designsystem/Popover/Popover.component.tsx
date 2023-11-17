@@ -1,55 +1,52 @@
-import React, { FocusEvent } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { Theme, Box } from '../index';
 
 type PopoverProps = {
   popoverContent: React.ReactNode;
   popoverTrigger: React.ReactNode;
-  setIsOpen: any;
-  isOpen: boolean;
   $width?: React.CSSProperties['width'];
   $top?: React.CSSProperties['top'];
   $right?: React.CSSProperties['right'];
   $bottom?: React.CSSProperties['bottom'];
   $left?: React.CSSProperties['left'];
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
-const PopoverContainer = styled(Box)`
-  &:focus {
-    outline: none;
-  }
-`;
 
 const Popover = ({
   popoverContent,
-  setIsOpen,
-  isOpen = false,
   popoverTrigger,
   $width,
   $top,
   $right,
   $bottom,
   $left,
+  isOpen = false,
+  setIsOpen,
 }: PopoverProps) => {
   const containerRef = React.useRef<any>(null);
+  const triggerRef = React.useRef<any>(null);
 
   React.useEffect(() => {
-    if (isOpen) {
-      containerRef.current.focus();
-    }
+    const callback = (event: MouseEvent) => {
+      const hasClickedOutside = !containerRef?.current?.contains(event.target);
+      const hasClickedTrigger = triggerRef?.current?.contains(event.target);
+
+      if (hasClickedOutside && !hasClickedTrigger) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', callback);
+
+    return () => document.removeEventListener('click', callback);
   }, [isOpen]);
 
-  const handleBlur = (event: FocusEvent) => {
-    if (!containerRef.current.contains(event.relatedTarget)) {
-      setIsOpen(false);
-    }
-  };
-
   return (
-    <div>
-      {popoverTrigger}
+    <Box>
+      <Box ref={triggerRef}>{popoverTrigger}</Box>
       {isOpen && (
-        <PopoverContainer
+        <Box
           $display="flex"
           $gap={Theme.setSpace(16)}
           $flexDirection="column"
@@ -68,14 +65,12 @@ const Popover = ({
           $backgroundColor="white"
           $zIndex={1}
           tabIndex={0}
-          onBlur={(event) => handleBlur(event)}
-          onFocus={() => setIsOpen(true)}
           ref={containerRef}
         >
           {popoverContent}
-        </PopoverContainer>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 
