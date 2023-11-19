@@ -3,7 +3,7 @@ import { User } from '../interfaces';
 import { loadUser } from '../helpers/localStorage';
 
 // URL
-const url = '/api/auth/';
+const url = `${process.env.REACT_APP_API_URL}/auth/`;
 
 // Headers
 const parsedObject = loadUser();
@@ -16,10 +16,13 @@ export const signup: (user: User) => Promise<{ user: User; token: string }> = (
   user,
 ) => post(`${url}signup`, user);
 
-export const signin = ({
+export const login = ({
   email,
   password,
 }: {
   email: string;
   password: string;
-}) => post(`${url}signin`, { email, password }, headers);
+}): Promise<
+  | { errors: string[]; accessToken: never; user: never }
+  | { accessToken: string; user: User; errors: never }
+> => post(`${url}login`, { email, password }, headers);
