@@ -1,37 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { loadUser } from './helpers/localStorage';
 import { getSingle } from './endpoints/user';
 import Login from './containers/Login';
 import Home from './containers/Home';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-]);
-
-const parsedObject = loadUser();
+import { User } from './interfaces';
 
 const App = () => {
-  const [user, setUser] = useState(parsedObject);
-  const isLoggedIn = Boolean(user);
+  const [user, setUser] = useState<User>();
 
-  // Reads token from local storage, fetches user from DB and sets it in global context
-  useEffect(() => {
-    const getUser = async () => {
-      if (parsedObject?.token) {
-        const userFromDB = await getSingle(parsedObject.id);
-        setUser(userFromDB);
-      }
-    };
-    getUser();
-  }, []);
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home user={user} />,
+    },
+    {
+      path: '/login',
+      element: <Login setUser={setUser} />,
+    },
+  ]);
 
   return <RouterProvider router={router} />;
 };
