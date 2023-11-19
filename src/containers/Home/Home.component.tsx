@@ -11,59 +11,10 @@ import {
   ProfileCard,
   TabProvider,
 } from '../../designsystem';
-import { User, Post } from '../../interfaces';
+import { User } from '../../interfaces';
 import Card from './components/Card';
 import EditProfile from './components/EditProfile';
-
-const usersFromDB: User[] = [
-  {
-    id: '1',
-    firstName: 'John',
-    lastName: 'Doe',
-    pictureSrc: 'https://placedog.net/600',
-    email: 'todo',
-    password: 'todo',
-    followingUsers: [],
-    status: 'loren ipsum dolor sit amet',
-  },
-  {
-    id: '2',
-    firstName: 'Steve',
-    lastName: 'Jones',
-    pictureSrc: 'https://placedog.net/700',
-    email: 'todo',
-    password: 'todo',
-    followingUsers: [],
-    status: 'loren ipsum dolor sit amet con etiam',
-  },
-];
-
-const postsFromDB: Post[] = [
-  {
-    id: '1',
-    text: 'Loren impsum isicing nulla labore mollit cillum ullamco dolor amet consectetur aliquip ali dolor sit amet',
-    date: new Date(),
-    authorId: '1',
-  },
-  {
-    id: '2',
-    text: 'Loren impsum isicing nuonsectetur aliquip ali dolor sit amet',
-    date: new Date(),
-    authorId: '2',
-  },
-];
-
-const postsWithAuthor = postsFromDB.map((post) => {
-  const author = usersFromDB.find((user) => user.id === post.authorId)!;
-  return {
-    post: { description: post.text, id: post.id },
-    user: {
-      name: author.firstName!,
-      surname: author.lastName!,
-      pictureSrc: author.pictureSrc!,
-    },
-  };
-});
+import { PostWithAuthor, withData } from './withData';
 
 type UserForSearchBar = {
   id: string;
@@ -74,17 +25,14 @@ type UserForSearchBar = {
   text: string;
 };
 
-const usersForSearchBar: UserForSearchBar[] = usersFromDB.map((user) => ({
-  id: user.id,
-  isFollowed: true,
-  name: user.firstName,
-  surname: user.lastName,
-  pictureSrc: user.pictureSrc,
-  text: user.status,
-}));
-
 const searchBarRenderElement = (user: UserForSearchBar) => (
-  <ProfileCard user={user} />
+  <ProfileCard
+    isFollowed={user.isFollowed}
+    name={user.name}
+    pictureSrc={user.pictureSrc}
+    surname={user.surname}
+    text={user.text}
+  />
 );
 
 const PageContainer = styled(Box)`
@@ -95,35 +43,37 @@ const PageContainer = styled(Box)`
   }
 `;
 
-type UserForProfileCard = {
-  isFollowed: boolean;
-  name: string;
-  surname: string;
-  pictureSrc: string;
-  text: string;
-  id: string;
+type HomeProps = {
+  postsWithAuthors: PostWithAuthor[];
+  followingUsers: User[];
+  user: User;
+  allUsers: User[];
 };
 
-const usersForProfileCard: UserForProfileCard[] = usersFromDB.map((user) => ({
-  isFollowed: true,
-  id: user.id,
-  name: user.firstName,
-  pictureSrc: user.pictureSrc,
-  surname: user.lastName,
-  text: user.status,
-}));
-
-type HomeProps = { isLoggedIn?: boolean };
-
-const Home = ({ isLoggedIn = true }: HomeProps) => {
+const Home = ({
+  postsWithAuthors,
+  followingUsers,
+  user,
+  allUsers,
+}: HomeProps) => {
   const navigate = useNavigate();
 
+  const isLoggedIn = Boolean(user);
+
   const userNotLoggedInRedirect = () => {
-    console.log('isLoggedIn', isLoggedIn);
     if (!isLoggedIn) {
       navigate('/login');
     }
   };
+
+  const usersForSearchBar: UserForSearchBar[] = allUsers.map((u) => ({
+    id: u._id,
+    isFollowed: true,
+    name: u.firstName,
+    surname: u.lastName,
+    pictureSrc: u.pictureSrc,
+    text: u.status,
+  }));
 
   return (
     <PageContainer
@@ -164,37 +114,56 @@ const Home = ({ isLoggedIn = true }: HomeProps) => {
         />
       </Box>
       <Box onClick={userNotLoggedInRedirect}>
-        <Card>
-          <TabProvider
-            tabs={[
-              {
-                id: 'For you',
-                title: 'For you',
-                content: (
-                  <>
-                    {postsWithAuthor.map(({ user, post }) => (
-                      <PostCard user={user} post={post} key={post.id} />
-                    ))}
-                  </>
-                ),
-              },
-              {
-                id: 'Following',
-                title: 'Following',
-                content: (
-                  <>
-                    {usersForProfileCard.map((user) => (
-                      <ProfileCard user={user} key={user.id} />
-                    ))}
-                  </>
-                ),
-              },
-            ]}
-          />
-        </Card>
+        {postsWithAuthors && (
+          <Card>
+            <TabProvider
+              tabs={[
+                {
+                  id: 'For you',
+                  title: 'For you',
+                  content: (
+                    <>
+                      {postsWithAuthors.map(({ author, post }) => (
+                        <PostCard
+                          user={{
+                            name: author.firstName,
+                            pictureSrc: author.pictureSrc,
+                            surname: author.lastName,
+                          }}
+                          post={{ description: post.text }}
+                          key={post.id}
+                        />
+                      ))}
+                    </>
+                  ),
+                },
+                {
+                  id: 'Following',
+                  title: 'Following',
+                  content: (
+                    <>
+                      {followingUsers.map(
+                        ({ _id, firstName, pictureSrc, lastName, status }) => (
+                          <ProfileCard
+                            isFollowed
+                            name={firstName}
+                            pictureSrc={pictureSrc}
+                            surname={lastName}
+                            text={status}
+                            key={_id}
+                          />
+                        ),
+                      )}
+                    </>
+                  ),
+                },
+              ]}
+            />
+          </Card>
+        )}
       </Box>
     </PageContainer>
   );
 };
 
-export default Home;
+export default withData(Home);

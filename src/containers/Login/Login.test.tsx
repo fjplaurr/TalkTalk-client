@@ -1,15 +1,17 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Login from './Login.component';
 import { signup } from '../../endpoints/auth';
-import { saveUser } from '../../helpers/localStorage';
+import Login, { LoginProps } from './Login.component';
 
 const mockedSignUp = signup as jest.MockedFunction<typeof signup>;
-const mockedSaveUser = saveUser as jest.MockedFunction<typeof saveUser>;
+
+const props: LoginProps = {
+  setUser: jest.fn(),
+};
 
 test('Renders a title, a subtitle and two logos', () => {
-  render(<Login />);
+  render(<Login {...props} />);
   const title = screen.getByText('Join open discussions');
   expect(title).toBeInTheDocument();
 
@@ -23,7 +25,7 @@ test('Renders a title, a subtitle and two logos', () => {
 });
 
 test('Redirects to the Home page when the user logs in', () => {
-  render(<Login />);
+  render(<Login {...props} />);
   // type email
   const emailInputs = screen.getAllByPlaceholderText('Email');
   const emailLoginInput = emailInputs[0];
