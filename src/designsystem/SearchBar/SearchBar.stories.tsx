@@ -18,7 +18,15 @@ const Template: ComponentStory<typeof SearchBar> = () => (
   <SearchBar elements={users} renderElement={renderUser} />
 );
 
-const renderUser = (user: Element) => <ProfileCard user={user} />;
+const renderUser = (user: Element) => (
+  <ProfileCard
+    isFollowed={user.isFollowed}
+    name={user.name}
+    pictureSrc={user.pictureSrc}
+    surname={user.surname}
+    text={user.text}
+  />
+);
 
 type Element = {
   id: string;

@@ -2,18 +2,19 @@ import React from 'react';
 import { Box, Avatar, Text, Button, Theme } from '..';
 
 type ProfileCardProps = {
-  user: {
-    isFollowed: boolean;
-    pictureSrc: string;
-    name: string;
-    surname: string;
-    text: string;
-    id: string;
-  };
+  isFollowed: boolean;
+  pictureSrc: string;
+  name: string;
+  surname: string;
+  text: string;
 };
 
 const ProfileCard = ({
-  user: { isFollowed, name, pictureSrc, surname, text },
+  isFollowed,
+  name,
+  pictureSrc,
+  surname,
+  text,
 }: ProfileCardProps) => (
   <Box $display="flex" $alignItems="flex-start" $gap={Theme.setSpace(16)}>
     <Avatar avatar={{ src: pictureSrc, name }} />

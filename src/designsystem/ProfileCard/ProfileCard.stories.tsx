@@ -23,12 +23,9 @@ const Template: ComponentStory<typeof ProfileCard> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  user: {
-    isFollowed: true,
-    name: 'John',
-    surname: 'Doe',
-    pictureSrc: 'https://placedog.net/600',
-    text: 'Loren impsum dolor sit amet dolor sit amet',
-    id: '1',
-  },
+  isFollowed: true,
+  name: 'John',
+  surname: 'Doe',
+  pictureSrc: 'https://placedog.net/600',
+  text: 'Loren impsum dolor sit amet dolor sit amet',
 };
