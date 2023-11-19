@@ -19,7 +19,7 @@ export const create = (message: Post) => post(`${url}`, message, headers);
 
 // Put
 export const update = (message: Post) =>
-  put(`${url}${message.id}`, message, headers);
+  put(`${url}${message._id}`, message, headers);
 
 // Delete
 export const deleteSingle = (id: string) => deleteById(`${url}${id}`, headers);

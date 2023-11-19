@@ -131,7 +131,7 @@ const Home = ({
                             surname: author.lastName,
                           }}
                           post={{ description: post.text }}
-                          key={post.id}
+                          key={post._id}
                         />
                       ))}
                     </>
