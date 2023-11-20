@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { getSingle } from './endpoints/user';
 import Login from './containers/Login';
 import Home from './containers/Home';
 import { User } from './interfaces';
@@ -11,7 +10,7 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home user={user} />,
+      element: <Home user={user} setUser={setUser} />,
     },
     {
       path: '/login',

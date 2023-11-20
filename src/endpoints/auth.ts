@@ -6,9 +6,9 @@ import { loadUser } from '../helpers/localStorage';
 const url = `${process.env.REACT_APP_API_URL}/auth/`;
 
 // Headers
-const parsedObject = loadUser();
+const userFromLocalStorage = loadUser();
 const headers = {
-  authorization: `Bearer ${parsedObject?.token}`,
+  authorization: `Bearer ${userFromLocalStorage?.token}`,
 };
 
 // Post

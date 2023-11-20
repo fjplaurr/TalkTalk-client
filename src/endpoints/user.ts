@@ -1,4 +1,4 @@
-import { get, put, deleteById } from '../helpers/fetch';
+import { get, patch, deleteById } from '../helpers/fetch';
 import { User } from '../interfaces';
 import { loadUser } from '../helpers/localStorage';
 
@@ -29,8 +29,9 @@ export const getUsersPosts = (userId: string) =>
 export const getFilteredUsers: (term: string) => Promise<User[]> = (term) =>
   get(`${url}term/${term}`, headers);
 
-// Put
-export const update = (user: User) => put(`${url}${user._id}`, user, headers);
+// Patch
+export const update = (userId: string, userFields: Partial<User>) =>
+  patch(`${url}${userId}`, userFields, headers);
 
 // Delete
 export const deleteSingle = (id: string) => deleteById(`${url}${id}`, headers);

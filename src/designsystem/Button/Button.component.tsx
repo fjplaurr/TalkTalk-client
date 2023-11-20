@@ -7,6 +7,7 @@ type ButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: React.ReactNode;
   $width?: React.CSSProperties['width'];
+  type?: 'button' | 'submit' | 'reset';
 };
 
 const primaryStyles = css`
@@ -67,8 +68,13 @@ const StyledButton = styled.button<{
   width: ${({ $width }) => $width && $width};
 `;
 
-const Button = ({ $variant, onClick, children, $width }: ButtonProps) => (
-  <StyledButton $variant={$variant} onClick={onClick} $width={$width}>
+const Button = ({ $variant, onClick, children, $width, type }: ButtonProps) => (
+  <StyledButton
+    $variant={$variant}
+    onClick={onClick}
+    $width={$width}
+    type={type}
+  >
     {children}
   </StyledButton>
 );

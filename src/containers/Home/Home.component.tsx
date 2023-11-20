@@ -47,6 +47,7 @@ type HomeProps = {
   postsWithAuthors: PostWithAuthor[];
   followingUsers: User[];
   user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
   allUsers: User[];
 };
 
@@ -55,6 +56,7 @@ const Home = ({
   followingUsers,
   user,
   allUsers,
+  setUser,
 }: HomeProps) => {
   const navigate = useNavigate();
 
@@ -97,7 +99,9 @@ const Home = ({
             onInputChange={() => console.log('typed')}
           />
         </Box>
-        <EditProfile />
+        <Box onClick={userNotLoggedInRedirect}>
+          <EditProfile user={user} setUser={setUser} />
+        </Box>
       </Box>
 
       <Box onClick={userNotLoggedInRedirect}>

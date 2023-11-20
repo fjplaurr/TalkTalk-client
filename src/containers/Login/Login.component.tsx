@@ -7,6 +7,7 @@ import Card from './components/Card';
 import { login } from '../../endpoints/auth';
 import { getSingle } from '../../endpoints/user';
 import { User } from '../../interfaces';
+import { saveUser } from '../../helpers/localStorage';
 
 const PageContainer = styled(Box)`
   min-height: 100vh;
@@ -52,6 +53,7 @@ const Login = ({ setUser }: LoginProps) => {
     });
 
     if (!res.errors) {
+      saveUser({ token: res.accessToken, id: res.user._id });
       setUser(res.user);
       navigate('/');
     } else {

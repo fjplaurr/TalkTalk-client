@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import Home from './Home.component';
 
 test('renders learn react link', () => {
-  render(<Home />);
+  render(<Home setUser={jest.fn()} />);
   const text = screen.getByText('This is a template for React in Typescript');
   expect(text).toBeInTheDocument();
 });
