@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getSingle, getAll as getAllUsers } from '../../endpoints/user';
-import { getAll as getAllPosts } from '../../endpoints/post';
+import {
+  getSingle,
+  getAll as getAllUsers,
+  update as updateUser,
+} from '../../endpoints/user';
+import {
+  getAll as getAllPosts,
+  create as createPost,
+} from '../../endpoints/post';
 import { User, Post } from '../../interfaces';
 
 export type PostWithAuthor = { post: Post } & { author: User };
@@ -64,6 +71,65 @@ const withData = (WrappedComponent: any) =>
       fetchUsers();
     }, [user]);
 
+    const createNewPost = async (text: string) => {
+      if (user) {
+        const newPost = {
+          text,
+          date: new Date(),
+          authorId: user._id,
+        };
+
+        const newPostId = await createPost(newPost);
+
+        const newPostWithAuthor: PostWithAuthor = {
+          post: { ...newPost, _id: newPostId },
+          author: user,
+        };
+
+        setPostsWithAuthors((prev) => {
+          if (prev) {
+            return [newPostWithAuthor, ...prev];
+          }
+          return [newPostWithAuthor];
+        });
+      }
+    };
+
+    const updateUserFollowing = async (
+      followingUserId: string,
+      action: 'follow' | 'unfollow',
+    ) => {
+      if (!user) return;
+
+      let updatedFollowingUsers = user.followingUsers || [];
+
+      if (
+        action === 'follow' &&
+        !updatedFollowingUsers.includes(followingUserId)
+      ) {
+        updatedFollowingUsers = [...updatedFollowingUsers, followingUserId];
+      } else if (action === 'unfollow') {
+        updatedFollowingUsers = updatedFollowingUsers.filter(
+          (id) => id !== followingUserId,
+        );
+      }
+
+      await updateUser(user._id, { followingUsers: updatedFollowingUsers });
+
+      setUser({
+        ...user,
+        followingUsers: updatedFollowingUsers,
+      });
+    };
+
+    const handleFollowClick = (id: string) => {
+      if (user && user.followingUsers.includes(id)) {
+        updateUserFollowing(id, 'unfollow');
+      } else {
+        updateUserFollowing(id, 'follow');
+      }
+    };
+
     return (
       <WrappedComponent
         postsWithAuthors={postsWithAuthors}
@@ -71,6 +137,8 @@ const withData = (WrappedComponent: any) =>
         user={user}
         setUser={setUser}
         allUsers={allUsers}
+        createNewPost={createNewPost}
+        onFollowClick={handleFollowClick}
       />
     );
   };

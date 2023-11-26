@@ -14,9 +14,43 @@ export default {
   argTypes,
 } as ComponentMeta<typeof SearchBar>;
 
-const Template: ComponentStory<typeof SearchBar> = () => (
-  <SearchBar elements={users} renderElement={renderUser} />
-);
+const Template: ComponentStory<typeof SearchBar> = () => {
+  const [searchBarFilter, setSearchBarFilter] = React.useState('');
+
+  // filter elements using its firstName or lastName by searchBarFilter
+  const lowerCaseSearchBarFilter = searchBarFilter.toLocaleLowerCase();
+  const filteredSearchBarUsers = users.filter((u) => {
+    const lowerCaseFirstName = u.name.toLocaleLowerCase();
+    const lowerCaseLastName = u.surname.toLocaleLowerCase();
+
+    if (lowerCaseSearchBarFilter === '') return false;
+
+    return (
+      lowerCaseFirstName.includes(lowerCaseSearchBarFilter) ||
+      lowerCaseLastName.includes(lowerCaseSearchBarFilter) ||
+      `${lowerCaseFirstName} ${lowerCaseLastName}`.includes(
+        lowerCaseSearchBarFilter,
+      )
+    );
+  });
+
+  const usersForSearchBar = filteredSearchBarUsers.map((u) => ({
+    id: u.id,
+    isFollowed: true,
+    name: u.name,
+    surname: u.surname,
+    pictureSrc: u.pictureSrc,
+    text: u.text,
+  }));
+
+  return (
+    <SearchBar
+      elements={usersForSearchBar}
+      renderElement={renderUser}
+      onInputChange={(value) => setSearchBarFilter(value)}
+    />
+  );
+};
 
 const renderUser = (user: Element) => (
   <ProfileCard
@@ -25,6 +59,7 @@ const renderUser = (user: Element) => (
     pictureSrc={user.pictureSrc}
     surname={user.surname}
     text={user.text}
+    onFollowClick={() => console.log('clicked')}
   />
 );
 

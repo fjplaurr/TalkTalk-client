@@ -19,9 +19,12 @@ const SearchBar = <T,>({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setIsOpen(event.target.value !== '');
     onInputChange?.(event.target.value);
   };
+
+  React.useEffect(() => {
+    setIsOpen(elements.length > 0);
+  }, [elements]);
 
   const popoverContent = (
     <List elements={elements} renderElement={renderElement} />

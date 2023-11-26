@@ -7,6 +7,7 @@ import Theme from '../themes';
 
 const argTypes = {
   onInputChange: { action: 'typed' },
+  onFollowClick: { action: 'clicked' },
 };
 
 export default {

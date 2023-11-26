@@ -15,7 +15,9 @@ export const getAll = (): Promise<Post[]> => get(`${url}`, headers);
 export const getSingle = (id: string) => get(`${url}${id}`, headers);
 
 // Post
-export const create = (message: Post) => post(`${url}`, message, headers);
+interface CreatePostPayload extends Pick<Post, 'text' | 'authorId' | 'date'> {}
+export const create = (message: CreatePostPayload) =>
+  post(`${url}`, message, headers);
 
 // Put
 export const update = (message: Post) =>

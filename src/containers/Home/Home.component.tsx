@@ -25,16 +25,6 @@ type UserForSearchBar = {
   text: string;
 };
 
-const searchBarRenderElement = (user: UserForSearchBar) => (
-  <ProfileCard
-    isFollowed={user.isFollowed}
-    name={user.name}
-    pictureSrc={user.pictureSrc}
-    surname={user.surname}
-    text={user.text}
-  />
-);
-
 const PageContainer = styled(Box)`
   padding-inline: 4vw;
 
@@ -49,6 +39,8 @@ type HomeProps = {
   user: User;
   setUser: React.Dispatch<React.SetStateAction<User>>;
   allUsers: User[];
+  createNewPost: (text: string) => void;
+  onFollowClick: (id: string) => void;
 };
 
 const Home = ({
@@ -57,10 +49,25 @@ const Home = ({
   user,
   allUsers,
   setUser,
+  createNewPost,
+  onFollowClick,
 }: HomeProps) => {
   const navigate = useNavigate();
 
   const isLoggedIn = Boolean(user);
+  const [searchBarFilter, setSearchBarFilter] = React.useState('');
+  const [newPostText, setNewPostText] = React.useState('');
+
+  const searchBarRenderElement = (userForSearchBar: UserForSearchBar) => (
+    <ProfileCard
+      isFollowed={userForSearchBar.isFollowed}
+      name={userForSearchBar.name}
+      pictureSrc={userForSearchBar.pictureSrc}
+      surname={userForSearchBar.surname}
+      text={userForSearchBar.text}
+      onFollowClick={() => onFollowClick(userForSearchBar.id)}
+    />
+  );
 
   const userNotLoggedInRedirect = () => {
     if (!isLoggedIn) {
@@ -68,14 +75,38 @@ const Home = ({
     }
   };
 
-  const usersForSearchBar: UserForSearchBar[] = allUsers.map((u) => ({
+  // filter allUsers using its firstName or lastName by searchBarFilter
+  const filteredSearchBarUsers = allUsers.filter((u) => {
+    const lowerCaseSearchBarFilter = searchBarFilter.toLocaleLowerCase();
+    if (lowerCaseSearchBarFilter === '') return false;
+
+    const lowerCaseFirstName = u.firstName.toLocaleLowerCase();
+    const lowerCaseLastName = u.lastName.toLocaleLowerCase();
+
+    return (
+      lowerCaseFirstName.includes(lowerCaseSearchBarFilter) ||
+      lowerCaseLastName.includes(lowerCaseSearchBarFilter) ||
+      `${lowerCaseFirstName} ${lowerCaseLastName}`.includes(
+        lowerCaseSearchBarFilter,
+      )
+    );
+  });
+
+  const usersForSearchBar = filteredSearchBarUsers.map((u) => ({
     id: u._id,
-    isFollowed: true,
+    isFollowed: user?.followingUsers.includes(u._id) ?? false,
     name: u.firstName,
     surname: u.lastName,
     pictureSrc: u.pictureSrc,
     text: u.status,
   }));
+
+  const handlePostSend = () => {
+    if (newPostText !== '') {
+      createNewPost(newPostText);
+    }
+    setNewPostText('');
+  };
 
   return (
     <PageContainer
@@ -96,7 +127,7 @@ const Home = ({
           <SearchBar
             elements={usersForSearchBar}
             renderElement={searchBarRenderElement}
-            onInputChange={() => console.log('typed')}
+            onInputChange={(value) => setSearchBarFilter(value)}
           />
         </Box>
         <Box onClick={userNotLoggedInRedirect}>
@@ -106,14 +137,14 @@ const Home = ({
 
       <Box onClick={userNotLoggedInRedirect}>
         <TextArea
-          onChange={(event) => console.log(event.target.value)}
+          onChange={(event) => setNewPostText(event.target.value)}
           placeholder={
             isLoggedIn
               ? 'Do you want to share something?'
               : 'Click Login and start sending messages...'
           }
           $resize="vertical"
-          onSend={() => console.log('a')}
+          onSend={handlePostSend}
           buttonText={isLoggedIn ? 'Send' : 'Login'}
         />
       </Box>
@@ -155,6 +186,7 @@ const Home = ({
                             surname={lastName}
                             text={status}
                             key={_id}
+                            onFollowClick={() => onFollowClick(_id)}
                           />
                         ),
                       )}

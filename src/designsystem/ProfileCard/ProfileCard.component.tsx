@@ -7,6 +7,7 @@ type ProfileCardProps = {
   name: string;
   surname: string;
   text: string;
+  onFollowClick: () => void;
 };
 
 const ProfileCard = ({
@@ -15,6 +16,7 @@ const ProfileCard = ({
   pictureSrc,
   surname,
   text,
+  onFollowClick,
 }: ProfileCardProps) => (
   <Box $display="flex" $alignItems="flex-start" $gap={Theme.setSpace(16)}>
     <Avatar avatar={{ src: pictureSrc, name }} />
@@ -34,7 +36,7 @@ const ProfileCard = ({
     <Box $ml="auto">
       <Button
         $variant={isFollowed ? 'destructive' : 'secondary'}
-        onClick={() => console.log(`Clicked row`)}
+        onClick={onFollowClick}
       >
         {isFollowed ? 'Unfollow' : 'Follow'}
       </Button>
