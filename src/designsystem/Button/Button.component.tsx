@@ -66,6 +66,7 @@ const StyledButton = styled.button<{
     }
   }};
   width: ${({ $width }) => $width && $width};
+  white-space: nowrap;
 `;
 
 const Button = ({ $variant, onClick, children, $width, type }: ButtonProps) => (
