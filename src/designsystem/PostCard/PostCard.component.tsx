@@ -1,5 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Box, Avatar, Text, Theme } from '..';
+import Themes from '../themes';
 
 type PostCardProps = {
   user: {
@@ -12,11 +14,22 @@ type PostCardProps = {
   };
 };
 
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  gap: ${Themes.setSpace(8)};
+  @media (min-width: 40rem) {
+    gap: ${Themes.setSpace(16)};
+  }
+`;
+
 const PostCard = ({
   user: { name, pictureSrc, surname },
   post: { description },
 }: PostCardProps) => (
-  <Box $display="flex" $alignItems="flex-start" $gap={Theme.setSpace(16)}>
+  <StyledContainer>
     <Avatar avatar={{ src: pictureSrc, name }} />
     <Box>
       <Text fontWeight="bold">{`${name} ${surname}`}</Text>
@@ -24,7 +37,7 @@ const PostCard = ({
         {description}
       </Text>
     </Box>
-  </Box>
+  </StyledContainer>
 );
 
 export default PostCard;

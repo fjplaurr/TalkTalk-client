@@ -174,7 +174,6 @@ const EditProfile = ({ user, setUser }: EditProfileProps) => {
         popoverContent={popoverContent}
         popoverTrigger={popoverTrigger}
         $right={0}
-        $width="25vw"
       />
     </SettingsContainer>
   );

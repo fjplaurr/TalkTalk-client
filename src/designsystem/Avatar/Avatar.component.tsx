@@ -11,9 +11,15 @@ type AvatarProps = {
 };
 
 const StyledWrapper = styled.div`
-  height: calc(${themes.minimumSpacing} * 12);
-  min-width: calc(${themes.minimumSpacing} * 12);
-  max-width: calc(${themes.minimumSpacing} * 12);
+  height: calc(${themes.minimumSpacing} * 8);
+  min-width: calc(${themes.minimumSpacing} * 8);
+  max-width: calc(${themes.minimumSpacing} * 8);
+  @media (min-width: 40rem) {
+    height: calc(${themes.minimumSpacing} * 12);
+    min-width: calc(${themes.minimumSpacing} * 12);
+    max-width: calc(${themes.minimumSpacing} * 12);
+  }
+
   background-color: ${themes.colors.midGray};
   border-radius: 50%;
   overflow: hidden;

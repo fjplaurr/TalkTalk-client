@@ -48,9 +48,7 @@ const SearchBar = <T,>({
         isOpen={isOpen}
         popoverTrigger={popoverTrigger}
         setIsOpen={setIsOpen}
-        $width="80%"
-        $left="10%"
-        $right="10%"
+        $width="100%"
       />
     </Box>
   );

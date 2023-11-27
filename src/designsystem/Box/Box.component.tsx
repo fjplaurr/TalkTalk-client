@@ -22,6 +22,7 @@ export type BoxProps = {
   $bottom?: React.CSSProperties['bottom'];
   $left?: React.CSSProperties['left'];
   $zIndex?: React.CSSProperties['zIndex'];
+  className?: string;
 } & PaddingsShortcuts &
   MarginsShortcuts;
 

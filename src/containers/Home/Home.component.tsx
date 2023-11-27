@@ -33,6 +33,14 @@ const PageContainer = styled(Box)`
   }
 `;
 
+const LogoWrapper = styled(Box)`
+  display: none;
+
+  @media (min-width: 40rem) {
+    display: block;
+  }
+`;
+
 type HomeProps = {
   postsWithAuthors: PostWithAuthor[];
   followingUsers: User[];
@@ -121,7 +129,9 @@ const Home = ({
         $gap={Theme.setSpace(24)}
         $justifyContent="center"
       >
-        <Logo color="darkBlue" />
+        <LogoWrapper>
+          <Logo color="darkBlue" />
+        </LogoWrapper>
 
         <Box $flexGrow={1} onClick={userNotLoggedInRedirect}>
           <SearchBar

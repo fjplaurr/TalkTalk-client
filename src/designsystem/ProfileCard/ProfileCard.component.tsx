@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Avatar, Text, Button, Theme } from '..';
+import styled from 'styled-components';
+import { Box, Avatar, Text, Button } from '..';
+import Themes from '../themes';
 
 type ProfileCardProps = {
   isFollowed: boolean;
@@ -10,6 +12,24 @@ type ProfileCardProps = {
   onFollowClick: () => void;
 };
 
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  gap: ${Themes.setSpace(8)};
+  @media (min-width: 40rem) {
+    gap: ${Themes.setSpace(16)};
+  }
+`;
+
+const AvatarWrapper = styled.div`
+  display: none;
+  @media (min-width: 40rem) {
+    display: flex;
+  }
+`;
+
 const ProfileCard = ({
   isFollowed,
   name,
@@ -18,8 +38,10 @@ const ProfileCard = ({
   text,
   onFollowClick,
 }: ProfileCardProps) => (
-  <Box $display="flex" $alignItems="flex-start" $gap={Theme.setSpace(16)}>
-    <Avatar avatar={{ src: pictureSrc, name }} />
+  <StyledContainer>
+    <AvatarWrapper>
+      <Avatar avatar={{ src: pictureSrc, name }} />
+    </AvatarWrapper>
     <Box
       $display="flex"
       $justifyContent="center"
@@ -41,7 +63,7 @@ const ProfileCard = ({
         {isFollowed ? 'Unfollow' : 'Follow'}
       </Button>
     </Box>
-  </Box>
+  </StyledContainer>
 );
 
 export default ProfileCard;

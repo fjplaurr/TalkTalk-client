@@ -3,6 +3,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import SearchBar from './index';
 import ProfileCard from '../ProfileCard';
+import Themes from '../themes';
+import Box from '../Box';
 
 const argTypes = {
   onInputChange: { action: 'typed' },
@@ -53,14 +55,16 @@ const Template: ComponentStory<typeof SearchBar> = () => {
 };
 
 const renderUser = (user: Element) => (
-  <ProfileCard
-    isFollowed={user.isFollowed}
-    name={user.name}
-    pictureSrc={user.pictureSrc}
-    surname={user.surname}
-    text={user.text}
-    onFollowClick={() => console.log('clicked')}
-  />
+  <Box $pt={Themes.setSpace(8)} $pb={Themes.setSpace(8)}>
+    <ProfileCard
+      isFollowed={user.isFollowed}
+      name={user.name}
+      pictureSrc={user.pictureSrc}
+      surname={user.surname}
+      text={user.text}
+      onFollowClick={() => console.log('clicked')}
+    />
+  </Box>
 );
 
 type Element = {
@@ -96,6 +100,14 @@ const users: Element[] = [
     surname: 'Mckey',
     pictureSrc: 'https://placedog.net/130',
     text: 'Loren impsum dolor sit Loren impsum dolor sit amet amet amet',
+  },
+  {
+    id: '25',
+    isFollowed: false,
+    name: 'Andy',
+    surname: 'Corey',
+    pictureSrc: 'https://placedog.net/120',
+    text: 'Loren impsum dolor sit Loren',
   },
 ];
 

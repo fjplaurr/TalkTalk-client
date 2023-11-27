@@ -3,7 +3,6 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import ProfileCard from './index';
 import Box from '../Box';
-import Theme from '../themes';
 
 const argTypes = {
   onInputChange: { action: 'typed' },
@@ -17,7 +16,7 @@ export default {
 } as ComponentMeta<typeof ProfileCard>;
 
 const Template: ComponentStory<typeof ProfileCard> = (args) => (
-  <Box $width={Theme.setSpace(354)}>
+  <Box>
     <ProfileCard {...args} />
   </Box>
 );
