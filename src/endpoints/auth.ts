@@ -1,15 +1,9 @@
 import { post } from '../helpers/fetch';
 import { User } from '../interfaces';
-import { loadUser } from '../helpers/localStorage';
+import { CreateUserPayload } from '../interfaces/user.dto';
 
 // URL
 const url = `${process.env.REACT_APP_API_URL}/auth/`;
-
-// Headers
-const userFromLocalStorage = loadUser();
-const headers = {
-  authorization: `Bearer ${userFromLocalStorage?.token}`,
-};
 
 // Post
 type Error = {
@@ -20,18 +14,17 @@ type Error = {
 };
 
 type SignupOutput = Promise<
-  | { errors: Error[]; user: never; token: never }
-  | { user: User; token: string; errors: never }
+  | { errors: Error[]; accessToken: never; user: never }
+  | { accessToken: string; user: User; errors: never }
 >;
 
-type SignupInput = {
-  email: string;
-  password: string;
-  name: string;
-};
-
-export const signup = ({ email, password, name }: SignupInput): SignupOutput =>
-  post(`${url}signup`, { email, password, name });
+export const signup = ({
+  email,
+  password,
+  firstName,
+  lastName,
+}: CreateUserPayload): SignupOutput =>
+  post(`${url}signup`, { email, password, firstName, lastName });
 
 type LoginOutput = Promise<
   | { errors: string[]; accessToken: never; user: never }
@@ -44,4 +37,4 @@ type LoginInput = {
 };
 
 export const login = ({ email, password }: LoginInput): LoginOutput =>
-  post(`${url}login`, { email, password }, headers);
+  post(`${url}login`, { email, password });

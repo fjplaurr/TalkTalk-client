@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Theme,
@@ -44,11 +43,13 @@ const LogoWrapper = styled(Box)`
 type HomeProps = {
   postsWithAuthors: PostWithAuthor[];
   followingUsers: User[];
-  user: User;
+  user?: User;
   setUser: React.Dispatch<React.SetStateAction<User>>;
   allUsers: User[];
   createNewPost: (text: string) => void;
   onFollowClick: (id: string) => void;
+  redirect?: () => void;
+  accessToken?: string;
 };
 
 const Home = ({
@@ -59,9 +60,9 @@ const Home = ({
   setUser,
   createNewPost,
   onFollowClick,
+  redirect,
+  accessToken,
 }: HomeProps) => {
-  const navigate = useNavigate();
-
   const isLoggedIn = Boolean(user);
   const [searchBarFilter, setSearchBarFilter] = React.useState('');
   const [newPostText, setNewPostText] = React.useState('');
@@ -77,19 +78,13 @@ const Home = ({
     />
   );
 
-  const userNotLoggedInRedirect = () => {
-    if (!isLoggedIn) {
-      navigate('/login');
-    }
-  };
-
   // filter allUsers using its firstName or lastName by searchBarFilter
   const filteredSearchBarUsers = allUsers.filter((u) => {
-    const lowerCaseSearchBarFilter = searchBarFilter.toLocaleLowerCase();
+    const lowerCaseSearchBarFilter = searchBarFilter.toLowerCase();
     if (lowerCaseSearchBarFilter === '') return false;
 
-    const lowerCaseFirstName = u.firstName.toLocaleLowerCase();
-    const lowerCaseLastName = u.lastName.toLocaleLowerCase();
+    const lowerCaseFirstName = u.firstName.toLowerCase();
+    const lowerCaseLastName = u.lastName.toLowerCase();
 
     return (
       lowerCaseFirstName.includes(lowerCaseSearchBarFilter) ||
@@ -133,19 +128,26 @@ const Home = ({
           <Logo color="darkBlue" />
         </LogoWrapper>
 
-        <Box $flexGrow={1} onClick={userNotLoggedInRedirect}>
+        <Box $flexGrow={1} onClick={redirect}>
           <SearchBar
             elements={usersForSearchBar}
             renderElement={searchBarRenderElement}
-            onInputChange={(value) => setSearchBarFilter(value)}
+            onInputChange={(value) => {
+              setSearchBarFilter(value);
+            }}
+            placeholder="Search users"
           />
         </Box>
-        <Box onClick={userNotLoggedInRedirect}>
-          <EditProfile user={user} setUser={setUser} />
+        <Box onClick={redirect}>
+          <EditProfile
+            user={user}
+            setUser={setUser}
+            accessToken={accessToken}
+          />
         </Box>
       </Box>
 
-      <Box onClick={userNotLoggedInRedirect}>
+      <Box onClick={redirect}>
         <TextArea
           onChange={(event) => setNewPostText(event.target.value)}
           placeholder={
@@ -158,7 +160,7 @@ const Home = ({
           buttonText={isLoggedIn ? 'Send' : 'Login'}
         />
       </Box>
-      <Box onClick={userNotLoggedInRedirect}>
+      <Box onClick={redirect}>
         {postsWithAuthors && (
           <Card>
             <TabProvider
@@ -213,3 +215,4 @@ const Home = ({
 };
 
 export default withData(Home);
+export { Home };

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   getSingle,
   getAll as getAllUsers,
@@ -15,14 +16,28 @@ export type PostWithAuthor = { post: Post } & { author: User };
 type WithDataWrapperProps = {
   user?: User;
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  accessToken?: string;
 };
 
 const withData = (WrappedComponent: any) =>
-  function WithDataWrapper({ user, setUser }: WithDataWrapperProps) {
+  function WithDataWrapper({
+    user,
+    setUser,
+    accessToken,
+  }: WithDataWrapperProps) {
     const [postsWithAuthors, setPostsWithAuthors] =
       useState<PostWithAuthor[]>();
     const [followingUsers, setFollowingUsers] = useState<User[]>([]);
     const [allUsers, setAllUsers] = useState<User[]>([]);
+
+    const navigate = useNavigate();
+
+    const redirect = () => {
+      const isLoggedIn = Boolean(user);
+      if (!isLoggedIn) {
+        navigate('/login');
+      }
+    };
 
     useEffect(() => {
       async function fetchPosts() {
@@ -139,6 +154,8 @@ const withData = (WrappedComponent: any) =>
         allUsers={allUsers}
         createNewPost={createNewPost}
         onFollowClick={handleFollowClick}
+        redirect={redirect}
+        accessToken={accessToken}
       />
     );
   };

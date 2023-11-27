@@ -17,6 +17,7 @@ import { updateAvatar } from '../../../../endpoints/me';
 type EditProfileProps = {
   user?: User;
   setUser: React.Dispatch<React.SetStateAction<User>>;
+  accessToken?: string;
 };
 
 const SettingsContainer = styled(Box)`
@@ -34,7 +35,7 @@ const StyledForm = styled.form`
   gap: ${Theme.setSpace(16)};
 `;
 
-const EditProfile = ({ user, setUser }: EditProfileProps) => {
+const EditProfile = ({ user, setUser, accessToken }: EditProfileProps) => {
   // State for the form
   const [name, setName] = React.useState(user?.firstName);
   const [surname, setSurname] = React.useState(user?.lastName);
@@ -81,7 +82,7 @@ const EditProfile = ({ user, setUser }: EditProfileProps) => {
       dirtyFields.includes(field),
     );
     const promises = Promise.all([
-      shouldUpdateAvatar && updateAvatar(avatarFile!),
+      shouldUpdateAvatar && updateAvatar(avatarFile!, accessToken!),
       shouldUpdateUser && update(user!._id, userFieldsPayload),
     ]);
 
@@ -156,7 +157,9 @@ const EditProfile = ({ user, setUser }: EditProfileProps) => {
       <AvatarWrapper onClick={handleClick}>
         <Avatar
           avatar={
-            user ? { src: user.pictureSrc, name: user.firstName } : undefined
+            user?.pictureSrc
+              ? { src: user.pictureSrc, name: user.firstName }
+              : undefined
           }
         />
       </AvatarWrapper>

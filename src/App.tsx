@@ -6,15 +6,16 @@ import { User } from './interfaces';
 
 const App = () => {
   const [user, setUser] = useState<User>();
+  const [accessToken, setAccessToken] = useState<string>();
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Home user={user} setUser={setUser} />,
+      element: <Home user={user} setUser={setUser} accessToken={accessToken} />,
     },
     {
       path: '/login',
-      element: <Login setUser={setUser} />,
+      element: <Login setUser={setUser} setAccessToken={setAccessToken} />,
     },
   ]);
 

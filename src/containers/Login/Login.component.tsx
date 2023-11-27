@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Box, Text, Theme, TextInput, Button } from '../../designsystem';
 import Logo from '../../designsystem/Logo';
 import Card from './components/Card';
-import { withData, LoginPayload, SignupPayload } from './withData';
+import { withData, LoginPayload } from './withData';
+import { CreateUserPayload } from '../../interfaces/user.dto';
 
 const PageContainer = styled(Box)`
   min-height: 100vh;
@@ -33,7 +34,7 @@ const WrapperLogo = styled(Box)`
 
 export type LoginProps = {
   onLoginClick: (payload: LoginPayload) => Promise<void>;
-  onSignupClick: (payload: SignupPayload) => Promise<void>;
+  onSignupClick: (payload: CreateUserPayload) => Promise<void>;
   loginError?: string;
   signupError?: string;
 };
@@ -46,7 +47,8 @@ const Login = ({
 }: LoginProps) => {
   const [loginEmail, setLoginEmail] = React.useState('');
   const [loginPassword, setLoginPassword] = React.useState('');
-  const [signupUsername, setSignupUsername] = React.useState('');
+  const [signupFirstName, setsignupFirstName] = React.useState('');
+  const [signupLastName, setsignupLastName] = React.useState('');
   const [signupEmail, setSignupEmail] = React.useState('');
   const [signupPassword, setSignupPassword] = React.useState('');
 
@@ -55,7 +57,8 @@ const Login = ({
 
   const handleSignupClick = () => {
     onSignupClick({
-      name: signupUsername,
+      firstName: signupFirstName,
+      lastName: signupLastName,
       email: signupEmail,
       password: signupPassword,
     });
@@ -136,10 +139,16 @@ const Login = ({
             {`Don't have an account yet?`}
           </StyledText>
           <TextInput
-            name="username"
-            onChange={(event) => setSignupUsername(event.target.value)}
+            name="firstName"
+            onChange={(event) => setsignupFirstName(event.target.value)}
             type="text"
-            placeholder="Username"
+            placeholder="First name"
+          />
+          <TextInput
+            name="lastName"
+            onChange={(event) => setsignupLastName(event.target.value)}
+            type="text"
+            placeholder="Last name"
           />
           <TextInput
             name="email"
