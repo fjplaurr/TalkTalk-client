@@ -1,13 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { Box, Text, Theme, TextInput, Button } from '../../designsystem';
 import Logo from '../../designsystem/Logo';
 import Card from './components/Card';
-import { login } from '../../endpoints/auth';
-import { getSingle } from '../../endpoints/user';
-import { User } from '../../interfaces';
-import { saveUser } from '../../helpers/localStorage';
+import { withData, LoginPayload, SignupPayload } from './withData';
 
 const PageContainer = styled(Box)`
   min-height: 100vh;
@@ -36,29 +32,33 @@ const WrapperLogo = styled(Box)`
 `;
 
 export type LoginProps = {
-  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  onLoginClick: (payload: LoginPayload) => Promise<void>;
+  onSignupClick: (payload: SignupPayload) => Promise<void>;
+  loginError?: string;
+  signupError?: string;
 };
 
-const Login = ({ setUser }: LoginProps) => {
+const Login = ({
+  onLoginClick,
+  onSignupClick,
+  loginError,
+  signupError,
+}: LoginProps) => {
   const [loginEmail, setLoginEmail] = React.useState('');
   const [loginPassword, setLoginPassword] = React.useState('');
-  const [loginError, setLoginError] = React.useState('');
+  const [signupUsername, setSignupUsername] = React.useState('');
+  const [signupEmail, setSignupEmail] = React.useState('');
+  const [signupPassword, setSignupPassword] = React.useState('');
 
-  const navigate = useNavigate();
+  const handleLoginClick = () =>
+    onLoginClick({ email: loginEmail, password: loginPassword });
 
-  const handleLoginClick = async () => {
-    const res = await login({
-      email: loginEmail,
-      password: loginPassword,
+  const handleSignupClick = () => {
+    onSignupClick({
+      name: signupUsername,
+      email: signupEmail,
+      password: signupPassword,
     });
-
-    if (!res.errors) {
-      saveUser({ token: res.accessToken, id: res.user._id });
-      setUser(res.user);
-      navigate('/');
-    } else {
-      setLoginError('Invalid email and/or password');
-    }
   };
 
   return (
@@ -137,27 +137,35 @@ const Login = ({ setUser }: LoginProps) => {
           </StyledText>
           <TextInput
             name="username"
-            onChange={(event) => console.log(event.target.value)}
+            onChange={(event) => setSignupUsername(event.target.value)}
             type="text"
             placeholder="Username"
           />
           <TextInput
             name="email"
-            onChange={(event) => console.log(event.target.value)}
+            onChange={(event) => setSignupEmail(event.target.value)}
             type="email"
             placeholder="Email"
           />
           <TextInput
             name="password"
-            onChange={(event) => console.log(event.target.value)}
+            onChange={(event) => setSignupPassword(event.target.value)}
             type="password"
             placeholder="Password"
           />
-          <Button $variant="primary">Register</Button>
+          {signupError && (
+            <Text color="darkRed" fontSize="regular" fontWeight="regular">
+              {signupError}
+            </Text>
+          )}
+          <Button $variant="primary" onClick={handleSignupClick}>
+            Register
+          </Button>
         </Card>
       </Box>
     </PageContainer>
   );
 };
 
-export default Login;
+export default withData(Login);
+export { Login };

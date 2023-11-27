@@ -2,12 +2,15 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { signup } from '../../endpoints/auth';
-import Login, { LoginProps } from './Login.component';
+import { LoginProps, Login } from './Login.component';
 
 const mockedSignUp = signup as jest.MockedFunction<typeof signup>;
 
 const props: LoginProps = {
-  setUser: jest.fn(),
+  onLoginClick: jest.fn(),
+  loginError: undefined,
+  onSignupClick: jest.fn(),
+  signupError: undefined,
 };
 
 test('Renders a title, a subtitle and two logos', () => {

@@ -12,13 +12,13 @@ import { User, Post } from '../../interfaces';
 
 export type PostWithAuthor = { post: Post } & { author: User };
 
-type HomeProps = {
+type WithDataWrapperProps = {
   user?: User;
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 };
 
 const withData = (WrappedComponent: any) =>
-  function WithDataWrapper({ user, setUser }: HomeProps) {
+  function WithDataWrapper({ user, setUser }: WithDataWrapperProps) {
     const [postsWithAuthors, setPostsWithAuthors] =
       useState<PostWithAuthor[]>();
     const [followingUsers, setFollowingUsers] = useState<User[]>([]);

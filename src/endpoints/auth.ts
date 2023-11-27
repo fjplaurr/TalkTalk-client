@@ -12,17 +12,36 @@ const headers = {
 };
 
 // Post
-export const signup: (user: User) => Promise<{ user: User; token: string }> = (
-  user,
-) => post(`${url}signup`, user);
+type Error = {
+  value: string;
+  msg: string;
+  param: string;
+  location: string;
+};
 
-export const login = ({
-  email,
-  password,
-}: {
+type SignupOutput = Promise<
+  | { errors: Error[]; user: never; token: never }
+  | { user: User; token: string; errors: never }
+>;
+
+type SignupInput = {
   email: string;
   password: string;
-}): Promise<
+  name: string;
+};
+
+export const signup = ({ email, password, name }: SignupInput): SignupOutput =>
+  post(`${url}signup`, { email, password, name });
+
+type LoginOutput = Promise<
   | { errors: string[]; accessToken: never; user: never }
   | { accessToken: string; user: User; errors: never }
-> => post(`${url}login`, { email, password }, headers);
+>;
+
+type LoginInput = {
+  email: string;
+  password: string;
+};
+
+export const login = ({ email, password }: LoginInput): LoginOutput =>
+  post(`${url}login`, { email, password }, headers);
