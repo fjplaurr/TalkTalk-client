@@ -9,12 +9,14 @@ type SearchBarProps<T> = {
   elements: Array<ObjectWithId<T>>;
   onInputChange?: (value: string) => void;
   renderElement: (element: ObjectWithId<T>) => JSX.Element;
+  placeholder?: string;
 };
 
 const SearchBar = <T,>({
   elements,
   onInputChange,
   renderElement,
+  placeholder,
 }: SearchBarProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,7 +38,7 @@ const SearchBar = <T,>({
       type="text"
       name="searchBar"
       showSearchIcon
-      placeholder="Placeholder"
+      placeholder={placeholder || ''}
       $width="100%"
     />
   );

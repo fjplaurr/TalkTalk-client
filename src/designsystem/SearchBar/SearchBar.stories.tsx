@@ -50,6 +50,7 @@ const Template: ComponentStory<typeof SearchBar> = () => {
       elements={usersForSearchBar}
       renderElement={renderUser}
       onInputChange={(value) => setSearchBarFilter(value)}
+      placeholder="Search users"
     />
   );
 };
