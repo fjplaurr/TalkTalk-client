@@ -40,7 +40,7 @@ const LogoWrapper = styled(Box)`
   }
 `;
 
-type HomeProps = {
+export type HomeProps = {
   postsWithAuthors: PostWithAuthor[];
   followingUsers: User[];
   user?: User;
@@ -190,17 +190,20 @@ const Home = ({
                   content: (
                     <>
                       {followingUsers.map(
-                        ({ _id, firstName, pictureSrc, lastName, status }) => (
-                          <ProfileCard
-                            isFollowed
-                            name={firstName}
-                            pictureSrc={pictureSrc}
-                            surname={lastName}
-                            text={status}
-                            key={_id}
-                            onFollowClick={() => onFollowClick(_id)}
-                          />
-                        ),
+                        ({ _id, firstName, pictureSrc, lastName, status }) => {
+                          console.log('gonna render')
+                          return (
+                            <ProfileCard
+                              isFollowed
+                              name={firstName}
+                              pictureSrc={pictureSrc}
+                              surname={lastName}
+                              text={status}
+                              key={_id}
+                              onFollowClick={() => onFollowClick(_id)}
+                            />
+                          );
+                        },
                       )}
                     </>
                   ),
