@@ -63,6 +63,7 @@ const renderUser = (user: Element) => (
       pictureSrc={user.pictureSrc}
       surname={user.surname}
       text={user.text}
+      // eslint-disable-next-line no-console
       onFollowClick={() => console.log('clicked')}
     />
   </Box>

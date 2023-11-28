@@ -26,6 +26,7 @@ Default.args = {
 export const WithSubmitButton = Template.bind({});
 WithSubmitButton.args = {
   placeholder: 'Placeholder',
+  // eslint-disable-next-line no-console
   onSend: () => console.log('submitted'),
   $resize: 'vertical',
   buttonText: 'Send',

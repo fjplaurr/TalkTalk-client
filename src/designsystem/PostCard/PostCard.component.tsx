@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Box, Avatar, Text, Theme } from '..';
+import { Box, Avatar, Text } from '..';
 import Themes from '../themes';
 
 type PostCardProps = {

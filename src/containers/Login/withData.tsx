@@ -44,7 +44,6 @@ const withData = (WrappedComponent: any) =>
       const res = await signup(payload);
       if (!res.errors) {
         saveUser({ token: res.accessToken, id: res.user._id });
-        console.log('res.accessToken', res.accessToken)
         setAccessToken(res.accessToken);
         setUser(res.user);
         navigate('/');
