@@ -72,7 +72,7 @@ const minimumSpacing = '4px';
 const minimumBorderRadius = '4px';
 const fontFamily = 'lato, sans-serif';
 
-type ColorKeys = keyof typeof colors;
+type ColorKeys = keyof typeof colors; //
 
 export default {
   setSpace,
