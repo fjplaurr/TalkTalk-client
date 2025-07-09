@@ -94,6 +94,7 @@
       "error",
       { "namedComponents": "arrow-function" }
     ],
-    "import/order": "warn" // Change the severity level here
+    "import/order": "warn",
+    "arrow-body-style": ["warn", "as-needed"]
   }
 }
