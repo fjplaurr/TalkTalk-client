@@ -44,7 +44,7 @@ export type HomeProps = {
   postsWithAuthors: PostWithAuthor[];
   followingUsers: User[];
   user?: User;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
   allUsers: User[];
   createNewPost: (text: string) => void;
   onFollowClick: (id: string) => void;
@@ -52,7 +52,7 @@ export type HomeProps = {
   accessToken?: string;
 };
 
-const Home = ({
+const Home: React.FC<HomeProps> = ({
   postsWithAuthors,
   followingUsers,
   user,
@@ -62,7 +62,7 @@ const Home = ({
   onFollowClick,
   redirect,
   accessToken,
-}: HomeProps) => {
+}) => {
   const isLoggedIn = Boolean(user);
   const [searchBarFilter, setSearchBarFilter] = React.useState('');
   const [newPostText, setNewPostText] = React.useState('');

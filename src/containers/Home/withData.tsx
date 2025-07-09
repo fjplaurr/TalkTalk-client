@@ -10,8 +10,9 @@ import {
   create as createPost,
 } from '../../endpoints/post';
 import { User, Post } from '../../interfaces';
+import type { HomeProps } from './Home.component';
 
-export type PostWithAuthor = { post: Post } & { author: User };
+export type PostWithAuthor = { post: Post; author: User };
 
 type WithDataWrapperProps = {
   user?: User;
@@ -19,14 +20,19 @@ type WithDataWrapperProps = {
   accessToken?: string;
 };
 
-const withData = (WrappedComponent: any) =>
+type WithData = (
+  WrappedComponent: React.ComponentType<HomeProps>,
+) => React.ComponentType<WithDataWrapperProps>;
+
+const withData: WithData = (WrappedComponent) =>
   function WithDataWrapper({
     user,
     setUser,
     accessToken,
   }: WithDataWrapperProps) {
-    const [postsWithAuthors, setPostsWithAuthors] =
-      useState<PostWithAuthor[]>();
+    const [postsWithAuthors, setPostsWithAuthors] = useState<PostWithAuthor[]>(
+      [],
+    );
     const [followingUsers, setFollowingUsers] = useState<User[]>([]);
     const [allUsers, setAllUsers] = useState<User[]>([]);
 

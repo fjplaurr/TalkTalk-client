@@ -4,6 +4,7 @@ import { User, Post } from '../../interfaces';
 import { CreateUserPayload } from '../../interfaces/user.dto';
 import { login, signup } from '../../endpoints/auth';
 import { saveUser } from '../../helpers/localStorage';
+import type { LoginProps } from './Login.component';
 
 export type PostWithAuthor = { post: Post } & { author: User };
 
@@ -17,7 +18,11 @@ export type LoginPayload = {
   password: string;
 };
 
-const withData = (WrappedComponent: any) =>
+type WithData = (
+  WrappedComponent: React.ComponentType<LoginProps>,
+) => React.ComponentType<WithDataWrapperProps>;
+
+const withData: WithData = (WrappedComponent) =>
   function WithDataWrapper({ setUser, setAccessToken }: WithDataWrapperProps) {
     const [loginError, setLoginError] = React.useState('');
     const [signupError, setSignupError] = React.useState('');

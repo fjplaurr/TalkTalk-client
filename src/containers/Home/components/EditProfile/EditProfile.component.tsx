@@ -16,7 +16,7 @@ import { updateAvatar } from '../../../../endpoints/me';
 
 type EditProfileProps = {
   user?: User;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
   accessToken?: string;
 };
 

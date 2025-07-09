@@ -5,6 +5,8 @@ import Logo from '../../designsystem/Logo';
 import Card from './components/Card';
 import { withData, LoginPayload } from './withData';
 import { CreateUserPayload } from '../../interfaces/user.dto';
+import LoginCard from './components/LoginCard';
+import SignupCard from './components/SignupCard';
 
 const PageContainer = styled(Box)`
   min-height: 100vh;
@@ -45,25 +47,6 @@ const Login = ({
   loginError,
   signupError,
 }: LoginProps) => {
-  const [loginEmail, setLoginEmail] = React.useState('');
-  const [loginPassword, setLoginPassword] = React.useState('');
-  const [signupFirstName, setsignupFirstName] = React.useState('');
-  const [signupLastName, setsignupLastName] = React.useState('');
-  const [signupEmail, setSignupEmail] = React.useState('');
-  const [signupPassword, setSignupPassword] = React.useState('');
-
-  const handleLoginClick = () =>
-    onLoginClick({ email: loginEmail, password: loginPassword });
-
-  const handleSignupClick = () => {
-    onSignupClick({
-      firstName: signupFirstName,
-      lastName: signupLastName,
-      email: signupEmail,
-      password: signupPassword,
-    });
-  };
-
   return (
     <PageContainer $display="flex">
       <BrandPresenter
@@ -109,68 +92,9 @@ const Login = ({
         <WrapperLogo>
           <Logo color="darkBlue" />
         </WrapperLogo>
-        <Card>
-          <StyledText fontSize="large" fontWeight="bold" color="midBlack">
-            Login
-          </StyledText>
-          <TextInput
-            name="email"
-            onChange={(event) => setLoginEmail(event.target.value)}
-            type="email"
-            placeholder="Email"
-          />
-          <TextInput
-            name="password"
-            onChange={(event) => setLoginPassword(event.target.value)}
-            type="password"
-            placeholder="Password"
-          />
-          {loginError && (
-            <Text color="darkRed" fontSize="regular" fontWeight="regular">
-              {loginError}
-            </Text>
-          )}
-          <Button $variant="primary" onClick={handleLoginClick}>
-            Login
-          </Button>
-        </Card>
-        <Card>
-          <StyledText fontSize="large" fontWeight="bold" color="midBlack">
-            {`Don't have an account yet?`}
-          </StyledText>
-          <TextInput
-            name="firstName"
-            onChange={(event) => setsignupFirstName(event.target.value)}
-            type="text"
-            placeholder="First name"
-          />
-          <TextInput
-            name="lastName"
-            onChange={(event) => setsignupLastName(event.target.value)}
-            type="text"
-            placeholder="Last name"
-          />
-          <TextInput
-            name="email"
-            onChange={(event) => setSignupEmail(event.target.value)}
-            type="email"
-            placeholder="Email"
-          />
-          <TextInput
-            name="password"
-            onChange={(event) => setSignupPassword(event.target.value)}
-            type="password"
-            placeholder="Password"
-          />
-          {signupError && (
-            <Text color="darkRed" fontSize="regular" fontWeight="regular">
-              {signupError}
-            </Text>
-          )}
-          <Button $variant="primary" onClick={handleSignupClick}>
-            Register
-          </Button>
-        </Card>
+
+        <LoginCard onLoginClick={onLoginClick} loginError={loginError} />
+        <SignupCard onSignupClick={onSignupClick} signupError={signupError} />
       </Box>
     </PageContainer>
   );
