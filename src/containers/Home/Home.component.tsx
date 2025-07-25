@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   Box,
@@ -14,6 +14,7 @@ import { User } from '../../interfaces';
 import Card from './components/Card';
 import EditProfile from './components/EditProfile';
 import { PostWithAuthor, withData } from './withData';
+import { useUser } from '../../providers/UserProvider';
 
 type UserForSearchBar = {
   id: string;
@@ -43,29 +44,25 @@ const LogoWrapper = styled(Box)`
 export type HomeProps = {
   postsWithAuthors: PostWithAuthor[];
   followingUsers: User[];
-  user?: User;
-  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
   allUsers: User[];
   createNewPost: (text: string) => void;
   onFollowClick: (id: string) => void;
   redirect?: () => void;
-  accessToken?: string;
 };
 
 const Home: React.FC<HomeProps> = ({
   postsWithAuthors,
   followingUsers,
-  user,
   allUsers,
-  setUser,
   createNewPost,
   onFollowClick,
   redirect,
-  accessToken,
 }) => {
+  const { user, setUser, accessToken } = useUser();
   const isLoggedIn = Boolean(user);
-  const [searchBarFilter, setSearchBarFilter] = React.useState('');
-  const [newPostText, setNewPostText] = React.useState('');
+
+  const [searchBarFilter, setSearchBarFilter] = useState('');
+  const [newPostText, setNewPostText] = useState('');
 
   const searchBarRenderElement = (userForSearchBar: UserForSearchBar) => (
     <ProfileCard
@@ -215,4 +212,4 @@ const Home: React.FC<HomeProps> = ({
 };
 
 export default withData(Home);
-export { Home };
+// export default Home;

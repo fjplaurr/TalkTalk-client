@@ -11,25 +11,20 @@ import {
 } from '../../endpoints/post';
 import { User, Post } from '../../interfaces';
 import type { HomeProps } from './Home.component';
+import { useUser } from '../../providers/UserProvider';
 
 export type PostWithAuthor = { post: Post; author: User };
 
-type WithDataWrapperProps = {
-  user?: User;
-  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
-  accessToken?: string;
-};
+type WithDataWrapperProps = {};
 
 type WithData = (
   WrappedComponent: React.ComponentType<HomeProps>,
 ) => React.ComponentType<WithDataWrapperProps>;
 
 const withData: WithData = (WrappedComponent) =>
-  function WithDataWrapper({
-    user,
-    setUser,
-    accessToken,
-  }: WithDataWrapperProps) {
+  // eslint-disable-next-line no-empty-pattern
+  function WithDataWrapper({}: WithDataWrapperProps) {
+    const { user, setUser } = useUser();
     const [postsWithAuthors, setPostsWithAuthors] = useState<PostWithAuthor[]>(
       [],
     );
@@ -155,13 +150,10 @@ const withData: WithData = (WrappedComponent) =>
       <WrappedComponent
         postsWithAuthors={postsWithAuthors}
         followingUsers={followingUsers}
-        user={user}
-        setUser={setUser}
         allUsers={allUsers}
         createNewPost={createNewPost}
         onFollowClick={handleFollowClick}
         redirect={redirect}
-        accessToken={accessToken}
       />
     );
   };

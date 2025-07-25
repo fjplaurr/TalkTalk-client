@@ -21,7 +21,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User>();
   const [accessToken, setAccessToken] = useState<string>();
 
-  const memoizedValue: ContextValue = useMemo(
+  const memoizedContextValue: ContextValue = useMemo(
     () => ({
       user,
       setUser,
@@ -32,7 +32,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <UserProviderContext.Provider value={memoizedValue}>
+    <UserProviderContext.Provider value={memoizedContextValue}>
       {children}
     </UserProviderContext.Provider>
   );
