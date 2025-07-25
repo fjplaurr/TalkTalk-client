@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 import { TextInput, Button, Text } from '../../../../designsystem';
 import Card from '../Card';
-import { LoginPayload } from '../../withData';
-import { useNavigate } from 'react-router';
 import { login } from '../../../../endpoints/auth';
 import { saveUser } from '../../../../helpers/localStorage';
 import { useUser } from '../../../../providers/UserProvider';
@@ -11,6 +10,11 @@ import { useUser } from '../../../../providers/UserProvider';
 const StyledText = styled(Text)`
   text-align: center;
 `;
+
+type LoginPayload = {
+  email: string;
+  password: string;
+};
 
 const LoginCard = () => {
   const [loginEmail, setLoginEmail] = useState('');
@@ -22,20 +26,16 @@ const LoginCard = () => {
   const navigate = useNavigate();
 
   const handleLoginClick = async (payload: LoginPayload) => {
-    console.log('calling with', payload);
     const { errors, accessToken, user } = await login({
       email: payload.email,
       password: payload.password,
     });
 
     if (!errors) {
-      console.log('gonna')
       saveUser({ token: accessToken, id: user._id });
       setAccessToken(accessToken);
       setUser(user);
-      console.log('call')
       navigate('/');
-      console.log('navigate', navigate)
     } else {
       setLoginError('Invalid email and/or password');
     }

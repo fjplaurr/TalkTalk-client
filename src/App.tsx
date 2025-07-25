@@ -14,7 +14,7 @@ const App = () => {
     },
     {
       path: '/login',
-      element: <Login setUser={setUser} setAccessToken={setAccessToken} />,
+      element: <Login />,
     },
   ]);
 

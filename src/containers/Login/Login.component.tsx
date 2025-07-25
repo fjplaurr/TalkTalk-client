@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Box, Text, Theme, TextInput, Button } from '../../designsystem';
+import { Box, Text, Theme } from '../../designsystem';
 import Logo from '../../designsystem/Logo';
-import Card from './components/Card';
-import { withData, LoginPayload } from './withData';
-import { CreateUserPayload } from '../../interfaces/user.dto';
 import LoginCard from './components/LoginCard';
 import SignupCard from './components/SignupCard';
 
@@ -23,10 +20,6 @@ const StyledSpan = styled.span`
   color: ${Theme.colors.midPink};
 `;
 
-const StyledText = styled(Text)`
-  text-align: center;
-`;
-
 const WrapperLogo = styled(Box)`
   display: block;
   @media (min-width: 40rem) {
@@ -34,71 +27,56 @@ const WrapperLogo = styled(Box)`
   }
 `;
 
-export type LoginProps = {
-  // onLoginClick: (payload: LoginPayload) => Promise<void>;
-  // onSignupClick: (payload: CreateUserPayload) => Promise<void>;
-  // loginError?: string;
-  // signupError?: string;
-};
-
-const Login = ({
-  // onLoginClick,
-  // onSignupClick,
-  // loginError,
-  // signupError,
-}: LoginProps) => {
-  return (
-    <PageContainer $display="flex">
-      <BrandPresenter
-        $pl={`min(4vw, ${Theme.setSpace(56)})`}
-        $pr={`min(4vw, ${Theme.setSpace(56)})`}
-        $backgroundColor="darkBlue"
-        $flexDirection="column"
-        $justifyContent="center"
-        $gap={Theme.setSpace(48)}
-        $flex={1}
-      >
-        <Box
-          $position="absolute"
-          $top={Theme.setSpace(56)}
-          className="logoWrapper"
-        >
-          <Logo color="white" />
-        </Box>
-        <Text
-          fontWeight="semibold"
-          as="h1"
-          color="white"
-          fontSize="extraextralarge"
-        >
-          Join open discussions
-          <StyledSpan>.</StyledSpan>
-        </Text>
-        <Text fontSize="large" fontWeight="regular" as="h2" color="white">
-          TalkTalk let you share your thoughts and make new connections
-          <StyledSpan>.</StyledSpan>
-        </Text>
-      </BrandPresenter>
+const Login = () => (
+  <PageContainer $display="flex">
+    <BrandPresenter
+      $pl={`min(4vw, ${Theme.setSpace(56)})`}
+      $pr={`min(4vw, ${Theme.setSpace(56)})`}
+      $backgroundColor="darkBlue"
+      $flexDirection="column"
+      $justifyContent="center"
+      $gap={Theme.setSpace(48)}
+      $flex={1}
+    >
       <Box
-        $display="flex"
-        $flexDirection="column"
-        $alignItems="center"
-        $justifyContent="center"
-        $flex={3}
-        $gap={Theme.setSpace(32)}
-        $mt={Theme.setSpace(32)}
-        $mb={Theme.setSpace(32)}
+        $position="absolute"
+        $top={Theme.setSpace(56)}
+        className="logoWrapper"
       >
-        <WrapperLogo>
-          <Logo color="darkBlue" />
-        </WrapperLogo>
-
-        <LoginCard />
-        <SignupCard />
+        <Logo color="white" />
       </Box>
-    </PageContainer>
-  );
-};
+      <Text
+        fontWeight="semibold"
+        as="h1"
+        color="white"
+        fontSize="extraextralarge"
+      >
+        Join open discussions
+        <StyledSpan>.</StyledSpan>
+      </Text>
+      <Text fontSize="large" fontWeight="regular" as="h2" color="white">
+        TalkTalk let you share your thoughts and make new connections
+        <StyledSpan>.</StyledSpan>
+      </Text>
+    </BrandPresenter>
+    <Box
+      $display="flex"
+      $flexDirection="column"
+      $alignItems="center"
+      $justifyContent="center"
+      $flex={3}
+      $gap={Theme.setSpace(32)}
+      $mt={Theme.setSpace(32)}
+      $mb={Theme.setSpace(32)}
+    >
+      <WrapperLogo>
+        <Logo color="darkBlue" />
+      </WrapperLogo>
 
-export default withData(Login);
-export { Login };
+      <LoginCard />
+      <SignupCard />
+    </Box>
+  </PageContainer>
+);
+
+export default Login;
