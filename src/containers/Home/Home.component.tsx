@@ -212,4 +212,4 @@ const Home: React.FC<HomeProps> = ({
 };
 
 export default withData(Home);
-// export default Home;
+export { Home };

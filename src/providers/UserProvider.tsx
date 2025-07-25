@@ -1,25 +1,34 @@
 import React, { useState, useMemo } from 'react';
 import { User } from '../interfaces';
 
-type ContextValue = {
+export type ContextValue = {
   user?: User;
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
   accessToken?: string;
   setAccessToken: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
-const UserProviderDefaultValue: ContextValue = {
+const userProviderDefaultValue: ContextValue = {
   user: undefined,
   setUser: () => {},
   accessToken: '',
   setAccessToken: () => {},
 };
 
-const UserProviderContext = React.createContext(UserProviderDefaultValue);
+const UserProviderContext = React.createContext<ContextValue>(
+  userProviderDefaultValue,
+);
 
-const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User>();
-  const [accessToken, setAccessToken] = useState<string>();
+type UserProviderProps = {
+  children: React.ReactNode;
+  initialValue?: ContextValue;
+};
+
+const UserProvider = ({ children, initialValue }: UserProviderProps) => {
+  const [user, setUser] = useState<User | undefined>(initialValue?.user);
+  const [accessToken, setAccessToken] = useState<string | undefined>(
+    initialValue?.accessToken,
+  );
 
   const memoizedContextValue: ContextValue = useMemo(
     () => ({

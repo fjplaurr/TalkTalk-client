@@ -5,6 +5,7 @@ import { useNavigate, MemoryRouter } from 'react-router';
 import Login from './Login.component';
 import { login, signup } from '../../endpoints/auth';
 import { User } from '../../interfaces';
+import { getMockUser, MOCK_ACCESS_TOKEN } from '../../__mocks__/utils';
 
 // Mock dependencies
 jest.mock('react-router', () => ({
@@ -23,17 +24,6 @@ const TEST_PASSWORD = 'mockpassword';
 
 export interface CreateUserPayload
   extends Pick<User, 'password' | 'email' | 'firstName' | 'lastName'> {}
-
-export const getMockUser: () => User = () => ({
-  email: `mockUser123123123123123@mockUser.com`,
-  password: 'mockUser',
-  firstName: 'mockFirstName',
-  lastName: 'mockLastName',
-  _id: 'mockId',
-  followingUsers: ['123', '456'],
-  status: 'mockStatus',
-  pictureSrc: 'mockPictureSrc',
-});
 
 const renderComponentWithRouter = () =>
   render(
@@ -81,7 +71,7 @@ test('Renders a title, a subtitle and two logos', () => {
 test('Navigates when the user logs in', async () => {
   const mockNavigate = setupNavigateMock();
   (login as jest.Mock).mockReturnValue({
-    accessToken: 'mockAccessToken',
+    accessToken: MOCK_ACCESS_TOKEN,
     user: getMockUser(),
     errors: null,
   });
@@ -107,7 +97,7 @@ test('Renders loginError when loginError is defined', async () => {
 test('Navigates when the user signs in', async () => {
   const mockNavigate = setupNavigateMock();
   (signup as jest.Mock).mockReturnValue({
-    accessToken: 'mockAccessToken',
+    accessToken: MOCK_ACCESS_TOKEN,
     user: getMockUser(),
     errors: null,
   });

@@ -1,16 +1,18 @@
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Home, HomeProps } from './Home.component';
 import { User } from '../../interfaces';
+import { UserProvider } from '../../providers/UserProvider';
+import { getMockUser, MOCK_ACCESS_TOKEN } from '../../__mocks__/utils';
 
 const props: HomeProps = {
-  user: undefined,
-  setUser: jest.fn(),
   postsWithAuthors: [],
   followingUsers: [],
   allUsers: [],
   createNewPost: jest.fn(),
   onFollowClick: jest.fn(),
+  redirect: jest.fn(),
 };
 
 const user: User = {
@@ -35,9 +37,30 @@ const mockUser: User = {
   password: 'mockPassword2',
 };
 
+const renderWithLoggedInUser = (overridenProps: Partial<HomeProps> = {}) =>
+  render(
+    <UserProvider
+      initialValue={{
+        user: getMockUser(),
+        accessToken: MOCK_ACCESS_TOKEN,
+        setUser: jest.fn(),
+        setAccessToken: jest.fn(),
+      }}
+    >
+      <Home {...props} {...overridenProps} />
+    </UserProvider>,
+  );
+
+const renderWithNoUser = () =>
+  render(
+    <UserProvider>
+      <Home {...props} />
+    </UserProvider>,
+  );
+
 describe('Navbar', () => {
   test('Renders a Logo and a SearchBar', () => {
-    render(<Home {...props} />);
+    renderWithNoUser();
 
     // Logo
     const logo = screen.getByTitle('TalkTalk logo');
@@ -49,7 +72,7 @@ describe('Navbar', () => {
   });
 
   test('Renders a common User Icon if the user is not logged in', () => {
-    render(<Home {...props} />);
+    renderWithNoUser();
 
     // User Icon is rendered
     const userIcon = screen.getByTitle('User icon');
@@ -61,12 +84,7 @@ describe('Navbar', () => {
   });
 
   test('Renders a specific User Avatar if the user is logged in', () => {
-    const overridenProps = {
-      ...props,
-      user,
-    };
-
-    render(<Home {...overridenProps} />);
+    renderWithLoggedInUser();
 
     // User Icon is not rendered
     const userIcon = screen.queryByTitle('User icon');
@@ -80,7 +98,7 @@ describe('Navbar', () => {
 
 describe('TextArea to write posts', () => {
   test('Renders a TextArea with a message if the user is not logged in', () => {
-    render(<Home {...props} />);
+    renderWithNoUser();
 
     const textArea = screen.getByPlaceholderText(
       'Click Login and start sending messages...',
@@ -90,12 +108,7 @@ describe('TextArea to write posts', () => {
   });
 
   test('Renders a TextArea with a message if the user is logged in', () => {
-    const overridenProps = {
-      ...props,
-      user,
-    };
-
-    render(<Home {...overridenProps} />);
+    renderWithLoggedInUser();
 
     const textArea = screen.getByPlaceholderText(
       'Do you want to share something?',
@@ -105,19 +118,14 @@ describe('TextArea to write posts', () => {
   });
 
   test('Renders a Login Button if the user is not logged in', () => {
-    render(<Home {...props} />);
+    renderWithNoUser();
 
     const loginButton = screen.getByRole('button', { name: 'Login' });
     expect(loginButton).toBeInTheDocument();
   });
 
   test('Renders a Send Button if the user is logged in', () => {
-    const overridenProps = {
-      ...props,
-      user,
-    };
-
-    render(<Home {...overridenProps} />);
+    renderWithLoggedInUser();
 
     const sendButton = screen.getByRole('button', { name: 'Send' });
     expect(sendButton).toBeInTheDocument();
@@ -147,13 +155,12 @@ const mockPostsWithAuthors = [
 
 describe('For you tab', () => {
   test('Renders a PostCard for each post', () => {
-    const overridenProps = {
+    const overridenProps: HomeProps = {
       ...props,
-      user,
       postsWithAuthors: mockPostsWithAuthors,
     };
 
-    render(<Home {...overridenProps} />);
+    renderWithLoggedInUser(overridenProps);
 
     // first author with their post
     const firstAuthorFullName = `${mockPostsWithAuthors[0].author.firstName} ${mockPostsWithAuthors[0].author.lastName}`;
@@ -170,25 +177,23 @@ describe('For you tab', () => {
 });
 
 describe('Following tab', () => {
-  test('Renders a ProfileCard for each following user', () => {
-    const overridenProps = {
+  test('Renders a ProfileCard for each following user', async () => {
+    const overridenProps: HomeProps = {
       ...props,
-      user,
       followingUsers: [mockUser],
     };
 
-    render(<Home {...overridenProps} />);
+    renderWithLoggedInUser(overridenProps);
 
     // click on Following
     const followingTab = screen.getByRole('button', { name: 'Following' });
-    act(() => {
-      followingTab.click();
-    });
 
-    // following user
-    const followingUserFullName = `${mockUser.firstName} ${mockUser.lastName}`;
-    const followingUserStatus = `${mockUser.status}`;
-    expect(screen.getByText(followingUserFullName)).toBeInTheDocument();
-    expect(screen.getByText(followingUserStatus)).toBeInTheDocument();
+    await waitFor(() => {
+      userEvent.click(followingTab);
+      const followingUserFullName = `${mockUser.firstName} ${mockUser.lastName}`;
+      const followingUserStatus = `${mockUser.status}`;
+      expect(screen.getByText(followingUserFullName)).toBeInTheDocument();
+      expect(screen.getByText(followingUserStatus)).toBeInTheDocument();
+    });
   });
 });
