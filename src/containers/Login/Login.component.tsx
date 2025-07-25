@@ -35,17 +35,17 @@ const WrapperLogo = styled(Box)`
 `;
 
 export type LoginProps = {
-  onLoginClick: (payload: LoginPayload) => Promise<void>;
-  onSignupClick: (payload: CreateUserPayload) => Promise<void>;
-  loginError?: string;
-  signupError?: string;
+  // onLoginClick: (payload: LoginPayload) => Promise<void>;
+  // onSignupClick: (payload: CreateUserPayload) => Promise<void>;
+  // loginError?: string;
+  // signupError?: string;
 };
 
 const Login = ({
-  onLoginClick,
-  onSignupClick,
-  loginError,
-  signupError,
+  // onLoginClick,
+  // onSignupClick,
+  // loginError,
+  // signupError,
 }: LoginProps) => {
   return (
     <PageContainer $display="flex">
@@ -93,8 +93,8 @@ const Login = ({
           <Logo color="darkBlue" />
         </WrapperLogo>
 
-        <LoginCard onLoginClick={onLoginClick} loginError={loginError} />
-        <SignupCard onSignupClick={onSignupClick} signupError={signupError} />
+        <LoginCard />
+        <SignupCard />
       </Box>
     </PageContainer>
   );

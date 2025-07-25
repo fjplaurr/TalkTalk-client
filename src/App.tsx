@@ -10,23 +10,19 @@ const App = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: (
-        <UserProvider>
-          <Home user={user} setUser={setUser} accessToken={accessToken} />
-        </UserProvider>
-      ),
+      element: <Home user={user} setUser={setUser} accessToken={accessToken} />,
     },
     {
       path: '/login',
-      element: (
-        <UserProvider>
-          <Login setUser={setUser} setAccessToken={setAccessToken} />
-        </UserProvider>
-      ),
+      element: <Login setUser={setUser} setAccessToken={setAccessToken} />,
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
+  );
 };
 
 export default App;
