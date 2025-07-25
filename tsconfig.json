@@ -23,5 +23,5 @@
     "allowJs": true
   },
   "include": ["src/**/*"],
-  "exclude": ["src/*.test.*"]
+  "exclude": ["src/**/*.test.*"]
 }

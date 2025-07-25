@@ -45,6 +45,8 @@
     "typescript-plugin-css-modules": "^4.1.1"
   },
   "scripts": {
+    "type-check": "tsc --noEmit --project tsconfig.typecheck.json",
+    "lint-typecheck": "npm run lint && npm run type-check && npm run lint:css",
     "lint": "npx eslint './**/*.{ts,tsx}'",
     "lint:css": "npx stylelint '**/*.scss'",
     "start": "react-scripts start",
