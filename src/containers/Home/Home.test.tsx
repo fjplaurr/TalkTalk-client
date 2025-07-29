@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Home, HomeProps } from './Home.component';
 import { User } from '../../interfaces';
 import { UserProvider } from '../../providers/UserProvider';
-import { getMockUser, MOCK_ACCESS_TOKEN } from '../../__mocks__/utils';
+import { createMockUser, MOCK_ACCESS_TOKEN } from '../../__mocks__/utils';
 
 const props: HomeProps = {
   postsWithAuthors: [],
@@ -15,16 +15,7 @@ const props: HomeProps = {
   redirect: jest.fn(),
 };
 
-const user: User = {
-  _id: 'mockId',
-  firstName: 'mockFirstName',
-  lastName: 'mockLastName',
-  email: 'mockEmail',
-  pictureSrc: 'mockPictureSrc',
-  status: 'mockStatus',
-  followingUsers: ['mockId2'],
-  password: 'mockPassword',
-};
+const user: User = createMockUser();
 
 const mockUser: User = {
   _id: 'mockId2',
@@ -37,11 +28,32 @@ const mockUser: User = {
   password: 'mockPassword2',
 };
 
+const mockPostsWithAuthors = [
+  {
+    post: {
+      _id: 'mockId',
+      text: 'mockText',
+      authorId: 'mockAuthorId',
+      date: new Date(),
+    },
+    author: user,
+  },
+  {
+    post: {
+      _id: 'mockId2',
+      text: 'mockText2',
+      authorId: 'mockAuthorId2',
+      date: new Date(),
+    },
+    author: mockUser,
+  },
+];
+
 const renderWithLoggedInUser = (overridenProps: Partial<HomeProps> = {}) =>
   render(
     <UserProvider
       initialValue={{
-        user: getMockUser(),
+        user,
         accessToken: MOCK_ACCESS_TOKEN,
         setUser: jest.fn(),
         setAccessToken: jest.fn(),
@@ -62,11 +74,9 @@ describe('Navbar', () => {
   test('Renders a Logo and a SearchBar', () => {
     renderWithNoUser();
 
-    // Logo
     const logo = screen.getByTitle('TalkTalk logo');
     expect(logo).toBeInTheDocument();
 
-    // SearchBar
     const searchBar = screen.getByPlaceholderText('Search users');
     expect(searchBar).toBeInTheDocument();
   });
@@ -132,31 +142,9 @@ describe('TextArea to write posts', () => {
   });
 });
 
-const mockPostsWithAuthors = [
-  {
-    post: {
-      _id: 'mockId',
-      text: 'mockText',
-      authorId: 'mockAuthorId',
-      date: new Date(),
-    },
-    author: user,
-  },
-  {
-    post: {
-      _id: 'mockId2',
-      text: 'mockText2',
-      authorId: 'mockAuthorId2',
-      date: new Date(),
-    },
-    author: mockUser,
-  },
-];
-
 describe('For you tab', () => {
   test('Renders a PostCard for each post', () => {
-    const overridenProps: HomeProps = {
-      ...props,
+    const overridenProps = {
       postsWithAuthors: mockPostsWithAuthors,
     };
 
@@ -178,8 +166,7 @@ describe('For you tab', () => {
 
 describe('Following tab', () => {
   test('Renders a ProfileCard for each following user', async () => {
-    const overridenProps: HomeProps = {
-      ...props,
+    const overridenProps = {
       followingUsers: [mockUser],
     };
 

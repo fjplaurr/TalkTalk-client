@@ -1,11 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useNavigate, MemoryRouter } from 'react-router';
 import Login from './Login.component';
 import { login, signup } from '../../endpoints/auth';
 import { User } from '../../interfaces';
-import { getMockUser, MOCK_ACCESS_TOKEN } from '../../__mocks__/utils';
+import { createMockUser, MOCK_ACCESS_TOKEN } from '../../__mocks__/utils';
 
 // Mock dependencies
 jest.mock('react-router', () => ({
@@ -72,13 +72,16 @@ test('Navigates when the user logs in', async () => {
   const mockNavigate = setupNavigateMock();
   (login as jest.Mock).mockReturnValue({
     accessToken: MOCK_ACCESS_TOKEN,
-    user: getMockUser(),
+    user: createMockUser(),
     errors: null,
   });
   renderComponentWithRouter();
-  await typeLoginCredentials(TEST_EMAIL, TEST_PASSWORD);
-  await clickButton('button', 'Login');
-  expect(mockNavigate).toHaveBeenCalled();
+
+  await waitFor(() => {
+    typeLoginCredentials(TEST_EMAIL, TEST_PASSWORD);
+    clickButton('button', 'Login');
+    expect(mockNavigate).toHaveBeenCalled();
+  });
 });
 
 test('Renders loginError when loginError is defined', async () => {
@@ -87,22 +90,30 @@ test('Renders loginError when loginError is defined', async () => {
     user: null,
     errors: ['Some error occurred'],
   });
+
   renderComponentWithRouter();
-  await typeLoginCredentials(TEST_EMAIL, TEST_PASSWORD);
-  await clickButton('button', 'Login');
-  const loginError = await screen.findByText('Invalid email and/or password');
-  expect(loginError).toBeInTheDocument();
+
+  await waitFor(() => {
+    typeLoginCredentials(TEST_EMAIL, TEST_PASSWORD);
+    clickButton('button', 'Login');
+    const loginError = screen.getByText('Invalid email and/or password');
+    expect(loginError).toBeInTheDocument();
+  });
 });
 
-test('Navigates when the user signs in', async () => {
+test('Navigates when the user signs up', async () => {
   const mockNavigate = setupNavigateMock();
   (signup as jest.Mock).mockReturnValue({
     accessToken: MOCK_ACCESS_TOKEN,
-    user: getMockUser(),
+    user: createMockUser(),
     errors: null,
   });
+
   renderComponentWithRouter();
-  await typeSignupCredentials(TEST_EMAIL, TEST_PASSWORD);
-  await clickButton('button', 'Register');
-  expect(mockNavigate).toHaveBeenCalled();
+
+  await waitFor(() => {
+    typeSignupCredentials(TEST_EMAIL, TEST_PASSWORD);
+    clickButton('button', 'Register');
+    expect(mockNavigate).toHaveBeenCalled();
+  });
 });
