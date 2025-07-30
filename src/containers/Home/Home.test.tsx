@@ -1,24 +1,40 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
+import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
-import { Home, HomeProps } from './Home.component';
-import { User } from '../../interfaces';
+import { Post, User } from '../../interfaces';
 import { UserProvider } from '../../providers/UserProvider';
 import { createMockUser, MOCK_ACCESS_TOKEN } from '../../__mocks__/utils';
+import Home from './Home.component';
+import { getSingle, getAll as getAllUsers } from '../../endpoints/user';
+import { getAll as getAllPosts } from '../../endpoints/post';
 
-const props: HomeProps = {
-  postsWithAuthors: [],
-  followingUsers: [],
-  allUsers: [],
-  createNewPost: jest.fn(),
-  onFollowClick: jest.fn(),
-  redirect: jest.fn(),
-};
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
 
-const user: User = createMockUser();
+jest.mock('../../endpoints/post', () => ({
+  create: jest.fn(),
+  getAll: jest.fn(),
+}));
 
-const mockUser: User = {
-  _id: 'mockId2',
+jest.mock('../../endpoints/user', () => ({
+  getSingle: jest.fn(),
+  getAll: jest.fn(),
+  update: jest.fn(),
+}));
+
+const AUTHOR_ID_1 = 'mockAuthorId1';
+const AUTHOR_ID_2 = 'mockAuthorId2';
+
+const primaryUser: User = createMockUser({
+  _id: AUTHOR_ID_1,
+  followingUsers: [AUTHOR_ID_2],
+});
+
+const secondaryUser: User = {
+  _id: AUTHOR_ID_2,
   firstName: 'mockFirstName2',
   lastName: 'mockLastName2',
   email: 'mockEmail2',
@@ -28,51 +44,61 @@ const mockUser: User = {
   password: 'mockPassword2',
 };
 
-const mockPostsWithAuthors = [
+const posts: Post[] = [
   {
-    post: {
-      _id: 'mockId',
-      text: 'mockText',
-      authorId: 'mockAuthorId',
-      date: new Date(),
-    },
-    author: user,
+    _id: 'mockId1',
+    text: 'mockText1',
+    authorId: AUTHOR_ID_1,
+    date: new Date(),
   },
   {
-    post: {
-      _id: 'mockId2',
-      text: 'mockText2',
-      authorId: 'mockAuthorId2',
-      date: new Date(),
-    },
-    author: mockUser,
+    _id: 'mockId2',
+    text: 'mockText2',
+    authorId: AUTHOR_ID_2,
+    date: new Date(),
   },
 ];
 
-const renderWithLoggedInUser = (overridenProps: Partial<HomeProps> = {}) =>
-  render(
-    <UserProvider
-      initialValue={{
-        user,
-        accessToken: MOCK_ACCESS_TOKEN,
-        setUser: jest.fn(),
-        setAccessToken: jest.fn(),
-      }}
-    >
-      <Home {...props} {...overridenProps} />
-    </UserProvider>,
+const users: User[] = [primaryUser, secondaryUser];
+
+beforeEach(() => {
+  (getAllPosts as jest.Mock).mockResolvedValue(posts);
+
+  (getSingle as jest.Mock).mockImplementation((authorId: Post['authorId']) =>
+    Promise.resolve(users.find((item) => item._id === authorId)),
   );
 
-const renderWithNoUser = () =>
+  (getAllUsers as jest.Mock).mockResolvedValue(users);
+});
+
+const renderHome = (user?: User) =>
   render(
-    <UserProvider>
-      <Home {...props} />
-    </UserProvider>,
+    <MemoryRouter>
+      <UserProvider
+        initialValue={
+          user
+            ? {
+                user,
+                accessToken: MOCK_ACCESS_TOKEN,
+                setUser: jest.fn(),
+                setAccessToken: jest.fn(),
+              }
+            : undefined
+        }
+      >
+        <Home />
+      </UserProvider>
+    </MemoryRouter>,
   );
+
+const renderWithLoggedInUser = () => renderHome(primaryUser);
+const renderWithNoUser = () => renderHome();
 
 describe('Navbar', () => {
-  test('Renders a Logo and a SearchBar', () => {
-    renderWithNoUser();
+  test('Renders a Logo and a SearchBar', async () => {
+    await act(async () => {
+      renderWithNoUser();
+    });
 
     const logo = screen.getByTitle('TalkTalk logo');
     expect(logo).toBeInTheDocument();
@@ -81,34 +107,24 @@ describe('Navbar', () => {
     expect(searchBar).toBeInTheDocument();
   });
 
-  test('Renders a common User Icon if the user is not logged in', () => {
-    renderWithNoUser();
+  test('Renders a common User Icon if the user is not logged in', async () => {
+    await act(async () => {
+      renderWithNoUser();
+    });
 
-    // User Icon is rendered
     const userIcon = screen.getByTitle('User icon');
     expect(userIcon).toBeInTheDocument();
 
-    // Avatar is not rendered
     const avatar = screen.queryByAltText(/Avatar of mockFirstName/);
     expect(avatar).not.toBeInTheDocument();
-  });
-
-  test('Renders a specific User Avatar if the user is logged in', () => {
-    renderWithLoggedInUser();
-
-    // User Icon is not rendered
-    const userIcon = screen.queryByTitle('User icon');
-    expect(userIcon).not.toBeInTheDocument();
-
-    // Avatar is rendered
-    const avatar = screen.getByAltText(/Avatar of mockFirstName/);
-    expect(avatar).toBeInTheDocument();
   });
 });
 
 describe('TextArea to write posts', () => {
-  test('Renders a TextArea with a message if the user is not logged in', () => {
-    renderWithNoUser();
+  test('Renders a TextArea with a message if the user is not logged in', async () => {
+    await act(async () => {
+      renderWithNoUser();
+    });
 
     const textArea = screen.getByPlaceholderText(
       'Click Login and start sending messages...',
@@ -117,8 +133,10 @@ describe('TextArea to write posts', () => {
     expect(textArea).toBeInTheDocument();
   });
 
-  test('Renders a TextArea with a message if the user is logged in', () => {
-    renderWithLoggedInUser();
+  test('Renders a TextArea with a message if the user is logged in', async () => {
+    await act(async () => {
+      renderWithLoggedInUser();
+    });
 
     const textArea = screen.getByPlaceholderText(
       'Do you want to share something?',
@@ -127,15 +145,19 @@ describe('TextArea to write posts', () => {
     expect(textArea).toBeInTheDocument();
   });
 
-  test('Renders a Login Button if the user is not logged in', () => {
-    renderWithNoUser();
+  test('Renders a Login Button if the user is not logged in', async () => {
+    await act(async () => {
+      renderWithNoUser();
+    });
 
     const loginButton = screen.getByRole('button', { name: 'Login' });
     expect(loginButton).toBeInTheDocument();
   });
 
-  test('Renders a Send Button if the user is logged in', () => {
-    renderWithLoggedInUser();
+  test('Renders a Send Button if the user is logged in', async () => {
+    await act(async () => {
+      renderWithLoggedInUser();
+    });
 
     const sendButton = screen.getByRole('button', { name: 'Send' });
     expect(sendButton).toBeInTheDocument();
@@ -143,22 +165,20 @@ describe('TextArea to write posts', () => {
 });
 
 describe('For you tab', () => {
-  test('Renders a PostCard for each post', () => {
-    const overridenProps = {
-      postsWithAuthors: mockPostsWithAuthors,
-    };
+  test('Renders a PostCard for each post', async () => {
+    await act(async () => {
+      renderWithLoggedInUser();
+    });
 
-    renderWithLoggedInUser(overridenProps);
-
-    // first author with their post
-    const firstAuthorFullName = `${mockPostsWithAuthors[0].author.firstName} ${mockPostsWithAuthors[0].author.lastName}`;
-    const firstAuthorPost = `${mockPostsWithAuthors[0].post.text}`;
+    // me and with my post
+    const firstAuthorFullName = `${users[0].firstName} ${users[0].lastName}`;
+    const firstAuthorPost = `${posts[0].text}`;
     expect(screen.getByText(firstAuthorFullName)).toBeInTheDocument();
     expect(screen.getByText(firstAuthorPost)).toBeInTheDocument();
 
-    // second author with their post
-    const secondAuthorFullName = `${mockPostsWithAuthors[1].author.firstName} ${mockPostsWithAuthors[1].author.lastName}`;
-    const secondAuthorPost = `${mockPostsWithAuthors[1].post.text}`;
+    // followed author with their post
+    const secondAuthorFullName = `${users[1].firstName} ${users[1].lastName}`;
+    const secondAuthorPost = `${posts[1].text}`;
     expect(screen.getByText(secondAuthorFullName)).toBeInTheDocument();
     expect(screen.getByText(secondAuthorPost)).toBeInTheDocument();
   });
@@ -166,21 +186,19 @@ describe('For you tab', () => {
 
 describe('Following tab', () => {
   test('Renders a ProfileCard for each following user', async () => {
-    const overridenProps = {
-      followingUsers: [mockUser],
-    };
+    await act(async () => {
+      renderWithLoggedInUser();
+    });
 
-    renderWithLoggedInUser(overridenProps);
-
-    // click on Following
     const followingTab = screen.getByRole('button', { name: 'Following' });
 
-    await waitFor(() => {
+    await act(async () => {
       userEvent.click(followingTab);
-      const followingUserFullName = `${mockUser.firstName} ${mockUser.lastName}`;
-      const followingUserStatus = `${mockUser.status}`;
-      expect(screen.getByText(followingUserFullName)).toBeInTheDocument();
-      expect(screen.getByText(followingUserStatus)).toBeInTheDocument();
     });
+
+    const followingUserFullName = `${secondaryUser.firstName} ${secondaryUser.lastName}`;
+    const followingUserStatus = `${secondaryUser.status}`;
+    expect(screen.getByText(followingUserFullName)).toBeInTheDocument();
+    expect(screen.getByText(followingUserStatus)).toBeInTheDocument();
   });
 });

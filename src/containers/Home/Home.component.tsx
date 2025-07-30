@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   Box,
@@ -10,11 +11,21 @@ import {
   ProfileCard,
   TabProvider,
 } from '../../designsystem';
-import { User } from '../../interfaces';
+import { Post, User } from '../../interfaces';
 import Card from './components/Card';
 import EditProfile from './components/EditProfile';
-import { PostWithAuthor, withData } from './withData';
 import { useUser } from '../../providers/UserProvider';
+import {
+  getSingle,
+  getAll as getAllUsers,
+  update as updateUser,
+} from '../../endpoints/user';
+import {
+  getAll as getAllPosts,
+  create as createPost,
+} from '../../endpoints/post';
+
+type PostWithAuthor = { post: Post; author: User };
 
 type UserForSearchBar = {
   id: string;
@@ -41,28 +52,131 @@ const LogoWrapper = styled(Box)`
   }
 `;
 
-export type HomeProps = {
-  postsWithAuthors: PostWithAuthor[];
-  followingUsers: User[];
-  allUsers: User[];
-  createNewPost: (text: string) => void;
-  onFollowClick: (id: string) => void;
-  redirect?: () => void;
-};
-
-const Home: React.FC<HomeProps> = ({
-  postsWithAuthors,
-  followingUsers,
-  allUsers,
-  createNewPost,
-  onFollowClick,
-  redirect,
-}) => {
+const Home: React.FC = () => {
   const { user, setUser, accessToken } = useUser();
   const isLoggedIn = Boolean(user);
 
   const [searchBarFilter, setSearchBarFilter] = useState('');
   const [newPostText, setNewPostText] = useState('');
+  const [postsWithAuthors, setPostsWithAuthors] = useState<PostWithAuthor[]>(
+    [],
+  );
+  const [followingUsers, setFollowingUsers] = useState<User[]>([]);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
+
+  const navigate = useNavigate();
+
+  const redirect = () => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  };
+
+  useEffect(() => {
+    async function fetchPosts() {
+      if (user) {
+        const postsFromDB = await getAllPosts();
+        const promises = postsFromDB.map((post) => getSingle(post.authorId));
+        const users = await Promise.all(promises);
+
+        const postsWithUsers: PostWithAuthor[] = postsFromDB.map(
+          (post, index) => ({
+            post,
+            author: users[index],
+          }),
+        );
+
+        setPostsWithAuthors(postsWithUsers);
+      }
+    }
+
+    fetchPosts();
+  }, [user]);
+
+  useEffect(() => {
+    async function getFollowingUsers() {
+      if (user) {
+        const promises = user.followingUsers.map((id) => getSingle(id));
+        const followingUsersFromDB = await Promise.all(promises);
+        setFollowingUsers(followingUsersFromDB);
+      }
+    }
+
+    getFollowingUsers();
+  }, [user]);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      let users = await getAllUsers();
+      if (user) {
+        // remove the current user
+        users = users.filter((u) => u._id !== user._id);
+      }
+
+      setAllUsers(users);
+    }
+
+    fetchUsers();
+  }, [user]);
+
+  const createNewPost = async (text: string) => {
+    if (user) {
+      const newPost = {
+        text,
+        date: new Date(),
+        authorId: user._id,
+      };
+
+      const newPostId = await createPost(newPost);
+
+      const newPostWithAuthor: PostWithAuthor = {
+        post: { ...newPost, _id: newPostId },
+        author: user,
+      };
+
+      setPostsWithAuthors((prev) => {
+        if (prev) {
+          return [newPostWithAuthor, ...prev];
+        }
+        return [newPostWithAuthor];
+      });
+    }
+  };
+
+  const updateUserFollowing = async (
+    followingUserId: string,
+    action: 'follow' | 'unfollow',
+  ) => {
+    if (!user) return;
+
+    let updatedFollowingUsers = user.followingUsers || [];
+
+    if (
+      action === 'follow' &&
+      !updatedFollowingUsers.includes(followingUserId)
+    ) {
+      updatedFollowingUsers = [...updatedFollowingUsers, followingUserId];
+    } else if (action === 'unfollow') {
+      updatedFollowingUsers = updatedFollowingUsers.filter(
+        (id) => id !== followingUserId,
+      );
+    }
+
+    await updateUser(user._id, { followingUsers: updatedFollowingUsers });
+
+    setUser({
+      ...user,
+      followingUsers: updatedFollowingUsers,
+    });
+  };
+
+  const onFollowClick = (id: string) => {
+    if (user && user.followingUsers.includes(id)) {
+      updateUserFollowing(id, 'unfollow');
+    } else {
+      updateUserFollowing(id, 'follow');
+    }
+  };
 
   const searchBarRenderElement = (userForSearchBar: UserForSearchBar) => (
     <ProfileCard
@@ -211,5 +325,4 @@ const Home: React.FC<HomeProps> = ({
   );
 };
 
-export default withData(Home);
-export { Home };
+export default Home;
