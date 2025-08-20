@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Login from './containers/Login';
+import Authentication from './containers/Authentication';
 import Home from './containers/Home';
 import { UserProvider } from './providers/UserProvider';
 
@@ -12,7 +12,7 @@ const App = () => {
     },
     {
       path: '/login',
-      element: <Login />,
+      element: <Authentication />,
     },
   ]);
 

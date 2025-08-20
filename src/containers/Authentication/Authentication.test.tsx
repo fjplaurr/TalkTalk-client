@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useNavigate, MemoryRouter } from 'react-router';
-import Login from './Login.component';
+import Authentication from './Authentication.component';
 import { login, signup } from '../../endpoints/auth';
 import { User } from '../../interfaces';
 import { createMockUser, MOCK_ACCESS_TOKEN } from '../../__mocks__/utils';
@@ -28,7 +28,7 @@ export interface CreateUserPayload
 const renderComponentWithRouter = () =>
   render(
     <MemoryRouter>
-      <Login />
+      <Authentication />
     </MemoryRouter>,
   );
 

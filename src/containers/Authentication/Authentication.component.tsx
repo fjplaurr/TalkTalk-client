@@ -27,7 +27,7 @@ const WrapperLogo = styled(Box)`
   }
 `;
 
-const Login = () => (
+const Authentication = () => (
   <PageContainer $display="flex">
     <BrandPresenter
       $pl={`min(4vw, ${Theme.setSpace(56)})`}
@@ -79,4 +79,4 @@ const Login = () => (
   </PageContainer>
 );
 
-export default Login;
+export default Authentication;
