@@ -8,6 +8,7 @@
       }
     ],
     "property-no-unknown": null,
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9]+$",
     "color-function-notation": "legacy"
   }
 }

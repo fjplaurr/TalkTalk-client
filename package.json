@@ -46,9 +46,9 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit --project tsconfig.typecheck.json",
-    "lint-typecheck": "npm run lint && npm run type-check && npm run lint:css",
+    "check-all": "npm run lint && npm run lint:css && npm run type-check && npm run test:coverage",
     "lint": "npx eslint './**/*.{ts,tsx}'",
-    "lint:css": "npx stylelint '**/*.scss'",
+    "lint:css": "npx stylelint '**/*.{css,scss}'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
