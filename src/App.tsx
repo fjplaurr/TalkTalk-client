@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Authentication from './containers/Authentication';
-import Home from './containers/Home';
+import Authentication from './pages/Authentication';
+import Home from './pages/Home';
 import { UserProvider } from './providers/UserProvider';
 
 const App = () => {
